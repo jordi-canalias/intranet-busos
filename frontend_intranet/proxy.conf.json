@@ -1,0 +1,7 @@
+{
+    "/goshtustersAJAX/*":{
+        "target":"http://localhost",
+        "secure":false,
+        "loglevel":"debug"
+    }
+}

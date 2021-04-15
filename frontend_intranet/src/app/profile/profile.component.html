@@ -1,0 +1,60 @@
+
+<!-- <div class="topnav">
+    <a routerLink="/landing">Home</a>
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Herramientas
+      <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#">HTML</a></li>
+        <li><a href="#">CSS</a></li>
+        <li><a href="#">JavaScript</a></li>
+      </ul>
+    </div>
+</div> -->
+<nav class="navbar ">
+  <div class="container-fluid">
+    <div class="navbar-header">
+     <img id="logo"[src]="'assets/img/autobusLOGO.png'"/>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Herramientas
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a class="fa fa-pencil-square-o" href="#">Actualizar perfil</a></li>
+          <li><a routerLink="/ruta">Rutas</a></li>
+          <li><a routerLink="/linea">Lineas</a></li>
+          <li><a routerLink="/forum">Foro</a></li>
+        </ul>
+      </li>
+      <!-- <!-- <li><a href="#">Page 2</a></li> -->
+      <li><a *ngIf="isLoggedIn" href style="float:right" (click)="logout()">Cerrar sesión</a></li> 
+    </ul>
+  </div>
+</nav>
+
+<div class="container" *ngIf="currentUser; else loggedOut">
+    <header class="jumbotron">
+      <h3>
+        <strong>{{ currentUser.username }}</strong> Profile
+      </h3>
+    </header>
+    <p>
+      <strong>Token:</strong>
+      {{ currentUser.accessToken.substring(0, 20) }} ...
+      {{ currentUser.accessToken.substr(currentUser.accessToken.length - 20) }}
+    </p>
+    <p>
+      <strong>Email:</strong>
+      {{ currentUser.email }}
+    </p>
+   
+  </div>
+  
+  <ng-template #loggedOut>
+    Por favor,logueanse.
+  </ng-template>
+  <div class="footer">
+    <p>Intranet © 2021</p>
+  </div>
