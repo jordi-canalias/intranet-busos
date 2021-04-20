@@ -15,6 +15,9 @@ html {
   width: 150px;
   height: 80px;
 }
+#logoHome{
+  padding: 0px;
+}
 .dropdown-menu{
   background-color: #8A0917;
 }
@@ -47,7 +50,7 @@ a{
   }
   /* Change color on hover */
   .navbar a:hover {
-    background-color: #ddd;
+    /* background-color: #ddd; */
     color: black;
     border-radius: 10px;
     

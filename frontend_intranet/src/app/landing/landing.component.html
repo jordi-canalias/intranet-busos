@@ -4,10 +4,9 @@
     <img [src]="'assets/img/autobusLOGO.png'" width="150px" height="80px"/>
   </div> -->
 <div class="topnav">
-    <img id="logo"[src]="'assets/img/autobusLOGO.png'"/>
-    <a class="fa fa-home fa-2x" routerLink="/landing"></a>
-    <a class="fa fa-user-plus fa-2x" *ngIf="!isLoggedIn" routerLink="/register" style="float:right">Registro</a>
-    <a class="fa fa-sign-in fa-2x" *ngIf="!isLoggedIn" routerLink="/login" style="float:right">Iniciar sesión</a>
+  <a id="logoHome" routerLink="/landing"> <img id="logo"[src]="'assets/img/autobusLOGO.png'"/></a>
+    <a *ngIf="!isLoggedIn" routerLink="/register" style="float:right"><i class="fa fa-user-plus fa-2x"></i> Registro</a> 
+    <a  *ngIf="!isLoggedIn" routerLink="/login" style="float:right"><i class="fa fa-sign-in fa-2x"></i>Iniciar sesión</a>
    
     <a class="fa fa-user-circle fa-2x" *ngIf="isLoggedIn"  routerLink="/profile">{{username}}</a>
     <a class="fa fa-sign-out fa-2x" *ngIf="isLoggedIn" href style="float:right" (click)="logout()">Cerrar sesión</a>

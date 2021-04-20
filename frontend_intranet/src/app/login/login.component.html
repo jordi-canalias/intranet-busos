@@ -1,25 +1,24 @@
 <div class="topnav">
-    <img id="logo"[src]="'assets/img/autobusLOGO.png'"/>
-    <a class="fa fa-home fa-2x" routerLink="/landing">Home</a>
-    <a class="fa fa-sign-in fa-2x" routerLink="/login" style="float:right">Login</a>
-    <a class="fa fa-user-plus fa-2x" routerLink="/register" style="float:right">Registro</a>
-
+    <a id="logoHome" routerLink="/landing"> <img id="logo"[src]="'assets/img/autobusLOGO.png'"/></a>
+    <a  routerLink="/register" style="float:right"><i class="fa fa-user-plus fa-2x"></i> Registro</a> 
+    <a   routerLink="/login" style="float:right"><i class="fa fa-sign-in fa-2x"></i>Iniciar sesión</a>
+   
 </div>
 
 
 <div class="col-md-16">
     <div class="card card-container">
         <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-            <div class="form-group">
-                <!-- <label for="username">Username</label> -->
+            <div class="input-group text-center">
+                <span class="input-group-addon"><i class="fa fa-user fa-1x"></i></span>
                 <input type="text" class="form-control" placeholder="Nombre de usuario"  name="username" [(ngModel)]="form.username" required
                     #username="ngModel" />
                 <div class="alert alert-danger" role="alert" *ngIf="f.submitted && username.invalid">
                     Es obligatorio poner el nombre de usuario
                 </div>
             </div>
-            <div class="form-group">
-                <!-- <label for="password">Password</label> -->
+            <div class="input-group text-center">
+                <span class="input-group-addon"><i class="fa fa-key fa-1x"></i></span>
                 <input type="password" class="form-control" placeholder="Contraseña"  name="password" [(ngModel)]="form.password" required
                     minlength="6" #password="ngModel" />
                 <div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid">
