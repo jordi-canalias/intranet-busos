@@ -511,8 +511,43 @@ public class DatabaseDao {
 			System.out.println("Error en la ejecucion: " + e.getErrorCode());
 		}
 		return users;
-
 	}
+	
+	
+	
+	
+	
+	
+	public ArrayList<Usuari> getUsuarisPerFuncio(String funcio) {
+
+		ArrayList<Usuari> users = new ArrayList<Usuari>();
+
+
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.usuaris WHERE funcio='"+funcio+"'");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				
+				Usuari us = new Usuari(rs.getInt("id_usuari"),rs.getString("nom"),rs.getString("cognoms"),
+						rs.getString("funcio"),rs.getString("fecha_entrada"),rs.getInt("telefon"),rs.getString("correuElectronic"),rs.getString("permisos"),rs.getString("contrasenya"));
+				
+
+				users.add(us);
+
+			}
+			con.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println("Error en la ejecucion: " + e.getErrorCode());
+		}
+		return users;
+	}
+	
 
 
 
@@ -520,7 +555,7 @@ public class DatabaseDao {
 
 	public Boolean checkUsuari(Usuari us) {
 		
-		int id = us.getId_usuari();
+		String nom = us.getNom();
 		String pass = us.getContrasenya();
 		
 		ArrayList<Usuari> users = new ArrayList<Usuari>();
@@ -533,7 +568,7 @@ public class DatabaseDao {
 			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
 					ConstantsApi.PASS_CONNECTION);
 
-			PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.usuaris WHERE id_usuari='"+id+"' and contrasenya='"+pass+"'");
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.usuaris WHERE nom='"+nom+"' and contrasenya='"+pass+"'");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -610,6 +645,7 @@ public class DatabaseDao {
 	
 	public Boolean checkToken(Token to) {
 		
+		Boolean resp = false;
 		int id = to.getId_usuari();
 		String token = to.getToken();
 		
@@ -651,6 +687,117 @@ public class DatabaseDao {
 	
 	
 	
+	public Boolean comprobaNomRepetit(String nom) {
+
+		ArrayList<Usuari> users = new ArrayList<Usuari>();
+
+
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.usuaris WHERE nom='"+nom+"'");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				
+				Usuari us = new Usuari(rs.getInt("id_usuari"),rs.getString("nom"),rs.getString("cognoms"),
+						rs.getString("funcio"),rs.getString("fecha_entrada"),rs.getInt("telefon"),rs.getString("correuElectronic"),rs.getString("permisos"),rs.getString("contrasenya"));
+				
+
+				users.add(us);
+
+			}
+			con.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println("Error en la ejecucion: " + e.getErrorCode());
+		}
+		if(users.size() < 1) {
+		return false;
+		}
+		return true;
+	}
+	
+	
+	
+	public Boolean setUsuari(Usuari us) { // insertar usuari
+		
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+
+
+			int id_linia = 0;
+			String nom = us.getNom();
+			String cognoms = us.getCognoms();
+			String funcio = us.getFuncio();
+			String fecha_entrada = us.getFecha_entrada();
+			int telefon = us.getTelefon();
+			String correuElectronic  = us.getCorreu_electronic();
+			String permisos = us.getPermisos();
+			String contrasenya = us.getContrasenya();
+			
+			
+			if(comprobaNomRepetit(nom)) {
+				return false;
+				
+			}
+			
+			PreparedStatement query = con.prepareStatement(
+					" INSERT INTO autobusos.usuaris (id_usuari, nom, cognoms, funcio, fecha_entrada, telefon, correuElectronic, permisos, contrasenya) VALUES (' "
+							+ id_linia + " ','" + nom + "','"+ cognoms +"','" + funcio + "','" + fecha_entrada + "','" + telefon+ "','" + correuElectronic+ "','" + permisos+ "','" + contrasenya+ "') ");
+
+			query.execute();
+
+			con.close();
+
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+		
+		return true;
+	}
+	
+	
+	
+	
+	
+	public void actualitzaUsuari(Usuari newUs, String nomUsuari) {
+
+		
+		String nom = newUs.getNom();
+		String cognoms = newUs.getCognoms();
+		String funcio = newUs.getFuncio();
+		String fecha_entrada = newUs.getFecha_entrada();
+		int telefon = newUs.getTelefon();
+		String correuElectronic  = newUs.getCorreu_electronic();
+		String permisos = newUs.getPermisos();
+		String contrasenya = newUs.getContrasenya();
+		
+		
+		String query = "UPDATE autobusos.usuaris SET nom ='"+nom+"', cognoms='"+cognoms+"', funcio='"+funcio+"', telefon='"+telefon+"', correuElectronic='"+correuElectronic+"', contrasenya='"+contrasenya+"' WHERE nom='"+nomUsuari+"'";
+		
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+			
+			PreparedStatement stmt = con.prepareStatement(query);
+			stmt.execute();
+
+			con.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println("Error en la ejecucion: " + e.getErrorCode() + "----------" + e.getMessage() + "-------" +  query);
+		}
+		
+		
+	}
+	
+	
+	
 	
 	
 	
@@ -658,7 +805,7 @@ public class DatabaseDao {
 	
 	/*
 	 * 
-	 * FUNCIONES COMPLEMENTARIAS
+	 * FUNCIONES COMPLEMENTARIAS----------------------
 	 * 
 	 * 
 	 * */

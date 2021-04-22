@@ -48,6 +48,22 @@ public class UsuariApi {
 		return Response.ok(service.getUsuarisServ(), MediaType.APPLICATION_JSON).build();
 	}
 	
+	@GET
+	@Path("funcio/{fun}")
+	public Response getRutaByUsuari(@PathParam("fun") String fun) {
+		return Response.ok(service.getUsuarisPerFuncioServ(fun), MediaType.APPLICATION_JSON).build();
+	}
+	
+	
+	
+	@PUT
+	@Path("/actualitza/{nom}")
+	public Response putUser(Usuari us) {                                        //comproba el token del usuari
+		
+		actualitzaUsuariServ(us,nom);
+		
+		return Response.ok(creacio ,MediaType.APPLICATION_JSON).build();
+	}
 	
 	
 	
@@ -82,12 +98,15 @@ public class UsuariApi {
 		return Response.ok(arr ,MediaType.APPLICATION_JSON).build();
 	}
 	
-	
-	@GET
-	@Path("/funcio/{fun}")
-	public Response getUsuarisByfuncio() {
-		return Response.ok(service.getUsuarisServ(), MediaType.APPLICATION_JSON).build();
+	@PUT
+	@Path("/registra")
+	public Response putUser(Usuari us) {                                        //comproba el token del usuari
+		
+		Boolean creacio = service.setUsuariServ(us);
+		
+		return Response.ok(creacio ,MediaType.APPLICATION_JSON).build();
 	}
+	
 	
 	
 	

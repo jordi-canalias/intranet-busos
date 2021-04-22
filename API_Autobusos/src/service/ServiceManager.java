@@ -96,12 +96,25 @@ public class ServiceManager {
 		return dao.getUsuaris();
 	}
 	
+	public ArrayList<Usuari> getUsuarisPerFuncioServ(String funcio) {
+		return dao.getUsuarisPerFuncio(funcio);
+	}
+	
+	public void actualitzaUsuariServ(Usuari newUs, String nom) {
+		 dao.actualitzaUsuari(newUs, nom);
+	}
+	
 	public Boolean checkUsuariServ(Usuari us) {
 		return dao.checkUsuari(us);
 	}
 	
 	public Boolean checkToken(Token to) {
 		return dao.checkToken(to);
+	}
+	
+	public Boolean setUsuariServ(Usuari us) {
+		 
+		 return dao.setUsuari(us);
 	}
 	
 	public void actualitzaToken(String to, Usuari us) {
