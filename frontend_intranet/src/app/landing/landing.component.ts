@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from '../_services/token-storage.service';
+
 
 @Component({
   selector: 'app-landing',
@@ -11,19 +11,19 @@ export class LandingComponent implements OnInit {
   username: string;
 
   
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    // this.isLoggedIn = !!this.tokenStorageService.getToken();
 
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.username = user.username;
-    }
+    // if (this.isLoggedIn) {
+    //   const user = this.tokenStorageService.getUser();
+    //   this.username = user.username;
+    // }
 
   }
   logout(): void {
-    this.tokenStorageService.signOut();
+    // this.tokenStorageService.signOut();
     window.location.reload();
   }
 }

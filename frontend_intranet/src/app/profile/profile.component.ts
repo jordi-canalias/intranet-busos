@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from '../_services/token-storage.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -10,13 +10,13 @@ export class ProfileComponent implements OnInit {
   isLoggedIn = false;
   currentUser: any;
 
-  constructor(private token: TokenStorageService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.currentUser = this.token.getUser();
+   
   }
   logout(): void {
-    this.token.signOut();
+    // this.token.signOut();
     window.location.reload();
   }
 }

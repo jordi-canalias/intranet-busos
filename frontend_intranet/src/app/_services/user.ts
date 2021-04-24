@@ -1,27 +1,27 @@
 export class User {
-    nombre: string = "";
-    apellidos: string = "";
+    username: string = "";
+    surname: string = "";
     funcion: string = "";
-    telefono: string = "";
+    phone: string = "";
     email: string = "";
     permisos: string = "";
     pass: string = "";
 
 
     constructor(
-        nombre: string = "",
+        username: string = "",
+        surname: string = "",
         pass: string = "",
-        apellidos: string = "",
         funcion: string = "",
-        telefono: string = "",
+        phone: string = "",
         email: string = "",
         permisos: string = "") {
-        this.nombre = nombre;
+        this.username = username;
         this.pass = pass;
-        this.apellidos=apellidos;
+        this.surname=surname;
         this.email=email;
         this.funcion=funcion;
         this.permisos=permisos;
-        this.telefono=telefono;
+        this.phone=phone;
     }
 }

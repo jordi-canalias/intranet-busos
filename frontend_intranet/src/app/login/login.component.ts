@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from '../_services/token-storage.service';
-import { AutenticacionService } from './../_services/autenticacion.service';
+import { UserService } from '../_services/user.service';
+import { User } from '../_services/user';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -13,36 +15,52 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
+  username="";
+  pass="";
 
+  constructor(public userService: UserService,private _router: Router) { }
 
-  constructor(private authService: AutenticacionService, private tokenStorage: TokenStorageService) { }
-
+  
   ngOnInit(): void {
-    if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
+    // if (this.tokenStorage.getToken()) {
+    //   this.isLoggedIn = true;
 
     }
+    login() {
+    
+      this.userService.login(new User(this.username,this.pass)).subscribe(
+        (result) => {
+          console.log(result.token);
+          console.log(result.estado);
+          this._router.navigate(['/profile']);
+          localStorage.setItem("token",result.token) ;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
   }
 
-  onSubmit(): void {
-    this.authService.login(this.form).subscribe(
-      data => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
+  // onSubmit(): void {
+    // this.authService.login(this.form).subscribe(
+    //   data => {
+    //     this.tokenStorage.saveToken(data.accessToken);
+    //     this.tokenStorage.saveUser(data);
 
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.reloadPage();
-      },
-      err => {
-        this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
-      }
-    );
-  }
+    //     this.isLoginFailed = false;
+    //     this.isLoggedIn = true;
+    //     this.reloadPage();
+    //   },
+    //   err => {
+    //     this.errorMessage = err.error.message;
+    //     this.isLoginFailed = true;
+    //   }
+    // );
+  // }
 
-  reloadPage(): void {
-    window.location.reload();
-  }
+  // reloadPage(): void {
+  //   window.location.reload();
+  // }
 
-}
+// }

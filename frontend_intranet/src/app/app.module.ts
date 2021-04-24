@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { authInterceptorProviders } from './_helpers/autenticacion.interceptor';
+
 import { ProfileComponent } from './profile/profile.component';
 import { ForumComponent } from './forum/forum.component';
 import { RutaComponent } from './ruta/ruta.component';
@@ -37,7 +37,7 @@ import { ParadaComponent } from './parada/parada.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [authInterceptorProviders],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

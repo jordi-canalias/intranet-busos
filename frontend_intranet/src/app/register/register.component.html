@@ -9,7 +9,7 @@
 <div class="col-md-16" >
     <div class="card card-container">
 
-        <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid " #f="ngForm" novalidate>
              <div class="input-group text-center">
                 <span class="input-group-addon"><i class="fa fa-user fa-1x"></i></span>
                  <input  type="text" class="form-control" placeholder ="Nombre de usuario" name="username" [(ngModel)]="form.username" required 
@@ -89,7 +89,7 @@
                 </div>
             </div>
             <div class="form-group text-center">
-                <button class="btn btn-primary btn-block">Registrarse</button>
+                <button type="submit" (click)="register()" class="btn btn-primary btn-block">Registrarse</button>
             </div>
 
             <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
