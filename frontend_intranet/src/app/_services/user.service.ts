@@ -14,7 +14,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
  
   login(LoggedUser: User): Observable<any> {
-    let url = "API_Autobusos/api/login";
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/login";
     let formData: FormData = new FormData();
     formData.append('username', LoggedUser.username);
     formData.append('password', LoggedUser.pass);
@@ -29,7 +29,7 @@ export class UserService {
     formData.append('email', newUser.email);
     // formData.append('username', newUser.username);
     formData.append('password', newUser.pass);
-    return this.http.post("API_Autobusos/api/registra",formData);
+    return this.http.post("http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/registra",formData);
   }
 }
   // }
