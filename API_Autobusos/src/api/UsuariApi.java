@@ -58,7 +58,7 @@ public class UsuariApi {
 	
 	@PUT
 	@Path("/actualitza/{nom}")
-	public Response putUser(Usuari us) {                                        //comproba el token del usuari
+	public Response updateUser(Usuari us) {                                        //comproba el token del usuari
 		
 		actualitzaUsuariServ(us,nom);
 		
@@ -116,6 +116,10 @@ public class UsuariApi {
 	
 	
 	/*
+	 * 
+	 * 
+	 * 26/04/2021
+	 * 
 	@GET
 	@Path("{id}")
 	public Response getUsuariById(@PathParam("id") int id) {
