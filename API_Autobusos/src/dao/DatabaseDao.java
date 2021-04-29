@@ -27,7 +27,7 @@ public class DatabaseDao {
 
 	/*
 	 * 
-	 * Actualitzat 
+	 * Actualitzat 28/04/2021
 	 * 
 	 */
 	
@@ -799,8 +799,229 @@ public class DatabaseDao {
 	
 	
 	
+	public void deleteUsuari(String nom) {		
+		
+		String query = "DELETE FROM autobusos.usuaris WHERE nom = 'test'";
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+			
+			PreparedStatement stmt = con.prepareStatement(query);
+			stmt.execute();
+
+			con.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println("Error en la ejecucion: " + e.getErrorCode() + "----------" + e.getMessage() + "-------" +  query);
+		}
+		
+		
+	}
 	
 	
+	
+	//**********************************************************************************************
+	//***************************************       USERS       ************************************
+	//**********************************************************************************************
+	
+	
+	
+	
+	
+	public ArrayList<Resenya> getResenyas() {
+
+		ArrayList<Resenya> res = new ArrayList<Resenya>();
+
+
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.resenyas");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				
+				Resenya rese = new Resenya(rs.getInt("id_resenya"),
+										  rs.getString("nom"),
+										  rs.getInt("id_usuari"),
+										  rs.getString("fecha"),
+										  rs.getString("informacion"),
+										  rs.getString("links"),
+										  rs.getString("hastags"));
+				
+
+				res.add(rese);
+
+			}
+			con.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println("Error en la ejecucion: " + e.getErrorCode());
+		}
+		return res;
+	}
+	
+	
+	
+	
+	
+	public Resenya GetResenyasById(int id) {
+
+		Connection con;
+
+		 int id_resenya = 0;
+		 String nom = null;
+		 int id_usuari = 0;
+		 String fecha = null;
+		 String informacion = null;
+		 String links = null;
+		 String hastags = null;
+
+
+		try {
+			con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.resenyas WHERE id_resenya = '" + id + "'");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+
+				id_resenya = rs.getInt("id_resenya");
+				nom = rs.getString("nom");
+				id_usuari = rs.getInt("id_usuari");
+				fecha = rs.getString("fecha");
+				informacion = rs.getString("informacion");
+				links = rs.getString("links");
+				hastags = rs.getString("hastags");
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		Resenya  re = new Resenya(id_resenya, nom, id_usuari, fecha, informacion, links, hastags);
+
+		return re;
+	}
+	
+	
+	
+	
+
+	public ArrayList<Resenya> getResenyasByNom(String nom) {
+
+		ArrayList<Resenya> res = new ArrayList<Resenya>();
+
+
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.resenyas WHERE nom = '"+nom+"';");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				
+				Resenya rese = new Resenya(rs.getInt("id_resenya"),
+										  rs.getString("nom"),
+										  rs.getInt("id_usuari"),
+										  rs.getString("fecha"),
+										  rs.getString("informacion"),
+										  rs.getString("links"),
+										  rs.getString("hastags"));
+				
+
+				res.add(rese);
+
+			}
+			con.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println("Error en la ejecucion: " + e.getErrorCode());
+		}
+		return res;
+	}
+	
+	
+	
+	public void setResenya(Resenya res) { // insertar resenya
+
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+
+
+			 int id_resenya = res.getId_resenya();
+			 String nom = res.getNom();
+			 int id_usuari = res.getId_usuari();
+			 String fecha = res.getFecha();
+			 String informacion = res.getInformacion();
+			 String links = res.getLinks();
+			 String hastags = res.getHastags();
+			
+			PreparedStatement query = con.prepareStatement(
+					" INSERT INTO autobusos.resenyas (id_resenya, nom, id_usuari, fecha, informacion, links, hastags) VALUES (' "
+							+ id_resenya + " ','" + nom + "','"+ id_usuari +"','" + fecha + "','" + informacion + "','" + links
+							+ "', '"+hastags+"') ");
+
+			query.execute();
+
+			con.close();
+
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+	}
+	
+	
+	
+	
+	
+	public void actualitzaResenya(Resenya res, int id) {
+
+		
+		int id_resenya = res.getId_resenya();
+		 String nom = res.getNom();
+		 int id_usuari = res.getId_usuari();
+		 String fecha = res.getFecha();
+		 String informacion = res.getInformacion();
+		 String links = res.getLinks();
+		 String hastags = res.getHastags();
+		
+		//cambiar la query
+		String query = "UPDATE autobusos.resenya SET id_resenya ='"+id+"', nom='"+nom+"', funcio='"+funcio+"', telefon='"+telefon+"', correuElectronic='"+correuElectronic+"', contrasenya='"+contrasenya+"' WHERE nom='"+nomUsuari+"'";
+		
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+			
+			PreparedStatement stmt = con.prepareStatement(query);
+			stmt.execute();
+
+			con.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println("Error en la ejecucion: " + e.getErrorCode() + "----------" + e.getMessage() + "-------" +  query);
+		}
+		
+		
+	}
+	
+	
+	
+	/*
+	public static void main(String[] args) {
+		System.out.print(getResenyasByNom("test").get(0).getNom());
+		System.out.print(getResenyasByNom("test").get(0).getFecha());
+		System.out.print(getResenyasByNom("test").get(0).getId_resenya());
+    }*/
 	
 	
 	/*

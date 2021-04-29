@@ -9,7 +9,7 @@ import model.*;
 
 
 public class ServiceManager {
-	private DatabaseDao dao;
+	private DatabaseDao dao; 
 
 	public ServiceManager() {
 		this.dao = new DatabaseDao();
@@ -120,6 +120,60 @@ public class ServiceManager {
 	public void actualitzaToken(String to, Usuari us) {
 		 dao.actualitzaToken(to, us);
 	}
+	
+	public void deleteUsuariServ(String nom) {
+		deleteUsuari(nom);
+	}
+	
+	//---------------RESENYAS----------------------
+	
+	public ArrayList<Resenya> getResenyasServ() {
+		return dao.getResenyas();
+	}
+	
+	public Resenya GetResenyasByIdServ(int id) {
+		return dao.GetResenyasById(id);
+	}
+	
+	
+	public ArrayList<Resenya> GetResenyasByNomServ(String nom) {
+		return dao.getResenyasByNom(nom);
+	}
+	
+	public Boolean insertResenyaServ(Resenya res) {
+		dao.setResenya(res);
+		 return true;
+	}
+	
+	
+	public void actualitzaResenyaServ(Resenya res,  int id) {
+		 dao.actualitzaResenya(res, id);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

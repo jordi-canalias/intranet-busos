@@ -15,15 +15,15 @@ import javax.ws.rs.core.Response;
 import model.*;
 import service.ServiceManager;
 
-@Path("/usuaris")
+@Path("/resenyas")
 @Produces("application/json;charset=UTF-8")
 @Consumes("application/json;charset=UTF-8")
 
-public class UsuariApi {
+public class ResenyasApi {
 	
 	private ServiceManager service;
 	
-	public UsuariApi() {
+	public ResenyasApi() {
 		service=new ServiceManager();
 	}
 	
@@ -31,28 +31,70 @@ public class UsuariApi {
 	//test-----------
 	
 	/*
-	 * GET totsUsuaris ==> {"/"}
-	GET usuariById ==> {"/id"}
-	GET usuarisByFuncio ==> {"/funcio"}
-	GET getUsuariosOrdenEntrada ==> {"/"}
-	PUT checkUsuari ==> {"/login"}
-	PUT setUsuario ==> {"/"}
-	POST updateUsuario ==> {"/id"}
-	DELETE borraUsuario ==> {"/id"}
+	 * 
+	    GET totesResenyas ==> {"/"}    check
+		GET resenyaById==> {"/id"}     check
+		GET resenyasByUsuario ==> {"/user"}   check
+		GET resenyaByFecha ==> {"/fecha"}
+		GET resenyasHastag ==> {"/"}  (La meva idea es que amb aquest sistema puguis etiquetar cada reseña com a una escola una excursio on lloc concret una regio)
+		POST actualizaResenya ==> {"/id"}
+		PUT insertaresenya ==> {"/"}
+		DELETE borraResenya ==> {"/id"}
+
 	 */
 	
 	
 	@GET
 	@Path("/")
-	public Response getUsuaris() {
-		return Response.ok(service.getUsuarisServ(), MediaType.APPLICATION_JSON).build();
+	public Response totesResenyas() {
+		return Response.ok(service.getResenyasServ(), MediaType.APPLICATION_JSON).build();
 	}
 	
+	
 	@GET
-	@Path("funcio/{fun}")
-	public Response getRutaByUsuari(@PathParam("fun") String fun) {
-		return Response.ok(service.getUsuarisPerFuncioServ(fun), MediaType.APPLICATION_JSON).build();
+	@Path("/id/{id}")
+	public Response getResenyaByid(@PathParam("id") int id) {
+		return Response.ok(service.GetResenyasByIdServ(id), MediaType.APPLICATION_JSON).build();
 	}
+	
+	
+	@GET
+	@Path("/nom/{nom}")
+	public Response getResenyaByNom(@PathParam("nom") String nom) {
+		return Response.ok(service.GetResenyasByNomServ(nom), MediaType.APPLICATION_JSON).build();
+	}
+	
+	
+	@PUT
+	@Path("/inserta")
+	public Response insertresenya(Resenya res) {	
+		
+		Boolean val = service.insertResenyaServ(res);
+		return Response.ok("Resenya Insertada",MediaType.APPLICATION_JSON).build();
+	}
+	
+	
+	@PUT
+	@Path("/actualitza/{id}")
+	public Response actualitzaUser(Resenya res,@PathParam("id") int id) {                                        //comproba el token del usuari
+		
+		service.actualitzaResenyaServ(res,id);
+		
+		return Response.ok("Modificat correctement",MediaType.APPLICATION_JSON).build();
+	}
+	
+	
+	
+	
+	//----------final above------
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
