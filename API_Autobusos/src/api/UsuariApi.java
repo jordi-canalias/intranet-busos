@@ -58,7 +58,11 @@ public class UsuariApi {
 	
 	@PUT
 	@Path("/actualitza/{nom}")
+<<<<<<< HEAD
 	public Response putUser(Usuari us,@PathParam("nom") String nom) {                                        //comproba el token del usuari
+=======
+	public Response updateUser(Usuari us) {                                        //comproba el token del usuari
+>>>>>>> e3d1b8f72209f681ece5aba0747f2cf45489845c
 		
 		service.actualitzaUsuariServ(us,nom);
 		
@@ -122,6 +126,19 @@ public class UsuariApi {
 	
 	
 	
+<<<<<<< HEAD
+=======
+	/*
+	 * 
+	 * 
+	 * 26/04/2021
+	 * 
+	@GET
+	@Path("{id}")
+	public Response getUsuariById(@PathParam("id") int id) {
+		return Response.ok(service.getUsuariByIdServ(id), MediaType.APPLICATION_JSON).build();
+	}
+>>>>>>> e3d1b8f72209f681ece5aba0747f2cf45489845c
 	
 	
 	
