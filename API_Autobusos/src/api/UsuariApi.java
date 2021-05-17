@@ -31,14 +31,14 @@ public class UsuariApi {
 	//test-----------
 	
 	/*
-	 * GET totsUsuaris ==> {"/"}
-	GET usuariById ==> {"/id"}
-	GET usuarisByFuncio ==> {"/funcio"}
+	 * GET totsUsuaris ==> {"/"}  chech
+	GET usuariById ==> {"/id"}	check
+	GET usuarisByFuncio ==> {"/funcio"}  check
 	GET getUsuariosOrdenEntrada ==> {"/"}
-	PUT checkUsuari ==> {"/login"}
-	PUT setUsuario ==> {"/"}
-	POST updateUsuario ==> {"/id"}
-	DELETE borraUsuario ==> {"/id"}
+	PUT checkUsuari ==> {"/login"} check
+	PUT setUsuario ==> {"/"}   check
+	POST updateUsuario ==> {"/id"}  check
+	DELETE borraUsuario ==> {"/id"} check
 	 */
 	
 	
@@ -58,11 +58,8 @@ public class UsuariApi {
 	
 	@PUT
 	@Path("/actualitza/{nom}")
-<<<<<<< HEAD
-	public Response putUser(Usuari us,@PathParam("nom") String nom) {                                        //comproba el token del usuari
-=======
-	public Response updateUser(Usuari us) {                                        //comproba el token del usuari
->>>>>>> e3d1b8f72209f681ece5aba0747f2cf45489845c
+
+	public Response putUser(Usuari us,@PathParam("nom") String nom) {                                        
 		
 		service.actualitzaUsuariServ(us,nom);
 		
@@ -104,7 +101,7 @@ public class UsuariApi {
 	
 	@PUT
 	@Path("/registra")
-	public Response putUser(Usuari us) {                                        //comproba el token del usuari
+	public Response putUser(Usuari us) {                                        
 		
 		Boolean creacio = service.setUsuariServ(us);
 		
@@ -125,9 +122,7 @@ public class UsuariApi {
 	
 	
 	
-	
-<<<<<<< HEAD
-=======
+
 	/*
 	 * 
 	 * 
@@ -140,7 +135,7 @@ public class UsuariApi {
 	}
 >>>>>>> e3d1b8f72209f681ece5aba0747f2cf45489845c
 	
-	
+	*/
 	
 	
 	

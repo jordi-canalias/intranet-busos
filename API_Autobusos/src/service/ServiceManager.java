@@ -122,7 +122,7 @@ public class ServiceManager {
 	}
 	
 	public void deleteUsuariServ(String nom) {
-		deleteUsuari(nom);
+		dao.deleteUsuari(nom);
 	}
 	
 	//---------------RESENYAS----------------------
@@ -150,7 +150,37 @@ public class ServiceManager {
 		 dao.actualitzaResenya(res, id);
 	}
 	
+	public void deleteResenyaServ(int id) {
+		dao.deleteResenya(id);
+	}
 	
+	//---------------PARADAS----------------------
+	
+	public ArrayList<Parada> getParadasServ() {
+		return dao.getParadas();
+	}
+	
+	public Parada GetParadasByIdServ(int id) {
+		return dao.GetParadasById(id);
+	}
+	
+	public Parada getParadasByNomServ(String nom) {
+		return dao.getParadaByNom(nom);
+	}
+	
+	
+	public Boolean insertaParadaServ(Parada pa) {
+		dao.insertaParada(pa);
+		 return true;
+	}
+	
+	public void deleteParadaServ(int id) {
+		dao.deleteParada(id);
+	}
+	
+	public void actualitzaParadaServ(Parada pa,  int id) {
+		 dao.actualitzaParada(pa, id);
+	}
 	
 	
 	

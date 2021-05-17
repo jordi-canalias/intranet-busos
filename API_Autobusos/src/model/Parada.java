@@ -31,6 +31,11 @@ public class Parada {
 	}
 
 
+	public Parada() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	@JsonProperty("id_parada")
 	public int getId_parada() {
 		return id_parada;
