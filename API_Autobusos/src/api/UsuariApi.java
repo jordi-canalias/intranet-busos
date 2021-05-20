@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -27,7 +28,7 @@ public class UsuariApi {
 		service=new ServiceManager();
 	}
 	
-	  
+	 
 	//test-----------
 	
 	/*
@@ -49,6 +50,20 @@ public class UsuariApi {
 	}
 	
 	@GET
+	@Path("id/{id}")
+	public Response getUserById(@PathParam("id") int id) {
+		return Response.ok(service.getUsuariPerIdServ(id), MediaType.APPLICATION_JSON).build();
+	}
+	
+	
+	@GET
+	@Path("nombre/{nombre}")
+	public Response getUserById(@PathParam("nombre") String nombre) {
+		return Response.ok(service.getUserByNomServ(nombre), MediaType.APPLICATION_JSON).build();
+	}
+	
+	
+	@GET
 	@Path("funcio/{fun}")
 	public Response getRutaByUsuari(@PathParam("fun") String fun) {
 		return Response.ok(service.getUsuarisPerFuncioServ(fun), MediaType.APPLICATION_JSON).build();
@@ -62,8 +77,9 @@ public class UsuariApi {
 	public Response putUser(Usuari us,@PathParam("nom") String nom) {                                        
 		
 		service.actualitzaUsuariServ(us,nom);
+		Usuari usu = service.getUserByNomServ(nom);
 		
-		return Response.ok("Modificat correctement",MediaType.APPLICATION_JSON).build();
+		return Response.ok(usu,MediaType.APPLICATION_JSON).build();
 	}
 	
 	
@@ -73,17 +89,20 @@ public class UsuariApi {
 	public Response logUser(Usuari us) {										//logeja i actualitza el token del usuari 
 		
 		Boolean res = service.checkUsuariServ(us);
-		String token ="error";
+		String token ="no asignat";
 		
 		if(res == true) {
 			token = service.tokenGen();
-			service.actualitzaToken(token,us);
+			service.actualitzaToken(token,us);  //le paso el token generado aleatoriamente y el nombre y contrasenya del usuario
 		}
+		
 		ArrayList<String> arr = new ArrayList<String>();
 		arr.add(token);
 		
+		Missatge mis = new Missatge(token);
+		
 		//return Response.ok(arr ,MediaType.APPLICATION_JSON).build();
-		return Response.ok(arr ,MediaType.APPLICATION_JSON).build();
+		return Response.ok(mis ,MediaType.APPLICATION_JSON).build();
 	}
 	
 	
@@ -92,20 +111,60 @@ public class UsuariApi {
 	public Response checkToken(Token to) {                                        //comproba el token del usuari
 		
 		Boolean Check = service.checkToken(to);
-		
 		ArrayList<Boolean> arr = new ArrayList<Boolean>();
 		arr.add(Check);
 		
 		return Response.ok(arr ,MediaType.APPLICATION_JSON).build();
 	}
 	
+	
+	
+	@GET
+	@Path("comprobaNom/{nom}")
+	public Response comprobaNom(@PathParam("nom") String nom) {
+		return Response.ok(service.comprobaNomServ(nom), MediaType.APPLICATION_JSON).build();
+	}
+	
+	
+	@GET
+	@Path("comprobaPermisos/{nombre}")
+	public Response comprobaPermisos(@PathParam("nombre") String nombre) {
+		return Response.ok(service.comrpobaPermisosServ(nombre), MediaType.APPLICATION_JSON).build();  //comproba els permisos del usuari
+	}
+	
 	@PUT
+	@Path("donarPermisos/{nom}")
+
+	public Response donaPermisos(@PathParam("nom") String nom) {                           //otorga permisos                  
+		
+		service.donaPermisosServ(nom);
+		Missatge mis = new Missatge("Permisos otorgats");
+		
+		return Response.ok(mis,MediaType.APPLICATION_JSON).build();
+	}
+	
+	
+	@PUT
+	@Path("treurePermisos/{nom}")
+
+	public Response treurePermisosServ(@PathParam("nom") String nom) {                           //treure permisos                  
+		
+		service.treurePermisosServ(nom);
+		Missatge mis = new Missatge("Permisos retirats");
+		
+		return Response.ok(mis,MediaType.APPLICATION_JSON).build();
+	}
+	
+	
+	
+	
+	@POST
 	@Path("/registra")
 	public Response putUser(Usuari us) {                                        
+		service.setUsuariServ(us);  //tmb torna boolean
+		Usuari usu = service.getUserByNomServ(us.getNom());
 		
-		Boolean creacio = service.setUsuariServ(us);
-		
-		return Response.ok(creacio ,MediaType.APPLICATION_JSON).build();
+		return Response.ok(usu ,MediaType.APPLICATION_JSON).build();
 	}
 	
 	
@@ -116,26 +175,13 @@ public class UsuariApi {
 	public Response deleteUsuari(@PathParam("nom") String nom) {
 		
 		service.deleteUsuariServ(nom);
-		return Response.ok("Esborrat correctament", MediaType.APPLICATION_JSON).build();
+		Missatge mis = new Missatge("Esborrat correctement");
+		
+		
+		return Response.ok(mis, MediaType.APPLICATION_JSON).build();
 	}
 	
 	
-	
-	
-
-	/*
-	 * 
-	 * 
-	 * 26/04/2021
-	 * 
-	@GET
-	@Path("{id}")
-	public Response getUsuariById(@PathParam("id") int id) {
-		return Response.ok(service.getUsuariByIdServ(id), MediaType.APPLICATION_JSON).build();
-	}
->>>>>>> e3d1b8f72209f681ece5aba0747f2cf45489845c
-	
-	*/
 	
 	
 	

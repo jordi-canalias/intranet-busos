@@ -26,18 +26,6 @@ import model.*;
 public class DatabaseDao {
 	
 	
-
-	/*
-	 * 
-	 * Actualitzat 28/04/2021
-	 * 
-	 */
-	
-	
-	
-	
-	
-
 	
 //**********************************************************************************************
 //***************************************       RUTAS       ************************************
@@ -239,11 +227,14 @@ public class DatabaseDao {
 			String destinacio = Ruta.getDestinacio();
 			String informacion = Ruta.getInformacion();
 			String guia_asignat = Ruta.getGuia_asignat();
+			
+			
 			PreparedStatement query = con.prepareStatement(
 					" INSERT INTO autobusos.rutas (id_ruta, nom, caracter, client, recollida, destinacio, informacion, guia_asignat) VALUES (' "
 							+ id_ruta + " ','" + nom + "','" + caracter + "','" + client + "','" + recollida
 							+ "','"+ destinacio +"', '"+informacion+"','"+guia_asignat+"') ");
 
+			
 			query.execute();
 
 			con.close();
@@ -255,16 +246,45 @@ public class DatabaseDao {
 	
 	
 	
-	
-	
+
+	public void actualitzaRuta(Ruta ru,int id_ruta) {
+
+		String nom = ru.getNom();
+		String caracter = ru.getCaracter();
+		String client = ru.getClient();
+		String recollida = ru.getRecollida();
+		String destinacio = ru.getDestinacio();
+		String informacion = ru.getInformacion();
+		String guia_asignat = ru.getGuia_asignat();
+		
+		
+		//UPDATE autobusos.rutas SET nom='"+to+"', caracter='"+data+"', client='"+data+"', recollida='"+data+"', destinacio='"+data+"', informacion='"+data+"', guia_asignat='"+data+"' WHERE id_ruta='"+id_ruta+"';
+		
+		String query = "UPDATE autobusos.rutas SET nom='"+nom+"', caracter='"+caracter+"', client='"+client+"', recollida='"+recollida+"', destinacio='"+destinacio+"', informacion='"+informacion+"', guia_asignat='"+guia_asignat+"' WHERE id_ruta='"+id_ruta+"';";
+		
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+
+			
+			PreparedStatement stmt = con.prepareStatement(query);
+			stmt.execute();
+
+			con.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println("Error en la ejecucion: " + e.getErrorCode() + "----------" + e.getMessage() + "-------" +  query);
+		}
+		
+		
+	}
 	
 	
 	
 	
 	
 	public void deleteRuta(int id) {
-
-		String data = "now";
 		
 		String query = "DELETE FROM autobusos.rutas WHERE id_ruta='"+id+"'";
 		
@@ -302,12 +322,12 @@ public class DatabaseDao {
 			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
 					ConstantsApi.PASS_CONNECTION);
 
-			PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.linias");
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.linias;");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				
-				Linia li = new Linia(rs.getInt("id_lina"),rs.getString("nom"),rs.getString("informacion"),rs.getString("bus_asignat"),
+				Linia li = new Linia(rs.getInt("id_linia"),rs.getString("nom"),rs.getString("informacion"),rs.getString("bus_asignat"),
 						rs.getString("hora_inici"),rs.getString("hora_finalitzacio"));
 
 
@@ -452,13 +472,12 @@ public class DatabaseDao {
 	
 	
 	
-	
+	 //aqui
 	public void setLinia(Linia linia) { // insertar rutas
 
 		try {
 			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
 					ConstantsApi.PASS_CONNECTION);
-
 
 			int id_linia = 0;
 			String nom = linia.getNom();
@@ -469,9 +488,8 @@ public class DatabaseDao {
 			
 			
 			PreparedStatement query = con.prepareStatement(
-					" INSERT INTO autobusos.linias (id_linia, nom, informacion, bus_asginat, hora_inici, hora_finalitzacio) VALUES (' "
-							+ id_linia + " ','" + nom + "','"+ informacion +"','" + bus_asignat + "','" + hora_inici + "','" + hora_finalitzacio
-							+ "') ");
+					" INSERT INTO autobusos.linias (id_linia, nom, informacion, bus_asignat, hora_inici, hora_finalitzacio) "
+					+ "VALUES ("+id_linia+",'"+nom+"','"+informacion+"','"+bus_asignat+"','"+hora_inici+"','"+hora_finalitzacio+"');");
 
 			query.execute();
 
@@ -481,6 +499,62 @@ public class DatabaseDao {
 			System.err.println(e);
 		}
 	}
+	
+	
+	public void actualitzaLinia(Linia li,int id_linia) {
+
+		String nom = li.getNom();
+		String informacion = li.getInformacion();
+		String bus_asignat = li.getBus_asignat();
+		String hora_inici = li.getHora_inici();
+		String hora_finalitzacio = li.getHora_finalitzacio();
+		
+		
+		//UPDATE autobusos.linias SET nom='"+nom+"', informacion='"+informacion+"', bus_asignat='"+bus_asignat+"', hora_inci='"+hora_inci+"', hora_finalitzacio='"+hora_finalitzacio+"' WHERE id_linia='"+id_linia+"';
+		
+		String query = "UPDATE autobusos.linias SET nom='"+nom+"', informacion='"+informacion+"', bus_asignat='"+bus_asignat+"', hora_inici='"+hora_inici+"', hora_finalitzacio='"+hora_finalitzacio+"' WHERE id_linia='"+id_linia+"'";
+		
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+
+			
+			PreparedStatement stmt = con.prepareStatement(query);
+			stmt.execute();
+
+			con.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println("Error en la ejecucion: " + e.getErrorCode() + "----------" + e.getMessage() + "-------" +  query);
+		}
+		
+		
+	}
+	
+	
+	public void deleteLinia(int id) {		
+		
+		String query = "DELETE FROM autobusos.linias WHERE id_linia = '"+id+"'";
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+			
+			PreparedStatement stmt = con.prepareStatement(query);
+			stmt.execute();
+
+			con.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println("Error en la ejecucion: " + e.getErrorCode() + "----------" + e.getMessage() + "-------" +  query);
+		}
+		
+	}
+	
+	
+	
+	
 	//**********************************************************************************************
 	//***************************************       USERS       ************************************
 	//**********************************************************************************************
@@ -500,7 +574,7 @@ public class DatabaseDao {
 			while (rs.next()) {
 				
 				Usuari us = new Usuari(rs.getInt("id_usuari"),rs.getString("nom"),rs.getString("cognoms"),
-						rs.getString("funcio"),rs.getString("fecha_entrada"),rs.getInt("telefon"),rs.getString("correuElectronic"),rs.getString("permisos"),rs.getString("contrasenya"));
+						rs.getString("funcio"),rs.getString("fecha_entrada"),rs.getString("telefon"),rs.getString("correuElectronic"),rs.getString("permisos"),rs.getString("contrasenya"));
 				
 
 				users.add(us);
@@ -513,6 +587,87 @@ public class DatabaseDao {
 			System.out.println("Error en la ejecucion: " + e.getErrorCode());
 		}
 		return users;
+	}
+	
+	
+	
+	
+	
+	public ArrayList<Usuari> getUsuariPerId(int id) {
+
+		ArrayList<Usuari> users = new ArrayList<Usuari>();
+
+
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.usuaris WHERE id_usuari='"+id+"'");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				
+				Usuari us = new Usuari(rs.getInt("id_usuari"),rs.getString("nom"),rs.getString("cognoms"),
+						rs.getString("funcio"),rs.getString("fecha_entrada"),rs.getString("telefon"),rs.getString("correuElectronic"),rs.getString("permisos"),rs.getString("contrasenya"));
+				
+
+				users.add(us);
+
+			}
+			con.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println("Error en la ejecucion: " + e.getErrorCode());
+		}
+		return users;
+	}
+	
+	
+	
+	
+	public Usuari getUserByNom(String nom) {
+		
+		int id_usuari = 0;
+		String nomm = "";
+		String cognoms = "";
+		String funcio = "";
+		String fecha_entrada = "";
+		String telefon = "";
+		String correuElectronic = "";
+		String permisos = "";
+		String contrasenya = "";
+
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.usuaris WHERE nom='"+nom+"'");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				
+				id_usuari = rs.getInt("id_usuari");
+				nomm = rs.getString("nom");
+				cognoms = rs.getString("cognoms");
+				funcio = rs.getString("funcio");
+				fecha_entrada = rs.getString("fecha_entrada");
+				telefon = rs.getString("telefon");
+				correuElectronic = rs.getString("correuElectronic");
+				permisos = rs.getString("permisos");
+				contrasenya = rs.getString("contrasenya");
+
+			}
+			con.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println("Error en la ejecucion: " + e.getErrorCode());
+		}
+		
+		Usuari us = new Usuari(id_usuari, nomm, cognoms, funcio, fecha_entrada, telefon, correuElectronic, permisos, contrasenya);
+		
+		return us;
 	}
 	
 	
@@ -535,7 +690,7 @@ public class DatabaseDao {
 			while (rs.next()) {
 				
 				Usuari us = new Usuari(rs.getInt("id_usuari"),rs.getString("nom"),rs.getString("cognoms"),
-						rs.getString("funcio"),rs.getString("fecha_entrada"),rs.getInt("telefon"),rs.getString("correuElectronic"),rs.getString("permisos"),rs.getString("contrasenya"));
+						rs.getString("funcio"),rs.getString("fecha_entrada"),rs.getString("telefon"),rs.getString("correuElectronic"),rs.getString("permisos"),rs.getString("contrasenya"));
 				
 
 				users.add(us);
@@ -576,7 +731,7 @@ public class DatabaseDao {
 			while (rs.next()) {
 				
 				Usuari user = new Usuari(rs.getInt("id_usuari"),rs.getString("nom"),rs.getString("cognoms"),
-						rs.getString("funcio"),rs.getString("fecha_entrada"),rs.getInt("telefon"),rs.getString("correuElectronic"),rs.getString("permisos"),rs.getString("contrasenya"));
+						rs.getString("funcio"),rs.getString("fecha_entrada"),rs.getString("telefon"),rs.getString("correuElectronic"),rs.getString("permisos"),rs.getString("contrasenya"));
 				
 
 				users.add(user);
@@ -600,30 +755,19 @@ public class DatabaseDao {
 	
 	public void actualitzaToken(String to, Usuari us) {
 
-		int id_usuari = us.getId_usuari();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");  
+		LocalDateTime now = LocalDateTime.now();  
+		
+		String nom = us.getNom();
 		
 		//UPDATE autobusos.tokens SET token='"+to+"', hora_inici='"+data+"' WHERE id_usuari='"+id_usuari+"';
-		
-		/*
-		java.util.Date date = null;
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		int hours = calendar.get(Calendar.HOUR_OF_DAY);
-		String data = String.valueOf(hours);
-		*/
-		
-		String data = "now";
-		
-		String query = "UPDATE autobusos.tokens SET token='"+to+"', hora_inici='"+data+"' WHERE id_usuari='"+id_usuari+"'";
+
+		String query = "UPDATE autobusos.tokens SET token='"+to+"', hora_inici='"+dtf.format(now)+"' WHERE usuari='"+nom+"'";
 		
 		try {
 			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
 					ConstantsApi.PASS_CONNECTION);
 
-			
-			System.out.print(to);
-			System.out.print(data);
-			System.out.print(id_usuari);
 			
 			PreparedStatement stmt = con.prepareStatement(query);
 			stmt.execute();
@@ -648,8 +792,8 @@ public class DatabaseDao {
 	public Boolean checkToken(Token to) {
 		
 		Boolean resp = false;
-		int id = to.getId_usuari();
 		String token = to.getToken();
+		String nom = to.getUsuari();
 		
 		ArrayList<Token> tokens = new ArrayList<Token>();
 		
@@ -661,7 +805,7 @@ public class DatabaseDao {
 			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
 					ConstantsApi.PASS_CONNECTION);
 
-			PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.tokens WHERE id_usuari='"+id+"' and token='"+token+"'");
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.tokens WHERE usuari='"+nom+"' and token='"+token+"'");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -704,7 +848,7 @@ public class DatabaseDao {
 			while (rs.next()) {
 				
 				Usuari us = new Usuari(rs.getInt("id_usuari"),rs.getString("nom"),rs.getString("cognoms"),
-						rs.getString("funcio"),rs.getString("fecha_entrada"),rs.getInt("telefon"),rs.getString("correuElectronic"),rs.getString("permisos"),rs.getString("contrasenya"));
+						rs.getString("funcio"),rs.getString("fecha_entrada"),rs.getString("telefon"),rs.getString("correuElectronic"),rs.getString("permisos"),rs.getString("contrasenya"));
 				
 
 				users.add(us);
@@ -726,7 +870,7 @@ public class DatabaseDao {
 	
 	public Boolean setUsuari(Usuari us) { // insertar usuari
 		
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();  
 		//dtf.format(now);
 		
@@ -735,25 +879,61 @@ public class DatabaseDao {
 					ConstantsApi.PASS_CONNECTION);
 
 
-			int id_linia = 0;
+			int id_usuario = 0;
 			String nom = us.getNom();
 			String cognoms = us.getCognoms();
 			String funcio = us.getFuncio();
 			String fecha_entrada = dtf.format(now);
-			int telefon = us.getTelefon();
+			String telefon = us.getTelefon();
 			String correuElectronic  = us.getCorreu_electronic();
 			String permisos = us.getPermisos();
 			String contrasenya = us.getContrasenya();
 			
+			//el nom repetit es comproba a part
 			
+			/*    
 			if(comprobaNomRepetit(nom)) {
 				return false;
 				
 			}
+			*/
 			
 			PreparedStatement query = con.prepareStatement(
 					" INSERT INTO autobusos.usuaris (id_usuari, nom, cognoms, funcio, fecha_entrada, telefon, correuElectronic, permisos, contrasenya) VALUES (' "
-							+ id_linia + " ','" + nom + "','"+ cognoms +"','" + funcio + "','" + fecha_entrada + "','" + telefon+ "','" + correuElectronic+ "','" + permisos+ "','" + contrasenya+ "') ");
+							+ id_usuario + " ','" + nom + "','"+ cognoms +"','" + funcio + "','" + fecha_entrada + "','" + telefon+ "','" + correuElectronic+ "','" + permisos+ "','" + contrasenya+ "') ");
+
+			query.execute();
+
+			con.close();
+
+		} catch (SQLException e) {
+			System.err.println(e);
+		}
+		
+		return true;
+	}
+	
+	
+	
+	
+	
+	
+	public Boolean setUsuariTokenBD(Usuari us) { // insertar usuari a la base de dades de token
+
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+
+
+			int id_usuari = 0;
+			String nom = us.getNom();
+			String fecha_entrada = "";
+			String token = "";
+
+			
+			PreparedStatement query = con.prepareStatement(
+					" INSERT INTO autobusos.tokens (id_usuari, usuari, token, hora_inici) VALUES (' "
+							+ id_usuari + " ','" + nom + "','"+ token +"','" + fecha_entrada + "') ");
 
 			query.execute();
 
@@ -773,17 +953,14 @@ public class DatabaseDao {
 	public void actualitzaUsuari(Usuari newUs, String nomUsuari) {
 
 		
-		String nom = newUs.getNom();
+
 		String cognoms = newUs.getCognoms();
-		String funcio = newUs.getFuncio();
-		String fecha_entrada = newUs.getFecha_entrada();
-		int telefon = newUs.getTelefon();
+		String telefon = newUs.getTelefon();
 		String correuElectronic  = newUs.getCorreu_electronic();
-		String permisos = newUs.getPermisos();
 		String contrasenya = newUs.getContrasenya();
 		
 		
-		String query = "UPDATE autobusos.usuaris SET nom ='"+nom+"', cognoms='"+cognoms+"', funcio='"+funcio+"', telefon='"+telefon+"', correuElectronic='"+correuElectronic+"', contrasenya='"+contrasenya+"' WHERE nom='"+nomUsuari+"'";
+		String query = "UPDATE autobusos.usuaris  cognoms='"+cognoms+"', telefon='"+telefon+"', correuElectronic='"+correuElectronic+"', contrasenya='"+contrasenya+"' WHERE nom='"+nomUsuari+"'";
 		
 		try {
 			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
@@ -824,6 +1001,83 @@ public class DatabaseDao {
 		
 	}
 	
+	
+	
+	public int comrpobaPermisos(String nom) {
+
+		int permisos = 0;
+
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.usuaris WHERE nom='"+nom+"'");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				
+				permisos = rs.getInt("permisos");
+
+			}
+			con.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println("Error en la ejecucion: " + e.getErrorCode());
+		}
+			
+			return permisos;
+		}
+	
+	
+	
+	
+		public void donaPermisos(String nomUsuari) {
+
+		
+		String query = "UPDATE autobusos.usuaris  permisos='1' WHERE nom='"+nomUsuari+"'";
+		
+		try {
+			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+					ConstantsApi.PASS_CONNECTION);
+			
+			PreparedStatement stmt = con.prepareStatement(query);
+			stmt.execute();
+
+			con.close();
+		}
+
+		catch (SQLException e) {
+			System.out.println("Error en la ejecucion: " + e.getErrorCode() + "----------" + e.getMessage() + "-------" +  query);
+		}
+		
+		
+	}
+		
+		
+		
+		
+		public void treurePermisos(String nomUsuari) {
+
+			
+			String query = "UPDATE autobusos.usuaris  permisos='0' WHERE nom='"+nomUsuari+"'";
+			
+			try {
+				Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+						ConstantsApi.PASS_CONNECTION);
+				
+				PreparedStatement stmt = con.prepareStatement(query);
+				stmt.execute();
+
+				con.close();
+			}
+
+			catch (SQLException e) {
+				System.out.println("Error en la ejecucion: " + e.getErrorCode() + "----------" + e.getMessage() + "-------" +  query);
+			}
+			
+			
+		}
 	
 	
 	//**********************************************************************************************
@@ -957,7 +1211,7 @@ public class DatabaseDao {
 	
 	public void setResenya(Resenya res) { // insertar resenya
 
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 		LocalDateTime now = LocalDateTime.now();  
 		//dtf.format(now);
 		
@@ -1240,10 +1494,666 @@ public class DatabaseDao {
 	}
 	
 	
+	//**********************************************************************************************
+	//***************************************      ASIGNACIONS      ************************************
+	//**********************************************************************************************
+		
+		
+		public ArrayList<Asignacion> getAsignacions() {
+
+			ArrayList<Asignacion> par = new ArrayList<Asignacion>();
+
+
+			try {
+				Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+						ConstantsApi.PASS_CONNECTION);
+
+				PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.asignacions");
+				ResultSet rs = stmt.executeQuery();
+
+				while (rs.next()) {
+					
+					Asignacion para = new Asignacion(rs.getInt("id_asignacio"),
+											  		 rs.getInt("id_usuari"),
+											  		 rs.getInt("id_liniaruta"),
+											  		 rs.getString("nom"),
+											  		 rs.getString("tipus"),
+											  		 rs.getString("fecha"));
+					
+					par.add(para);
+
+				}
+				con.close();
+			}
+
+			catch (SQLException e) {
+				System.out.println("Error en la ejecucion: " + e.getErrorCode());
+			}
+			return par;
+		}
+	
+		
+		
+		
+		public Asignacion getAsignacioById(int id) {
+
+			Connection con;
+
+			int id_asignacio = 0;
+			int id_usuari = 0;
+			int id_liniaruta = 0;
+			String nom = null;
+			String tipus = null;
+			String fecha = null;
+
+
+			try {
+				con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+						ConstantsApi.PASS_CONNECTION);
+
+				PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.asignacions WHERE id_asignacio = '" + id + "'");
+				ResultSet rs = stmt.executeQuery();
+
+				while (rs.next()) {
+
+					id_asignacio = rs.getInt("id_asignacio");
+					id_usuari = rs.getInt("id_usuari");
+					id_liniaruta = rs.getInt("id_liniaruta");
+					nom = rs.getString("nom");
+					tipus = rs.getString("tipus");
+					fecha = rs.getString("fecha");
+
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			Asignacion  as = new Asignacion(id_asignacio, id_usuari, id_liniaruta, nom, tipus, fecha);
+
+			return as;
+		}
+		
+		
+		
+		
+
+		public ArrayList<Asignacion> getAsignacionsByUserId(int id) {
+
+			ArrayList<Asignacion> as = new ArrayList<Asignacion>();
+
+
+			try {
+				Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+						ConstantsApi.PASS_CONNECTION);
+
+				PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.asignacions WHERE id_usuari = '"+id+"';");
+				ResultSet rs = stmt.executeQuery();
+
+				while (rs.next()) {
+					
+					Asignacion asi = new Asignacion(rs.getInt("id_asignacio"),
+											   rs.getInt("id_usuari"),
+											   rs.getInt("id_liniaruta"),
+											   rs.getString("nom"),
+											   rs.getString("tipus"),
+											   rs.getString("fecha"));
+					
+
+					as.add(asi);
+
+				}
+				con.close();
+			}
+
+			catch (SQLException e) {
+				System.out.println("Error en la ejecucion: " + e.getErrorCode());
+			}
+			return as;
+		}
+		
+		
+		
+		
+		
+		public ArrayList<Asignacion> getAsignacionsByDia(String dia) {
+
+			ArrayList<Asignacion> as = new ArrayList<Asignacion>();
+
+
+			try {
+				Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+						ConstantsApi.PASS_CONNECTION);
+
+				PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.asignacions WHERE fecha = '"+dia+"';");
+				ResultSet rs = stmt.executeQuery();
+
+				while (rs.next()) {
+					
+					Asignacion asi = new Asignacion(rs.getInt("id_asignacio"),
+											   rs.getInt("id_usuari"),
+											   rs.getInt("id_liniaruta"),
+											   rs.getString("nom"),
+											   rs.getString("tipus"),
+											   rs.getString("fecha"));
+					
+
+					as.add(asi);
+
+				}
+				con.close();
+			}
+
+			catch (SQLException e) {
+				System.out.println("Error en la ejecucion: " + e.getErrorCode());
+			}
+			return as;
+		}
+	
+		
+		
+		public void insertaAsignacio(Asignacion as) { // insertar asignacio
+
+			try {
+				Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+						ConstantsApi.PASS_CONNECTION);
+
+
+				 int id_asignacio = as.getId_asignacion();
+				 int id_usuari = as.getId_usuari();
+				 int id_liniaruta = as.getId_liniaruta();
+				 String nom = as.getNom();
+				 String tipus = as.getTipus();
+				 String fecha = as.getFecha();
+
+				
+				PreparedStatement query = con.prepareStatement(
+						"INSERT INTO autobusos.asignacions (id_asignacio, id_usuari, id_liniaruta, nom, fecha, tipus) VALUES ('"+id_asignacio+"', '"+id_usuari+"', '"+id_liniaruta+"','"+nom+"', '"+fecha+"', '"+tipus+"');");
+
+				query.execute();
+
+				con.close();
+
+			} catch (SQLException e) {
+				System.err.println(e);
+			}
+		}
+		
+		
+		
+		
+		public ArrayList<Asignacion> getAsignacionsByTipus(String tipus) {
+
+			ArrayList<Asignacion> as = new ArrayList<Asignacion>();
+
+
+			try {
+				Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+						ConstantsApi.PASS_CONNECTION);
+
+				PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.asignacions WHERE tipus = '"+tipus+"';");
+				ResultSet rs = stmt.executeQuery();
+
+				while (rs.next()) {
+					
+					Asignacion asi = new Asignacion(rs.getInt("id_asignacio"),
+											   rs.getInt("id_usuari"),
+											   rs.getInt("id_liniaruta"),
+											   rs.getString("nom"),
+											   rs.getString("tipus"),
+											   rs.getString("fecha"));
+					
+					as.add(asi);
+
+				}
+				con.close();
+			}
+
+			catch (SQLException e) {
+				System.out.println("Error en la ejecucion: " + e.getErrorCode());
+			}
+			return as;
+		}
+		
+		
+		
+		
+		
+		public ArrayList<Asignacion> getAsignacionsDiaUser(String dia, int id) {
+
+			ArrayList<Asignacion> as = new ArrayList<Asignacion>();
+
+
+			try {
+				Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+						ConstantsApi.PASS_CONNECTION);
+
+				PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.asignacions WHERE fecha = '"+dia+"' AND id_usuari = '"+id+"';");
+				ResultSet rs = stmt.executeQuery();
+
+				while (rs.next()) {
+					
+					Asignacion asi = new Asignacion(rs.getInt("id_asignacio"),
+											   rs.getInt("id_usuari"),
+											   rs.getInt("id_liniaruta"),
+											   rs.getString("nom"),
+											   rs.getString("tipus"),
+											   rs.getString("fecha"));
+					
+					as.add(asi);
+
+				}
+				con.close();
+			}
+
+			catch (SQLException e) {
+				System.out.println("Error en la ejecucion: " + e.getErrorCode());
+			}
+			return as;
+		}
+		
+		
+		
+		
+		
+		public void actualitzaAsignacio(Asignacion as, int id) {   //actualitza la parada
+
+			int id_usuari = as.getId_usuari();
+			int id_liniaruta = as.getId_liniaruta();
+			String nom = as.getNom();
+			String tipus = as.getTipus();
+			String fecha = as.getFecha();
+			
+
+			String query = "UPDATE autobusos.asignacions SET id_usuari ='"+id_usuari+"', id_liniaruta='"+id_liniaruta+"', nom='"+nom+"', tipus = '"+tipus+"', fecha = '"+fecha+"' WHERE id_asignacio='"+id+"'";
+			
+			try {
+				Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+						ConstantsApi.PASS_CONNECTION);
+				
+				PreparedStatement stmt = con.prepareStatement(query);
+				stmt.execute();
+
+				con.close();
+			}
+
+			catch (SQLException e) {
+				System.out.println("Error en la ejecucion: " + e.getErrorCode() + "----------" + e.getMessage() + "-------" +  query);
+			}
+			
+		}
+		
+		
+		
+		
+		public void deletAsignacio(int id) {		
+			
+			String query = "DELETE FROM autobusos.asignacions WHERE id_asignacio = '"+id+"' ";
+			try {
+				Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+						ConstantsApi.PASS_CONNECTION);
+				
+				PreparedStatement stmt = con.prepareStatement(query);
+				stmt.execute();
+
+				con.close();
+			}
+
+			catch (SQLException e) {
+				System.out.println("Error en la ejecucion: " + e.getErrorCode() + "----------" + e.getMessage() + "-------" +  query);
+			}
+			
+			
+		}
+		
+		
+		
+		
+		
+		//**********************************************************************************************
+		//***************************************      ASIGNACIONS      ************************************
+		//**********************************************************************************************
+			
+			
+			public ArrayList<Comentari> getTotsComentaris() {
+
+				ArrayList<Comentari> co = new ArrayList<Comentari>();
+
+				try {
+					Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+							ConstantsApi.PASS_CONNECTION);
+
+					PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.comentaris");
+					ResultSet rs = stmt.executeQuery();
+
+					while (rs.next()) {
+						
+						Comentari com = new Comentari(rs.getInt("id_comentari"),
+												  		 rs.getInt("id_resenya"),
+												  		 rs.getInt("id_usuari"),
+												  		 rs.getString("comentari"),
+												  		 rs.getString("fecha"));
+						
+						co.add(com);
+
+					}
+					con.close();
+				}
+
+				catch (SQLException e) {
+					System.out.println("Error en la ejecucion: " + e.getErrorCode());
+				}
+				return co;
+			}
+			
+			
+			public Comentari getComentariId(int id) {
+
+				Connection con;
+
+				int id_comentari = 0;
+				int id_resenya = 0;
+				int id_usuari = 0;
+				String comentari = null;
+				String fecha = null;
+
+
+				try {
+					con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+							ConstantsApi.PASS_CONNECTION);
+
+					PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.comentaris WHERE id_comentari = '" + id + "'");
+					ResultSet rs = stmt.executeQuery();
+
+					while (rs.next()) {
+
+						id_comentari = rs.getInt("id_comentari");
+						id_resenya = rs.getInt("id_resenya");
+						id_usuari = rs.getInt("id_usuari");
+						comentari = rs.getString("comentari");
+						fecha = rs.getString("fecha");
+
+					}
+
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+				Comentari  co = new Comentari(id_comentari, id_resenya, id_usuari, comentari, fecha);
+
+				return co;
+			}
+			
+			
+			
+			
+			
+			public ArrayList<Comentari> getComentariByUser(int user) {
+
+				ArrayList<Comentari> co = new ArrayList<Comentari>();
+
+				try {
+					Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+							ConstantsApi.PASS_CONNECTION);
+
+					PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.comentaris WHERE id_usuari ='"+user+"'");
+					ResultSet rs = stmt.executeQuery();
+
+					while (rs.next()) {
+						
+						Comentari com = new Comentari(rs.getInt("id_comentari"),
+												  		 rs.getInt("id_resenya"),
+												  		 rs.getInt("id_usuari"),
+												  		 rs.getString("comentari"),
+												  		 rs.getString("fecha"));
+						
+						co.add(com);
+
+					}
+					con.close();
+				}
+
+				catch (SQLException e) {
+					System.out.println("Error en la ejecucion: " + e.getErrorCode());
+				}
+				return co;
+			}
+			
+			
+			
+			
+			
+			public void deleteComentari(int id) {		
+				
+				String query = "DELETE FROM autobusos.comentaris WHERE id_comentari = '"+id+"' ";
+				try {
+					Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+							ConstantsApi.PASS_CONNECTION);
+					
+					PreparedStatement stmt = con.prepareStatement(query);
+					stmt.execute();
+
+					con.close();
+				}
+
+				catch (SQLException e) {
+					System.out.println("Error en la ejecucion: " + e.getErrorCode() + "----------" + e.getMessage() + "-------" +  query);
+				}
+				
+				
+			}
+			
+			
+			
+			
+			public void putComentari(int id) {		
+				
+				String query = "DELETE FROM autobusos.comentaris WHERE id_comentari = '"+id+"' ";
+				try {
+					Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+							ConstantsApi.PASS_CONNECTION);
+					
+					PreparedStatement stmt = con.prepareStatement(query);
+					stmt.execute();
+
+					con.close();
+				}
+
+				catch (SQLException e) {
+					System.out.println("Error en la ejecucion: " + e.getErrorCode() + "----------" + e.getMessage() + "-------" +  query);
+				}
+				
+				
+			}
+			
+			
+			
+			
+			
+			public void putComentari(Comentari com) { // insertar comentari
+
+				try {
+					Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+							ConstantsApi.PASS_CONNECTION);
+
+					 int id_comentari =  com.getId_comentari();
+					 int id_resenya = com.getId_resenya();
+					 int id_usuari = com.getId_usuari();
+					 String comentari = com.getComentari();
+					 String fecha = com.getFecha();
+					 
+					 
+					PreparedStatement query = con.prepareStatement(
+							"INSERT INTO autobusos.comentaris (id_comentari, id_resenya, id_usuari, comentari, fecha) VALUES ('"+id_comentari+"', '"+id_resenya+"', '"+id_usuari+"','"+comentari+"', '"+fecha+"');");
+
+					query.execute();
+					con.close();
+
+				} catch (SQLException e) {
+					System.err.println(e);
+				}
+			}
+			
+			
+			
+			
+			public void updateComentari(Comentari com, int id) { // insertar comentari
+
+				try {
+					Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+							ConstantsApi.PASS_CONNECTION);
+
+					 String comentari = com.getComentari();
+					 String fecha = com.getFecha();
+					 
+					 
+					PreparedStatement query = con.prepareStatement(
+							"UPDATE autobusos.comentaris SET comentari ='"+comentari+"', fecha='"+fecha+"'  WHERE id_resenya = '"+id+"'");
+							
+					query.execute();
+					con.close();
+
+				} catch (SQLException e) {
+					System.err.println(e);
+				}
+			}
+			
+			
+			
+			//**********************************************************************************************
+			//***********************************      PARADAS LINIA      **********************************
+			//**********************************************************************************************
+			
+			
+			
+			public ArrayList<Paradalinia> getParadasLinia(int id) {
+
+				ArrayList<Paradalinia> pal = new ArrayList<Paradalinia>();
+
+				try {
+					Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+							ConstantsApi.PASS_CONNECTION);
+
+					PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.paradalinia WHERE id_linia = '"+id+"' ORDER BY ordre;");
+					ResultSet rs = stmt.executeQuery();
+
+					while (rs.next()) {
+						
+						Paradalinia pa = new Paradalinia(rs.getInt("id_linia"),
+												  		 rs.getInt("id_parada"),
+												  		 rs.getInt("ordre"));
+						
+						pal.add(pa);
+
+					}
+					con.close();
+				}
+
+				catch (SQLException e) {
+					System.out.println("Error en la ejecucion: " + e.getErrorCode());
+				}
+				return pal;
+			}
+			
+			
+			
+			
+			
+			public ArrayList<Paradalinia> getLiniasParada(int id) {
+
+				ArrayList<Paradalinia> pal = new ArrayList<Paradalinia>();
+
+				try {
+					Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+							ConstantsApi.PASS_CONNECTION);
+
+					PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.paradalinia WHERE id_parada = '"+id+"' ORDER BY ordre;");
+					ResultSet rs = stmt.executeQuery();
+
+					while (rs.next()) {
+						
+						Paradalinia pa = new Paradalinia(rs.getInt("id_linia"),
+												  		 rs.getInt("id_parada"),
+												  		 rs.getInt("ordre"));
+						
+						pal.add(pa);
+
+					}
+					con.close();
+				}
+
+				catch (SQLException e) {
+					System.out.println("Error en la ejecucion: " + e.getErrorCode());
+				}
+				return pal;
+			}
+			
+			
+			
+			
+			public void insertaParadaLinia(Paradalinia pali) { // insertar paradalinia
+
+				try {
+					Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+							ConstantsApi.PASS_CONNECTION);
+
+					 int id_linia =  pali.getId_linia();
+					 int id_parada = pali.getId_parada();
+					 int ordre = pali.getOrdre();
+					 
+					 
+					PreparedStatement query = con.prepareStatement(
+							"INSERT INTO autobusos.paradalinia (id_linia, id_parada, ordre) VALUES ('"+id_linia+"', '"+id_parada+"', '"+ordre+"');");
+
+					query.execute();
+					con.close();
+
+				} catch (SQLException e) {
+					System.err.println(e);
+				}
+			}
+			
+			
+			
+			
+			public void deleteParadaLinia(int id_parada, int id_linia) {		
+				
+				String query = "DELETE FROM autobusos.paradalinia WHERE id_parada = '"+id_parada+"' AND id_linia = '"+id_linia+"'";
+				try {
+					Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+							ConstantsApi.PASS_CONNECTION);
+					
+					PreparedStatement stmt = con.prepareStatement(query);
+					stmt.execute();
+
+					con.close();
+				}
+
+				catch (SQLException e) {
+					System.out.println("Error en la ejecucion: " + e.getErrorCode() + "----------" + e.getMessage() + "-------" +  query);
+				}
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		
+		
+		
+		
 	/*
+	
 	public static void main(String[] args) {
-		System.out.print(getParadaByNom("San cugat").getNom());
-		System.out.print(getParadaByNom("test3").getId_parada());
+		
+		Linia linia = new Linia(0,"","","","","");
+		setLinia(linia);
     }
 	*/
 	

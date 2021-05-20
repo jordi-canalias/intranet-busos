@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -65,11 +66,11 @@ public class ParadaApi {
 	}
 	
 	
-	@PUT
+	@POST
 	@Path("/inserta")
 	public Response insertaParada(Parada pa) {	
-		service.insertaParadaServ(pa);
-		return Response.ok("Parada Insertada",MediaType.APPLICATION_JSON).build();
+		Parada par =  service.insertaParadaServ(pa);
+		return Response.ok(par,MediaType.APPLICATION_JSON).build();
 	}
 	
 	
@@ -90,8 +91,9 @@ public class ParadaApi {
 	public Response updateParada(Parada pa,@PathParam("id") int id) {                                        
 		
 		service.actualitzaParadaServ(pa,id);
+		Parada par = service.GetParadasByIdServ(id);
 		
-		return Response.ok("Modificat correctement",MediaType.APPLICATION_JSON).build();
+		return Response.ok(par,MediaType.APPLICATION_JSON).build();
 	}
 	
 	//----------final above------

@@ -18,10 +18,10 @@ public class Usuari {
 	@JsonProperty("fecha_entrada")
 	private String fecha_entrada;
 	@JsonProperty("telefon")
-	private int telefon;
+	private String telefon;
 	@JsonProperty("correu_electronic")
 	private String correu_electronic;
-	@JsonProperty("premisos")
+	@JsonProperty("permisos")
 	private String permisos;
 	@JsonProperty("contrasenya")
 	private String contrasenya;
@@ -36,7 +36,7 @@ public class Usuari {
 			@JsonProperty("cognoms") final String cognoms,
 			@JsonProperty("funcio") final String funcio,
 			@JsonProperty("fecha_entrada") final String fecha_entrada,
-			@JsonProperty("telefon") final int telefon,
+			@JsonProperty("telefon") final String telefon,
 			@JsonProperty("correu_electronic") final String correu_electronic,
 			@JsonProperty("permisos") final String permisos,
 			@JsonProperty("contrasenya") final String contrasenya
@@ -90,7 +90,7 @@ public class Usuari {
 
 
 	@JsonProperty("telefon")
-	public int getTelefon() {
+	public String getTelefon() {
 		return telefon;
 	}
 

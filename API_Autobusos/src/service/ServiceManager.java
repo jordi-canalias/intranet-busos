@@ -2,6 +2,8 @@ package service;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import dao.DatabaseDao;
 import model.*;
@@ -39,13 +41,21 @@ public class ServiceManager {
 		return dao.getRutasByLloc(lloc);
 	}
 	
-	public String setRutaServ(Ruta ruta) {
+	public Ruta setRutaServ(Ruta ruta) {
 		 dao.setRutas(ruta);
 		 
 		 //logica de comprobacion xd
 		 
-		 return "Ruta insertada";
+		 return ruta;
 	}
+	
+	
+	public String actualitzaRutaServ(Ruta ru,int id) {
+		 
+		dao.actualitzaRuta(ru,id);
+		return "Ruta Actualitzada";
+	}
+	
 	
 	public String deleteRutaServ(int id) {
 		 dao.deleteRuta(id);
@@ -75,14 +85,22 @@ public class ServiceManager {
 			return dao.getLiniaByBus(bus);
 		}
 		
-		public String setLiniaServ(Linia linia) {
+		public Linia setLiniaServ(Linia linia) {
 			 dao.setLinia(linia);
+			 return linia;  //devuelve el objeto para que retorne un json al frontend 
+		}
+		
+		public String actualitzaLiniaServ(Linia li, int id_linia) {
+			 dao.actualitzaLinia(li,id_linia);
 			 
 			 //logica de comprobacion xd
 			 
-			 return "Linia insertada";
+			 return "Linia actualitzada";
 		}
 		
+		public void deleteLiniaServ(int id) {
+			dao.deleteLinia(id);
+		}
 	
 	
 		
@@ -94,6 +112,10 @@ public class ServiceManager {
 	
 	public ArrayList<Usuari> getUsuarisServ() {
 		return dao.getUsuaris();
+	}
+	
+	public ArrayList<Usuari> getUsuariPerIdServ(int id) {
+		return dao.getUsuariPerId(id);
 	}
 	
 	public ArrayList<Usuari> getUsuarisPerFuncioServ(String funcio) {
@@ -114,8 +136,27 @@ public class ServiceManager {
 	
 	public Boolean setUsuariServ(Usuari us) {
 		 
+		 dao.setUsuariTokenBD(us);  //registro a la taula de tokens el usuari per poder actualitzarlo cada cop que li cambi el token
 		 return dao.setUsuari(us);
 	}
+	
+	
+	public Boolean comprobaNomServ(String nom) {
+		return dao.comprobaNomRepetit(nom);
+	}
+	
+	public int comrpobaPermisosServ(String nom) {
+		return dao.comrpobaPermisos(nom);
+	}
+	
+	public void donaPermisosServ(String nom) {
+		 dao.donaPermisos(nom);
+	}
+	
+	public void treurePermisosServ(String nom) {
+		 dao.treurePermisos(nom);
+	}
+	
 	
 	public void actualitzaToken(String to, Usuari us) {
 		 dao.actualitzaToken(to, us);
@@ -123,6 +164,11 @@ public class ServiceManager {
 	
 	public void deleteUsuariServ(String nom) {
 		dao.deleteUsuari(nom);
+	}
+	
+	
+	public Usuari getUserByNomServ(String nom) {
+		return dao.getUserByNom(nom);
 	}
 	
 	//---------------RESENYAS----------------------
@@ -140,9 +186,9 @@ public class ServiceManager {
 		return dao.getResenyasByNom(nom);
 	}
 	
-	public Boolean insertResenyaServ(Resenya res) {
+	public Resenya insertResenyaServ(Resenya res) {
 		dao.setResenya(res);
-		 return true;
+		 return res;
 	}
 	
 	
@@ -168,11 +214,10 @@ public class ServiceManager {
 		return dao.getParadaByNom(nom);
 	}
 	
-	
-	public Boolean insertaParadaServ(Parada pa) {
+	public Parada insertaParadaServ(Parada pa) {
 		dao.insertaParada(pa);
-		 return true;
-	}
+		 return pa;
+	}   
 	
 	public void deleteParadaServ(int id) {
 		dao.deleteParada(id);
@@ -181,6 +226,105 @@ public class ServiceManager {
 	public void actualitzaParadaServ(Parada pa,  int id) {
 		 dao.actualitzaParada(pa, id);
 	}
+	
+	
+	//---------------ASIGNACIONS----------------------
+	
+	public ArrayList<Asignacion> getAsignacionsServ() {
+		return dao.getAsignacions();
+	}
+	
+	public Asignacion getAsignacioByIdServ(int id) {
+		return dao.getAsignacioById(id);
+	}
+	
+	public ArrayList<Asignacion> getAsignacionsByUserId(int id) {
+		return dao.getAsignacionsByUserId(id);
+	}
+	
+	
+	public ArrayList<Asignacion> getAsignacionsByDiaServ(String dia) {
+		return dao.getAsignacionsByDia(dia);
+	}
+	
+	public Asignacion insertaAsignacioServ(Asignacion as) {
+		dao.insertaAsignacio(as);
+		 return as;
+	}
+	
+	public ArrayList<Asignacion> getAsignacionsByTipusServ(String tipus) {
+		return dao.getAsignacionsByTipus(tipus);
+	}
+	
+	public ArrayList<Asignacion> getAsignacionsDiaUserServ(String dia, int id) {
+		return dao.getAsignacionsDiaUser(dia, id);
+	}
+	
+	public void actualitzaAsignacioServ(Asignacion as,  int id) {
+		 dao.actualitzaAsignacio(as, id);
+	}
+	
+	public void deleteAsignacioServ(int id) {
+		dao.deletAsignacio(id);
+	}
+	
+	//---------------COMENTTARIS----------------------
+	
+		public ArrayList<Comentari> getTotsComentarisServ() {
+			return dao.getTotsComentaris();
+		}
+		
+		public Comentari getComentariByIdServ(int id) {
+			return dao.getComentariId(id);
+		}
+		
+		public ArrayList<Comentari> getComentariByUserServ(int user) {
+			return dao.getComentariByUser(user);
+		}
+		
+		public void updateComentariServ(Comentari co, int id) {
+			dao.updateComentari(co, id);
+		}
+
+		
+		public Comentari putComentariServ(Comentari co) {
+			dao.putComentari(co);
+			return co;
+		}
+		
+		public void deleteComentariServ(int id) {
+			dao.deleteComentari(id);
+		}
+		
+		//---------------PARADALINIA----------------------
+		
+		public ArrayList<Paradalinia> getParadasLiniaServ(int id) {
+			return dao.getParadasLinia(id);
+		}
+		
+		public ArrayList<Paradalinia> getLiniasParadaServ(int id) {
+			return dao.getLiniasParada(id);
+		}
+		
+		public Paradalinia insertaParadaLiniaServ(Paradalinia pali) {
+			dao.insertaParadaLinia(pali);
+			return pali;
+		}
+		
+		public void deleteParadaLiniaServ(int id_parada, int id_linia) {
+			dao.deleteParadaLinia(id_parada, id_linia );
+		}
+		
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

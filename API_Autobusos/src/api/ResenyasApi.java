@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -65,12 +66,12 @@ public class ResenyasApi {
 	}
 	
 	
-	@PUT
+	@POST
 	@Path("/inserta")
 	public Response insertresenya(Resenya res) {	
 		
-		Boolean val = service.insertResenyaServ(res);
-		return Response.ok("Resenya Insertada",MediaType.APPLICATION_JSON).build();
+		Resenya val = service.insertResenyaServ(res);
+		return Response.ok(val,MediaType.APPLICATION_JSON).build();
 	}
 	
 	
@@ -79,8 +80,9 @@ public class ResenyasApi {
 	public Response actualitzaUser(Resenya res,@PathParam("id") int id) {                                      
 		
 		service.actualitzaResenyaServ(res,id);
+		Resenya rese = service.GetResenyasByIdServ(id);
 		
-		return Response.ok("Modificat correctement",MediaType.APPLICATION_JSON).build();
+		return Response.ok(rese,MediaType.APPLICATION_JSON).build();
 	}
 	
 	

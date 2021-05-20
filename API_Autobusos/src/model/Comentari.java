@@ -14,6 +14,8 @@ public class Comentari {
 	private int id_usuari;
 	@JsonProperty("comentari")
 	private String comentari;
+	@JsonProperty("fecha")
+	private String fecha;
 	
 
 	
@@ -22,12 +24,14 @@ public class Comentari {
 			@JsonProperty("id_comentari") final int id_comentari,
 			@JsonProperty("id_resenya") final int id_resenya,
 			@JsonProperty("id_usuari") final int id_usuari,
-			@JsonProperty("comentari") final String comentari
+			@JsonProperty("comentari") final String comentari,
+			@JsonProperty("fecha") final String fecha
 			) {
 		this.id_comentari = id_comentari;
 		this.id_resenya = id_resenya;
 		this.id_usuari = id_usuari;
 		this.comentari = comentari;
+		this.fecha = fecha;
 	}
 
 
@@ -53,6 +57,13 @@ public class Comentari {
 	public String getComentari() {
 		return comentari;
 	}
+
+	@JsonProperty("fecha")
+	public String getFecha() {
+		return fecha;
+	}
+	
+	
 
 
 	

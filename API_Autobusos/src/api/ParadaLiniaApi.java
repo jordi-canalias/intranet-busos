@@ -19,11 +19,11 @@ import service.ServiceManager;
 @Produces("application/json;charset=UTF-8")
 @Consumes("application/json;charset=UTF-8")
 
-public class ParadaLinaApi {
+public class ParadaLiniaApi {
 	
 	private ServiceManager service;
-	
-	public ParadaApi() {
+	       
+	public ParadaLiniaApi() {
 		service=new ServiceManager();
 	}
 	
@@ -31,17 +31,55 @@ public class ParadaLinaApi {
 	//test-----------
 	
 	/*
-	 * 
-		GET totesParadas ==> {"/"}
-		GET paradaById ==> {"/id"}
-		GET paradaByNom ==> {"/nom"}
-		POST updateParada ==> {"/id"}
-		PUT setParada ==> {"/"}
-		DELETE borraParada ==> {"/id"}
-
+	 *      GET paradasLinia ==> "/id_linia/{id_linia}"
+			GET liniasParada ==> "/id_parada/{id_parada}"
+			PUT insertaParadaLinia ==> "/inserta"
+			PUT editaParadaLinia==> "/inserta"
+			DELETE paradaLinia ==> "/delete/{id_parada}"
 	 */
+
+	@GET
+	@Path("/id_linia/{id}")
+	public Response paradasLinia(@PathParam("id") int id) {
+		return Response.ok(service.getParadasLiniaServ(id), MediaType.APPLICATION_JSON).build();
+	}
+	
+	@GET
+	@Path("/id_parada/{id}")
+	public Response liniasParada(@PathParam("id") int id) {
+		return Response.ok(service.getLiniasParadaServ(id), MediaType.APPLICATION_JSON).build();
+	}
+	
+	@PUT
+	@Path("/inserta")
+	public Response insertaParada(Paradalinia pali) {	
+		service.insertaParadaLiniaServ(pali);
+		return Response.ok("Paradalinia Insertada",MediaType.APPLICATION_JSON).build();
+	}
+	
+	@DELETE
+	@Path("/delete/{id_linia}/{id_parada}")
+	public Response delete(@PathParam("id_linia") int id_linia, @PathParam("id_linia") int id_parada) {
+		service.deleteParadaLiniaServ(id_parada, id_linia);
+		return Response.ok("Esborrat correctament", MediaType.APPLICATION_JSON).build();
+	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//----------final above------
+	/*
 	@GET
 	@Path("/")
 	public Response totesParadas() {
@@ -93,8 +131,8 @@ public class ParadaLinaApi {
 		
 		return Response.ok("Modificat correctement",MediaType.APPLICATION_JSON).build();
 	}
+	*/
 	
-	//----------final above------
 	
 
 	

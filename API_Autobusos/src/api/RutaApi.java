@@ -3,6 +3,7 @@ package api;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -10,7 +11,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-
+import model.Missatge;
+import model.Resenya;
 import model.Ruta;
 import service.ServiceManager;
 
@@ -75,52 +77,32 @@ public class RutaApi {
 	}
 	
 	
-	@PUT
+	@POST
 	@Path("/")
 	public Response putNewRuta(Ruta ruta) {
-		
 		return Response.ok(service.setRutaServ(ruta), MediaType.APPLICATION_JSON).build();
 	}
 	
+	
+	@PUT
+	@Path("/actualitza/{id}")
+	public Response actualitzaRuta(Ruta ru,@PathParam("id") int id) {                                      
+		
+		service.actualitzaRutaServ(ru,id);
+		
+		Ruta ruta = service.getRutaByIdServ(id);
+		
+		return Response.ok(ruta,MediaType.APPLICATION_JSON).build();
+	}
+	
+	
 	@DELETE
-	@Path("/id")
+	@Path("/delete/{id}")
 	public Response deleteRuta(@PathParam("id") int id) {
-		
-		String res = service.deleteRutaServ(id);
-		
-		return Response.ok(res , MediaType.APPLICATION_JSON).build();
+		service.deleteRutaServ(id);
+		Missatge mis = new Missatge("Ruta eliminada");
+		return Response.ok(mis , MediaType.APPLICATION_JSON).build();
 	}
-	
-	
-	/*
-	@GET
-	@Path("{bus}")
-	public Response getRutaByBus(@PathParam("bus") String bus) {
-		return Response.ok(service.getRutaByBusServ(bus), MediaType.APPLICATION_JSON).build();
-	}
-	
-	
-	@GET
-	@Path("{client}")
-	public Response getRutaByClient(@PathParam("client") String client) {
-		return Response.ok(service.getRutaByClienteServ(client), MediaType.APPLICATION_JSON).build();
-	}
-	
-	@GET
-	@Path("{lloc}")
-	public Response getRutaByLloc(@PathParam("client") String client) {
-		return Response.ok(service.getRutaByClienteServ(client), MediaType.APPLICATION_JSON).build();
-	}
-	
-	
-	
-	*/
-	
-	
-	
-	
-	
-	
 	
 	
 	
