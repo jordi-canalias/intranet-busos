@@ -9,17 +9,17 @@
 <div class="col-md-16" >
     <div class="card card-container">
 
-        <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid " #f="ngForm" novalidate>
+        <form  #formReg="ngForm" (ngSubmit)="register(); formReg.reset()">
              <div class="input-group text-center">
                 <span class="input-group-addon"><i class="fa fa-user fa-1x"></i></span>
-                 <input  type="text" class="form-control" placeholder ="Nombre de usuario" name="username" [(ngModel)]="form.username" required 
-                    minlength="3" maxlength="20" #username="ngModel" /> 
-                <div class="alert-danger" *ngIf="f.submitted && username.invalid">
-                    <div *ngIf="username.errors.required">Es obligatorio poner el nombre de usuario</div>
-                    <div *ngIf="username.errors.minlength">
+                 <input  type="text" class="form-control" placeholder ="Nombre de usuario" name="nombre" [(ngModel)]="nom"  pattern="[A-Za-z- ]{1,40}" required 
+                    #nombre="ngModel" /> 
+                <!-- <div class="alert-danger" *ngIf="f.submitted && nombre.invalid">
+                    <div *ngIf="nombre.errors.required">Es obligatorio poner el nombre de usuario</div>
+                    <div *ngIf="nombre.errors.minlength">
                         Nombre de usuario tiene que contener almenos 3 caracteres
                     </div>
-                </div>
+                </div> -->
             </div> 
           
             <!-- <div class="input-group text-center">
@@ -34,72 +34,81 @@
             </div>-->
             <div class="input-group text-center">
                 <span class="input-group-addon"><i class="fa fa-user fa-1x"></i></span>
-                <input  type="text" class="form-control" placeholder ="Apellidos" name="surname" [(ngModel)]="form.surname" required 
-                    minlength="2" maxlength="20" #surname="ngModel" /> 
-                <div class="alert-danger" *ngIf="f.submitted && surname.invalid">
-                    <div *ngIf="surname.errors.required">Es obligatorio poner el apellido </div>
+                <input  type="text" class="form-control" placeholder ="Apellidos" #apellido="ngModel" name="apellido" [(ngModel)]="cognoms"  
+                pattern="[A-Za-z- ]{1,40}" required  /> 
+                <!-- <div class="alert-danger" *ngIf="f.submitted && apellido.invalid">
+                    <div *ngIf="apellido.errors.required">Es obligatorio poner el apellido </div>
+                    
+                </div> -->
+            </div>
+            <div class="input-group text-center">
+                <span class="input-group-addon"><i class="fa fa-user fa-1x"></i></span>
+                <input  type="text" class="form-control" placeholder ="Fecha de entrada" name="fecha" [(ngModel)]="fecha_entrada" required 
+                    minlength="2" maxlength="20" #fecha="ngModel" /> 
+                <div class="alert-danger" *ngIf="fecha.invalid">
+                    <div *ngIf="fecha.errors.required">Es obligatorio poner la fecha de entrada </div>
                     
                 </div>
             </div>
             <div class="input-group text-center">
                 <span class="input-group-addon"><i class="fa fa-phone fa-1x"></i></span>
-                <input  type="text" class="form-control" placeholder ="Telefono" name="phone" [(ngModel)]="form.phone" required 
-                    minlength="2" maxlength="20" #phone="ngModel" /> 
-                <div class="alert-danger" *ngIf="f.submitted && phone.invalid">
-                    <div *ngIf="phone.errors.required">Es obligatorio poner el telefono </div>
+                <input  type="text" class="form-control" placeholder ="Telefono" name="telefono" [(ngModel)]="telefon" required 
+                    minlength="2" maxlength="20" #telefono="ngModel" /> 
+                <div class="alert-danger" *ngIf=" telefono.invalid">
+                    <div *ngIf="telefono.errors.required">Es obligatorio poner el telefono </div>
                     
                 </div>
             </div>
-            <!-- <div class="input-group text-center">
+            <div class="input-group text-center">
                 <span class="input-group-addon"><i class="fa fa-user-tie fa-1x"></i></span>
-                <input  type="text" class="form-control" placeholder ="Función (chofer,guia,oficionista)" name="role" [(ngModel)]="form.role" required 
-                    minlength="2" maxlength="20" #role="ngModel" /> 
-                <div class="alert-danger" *ngIf="f.submitted && role.invalid">
-                    <div *ngIf="role.errors.required">Es obligatorio poner la función </div>
+                <input  type="text" class="form-control" placeholder ="Función (chofer,guia,gestor)" name="funcion" [(ngModel)]="funcio" required 
+                    minlength="4" maxlength="6" #funcion="ngModel" /> 
+                <div class="alert-danger" *ngIf=" funcion.invalid">
+                    <div *ngIf="funcion.errors.required">Es obligatorio poner la función </div>
                     
                 </div>
-            </div> -->
-            <div class="form-group">
+            </div>
+            <!-- <div class="form-group">
                 <label for="funcionSelect">Función</label>
-                <select class="form-control" id="funcionSelect" >
+                <select class="form-control" id="funcionSelect"  >
                   <option value="chofer">Chofer</option>
                   <option value="guia">Guia</option>
                   <option value="oficionista">Oficionista</option>            
-                </select>
+                </select>              
        
-              </div>
+              </div> -->
             <div class="input-group text-center">
                 <span class="input-group-addon"><i class="fa fa-envelope fa-1x"></i></span>
-                <input type="email" class="form-control" placeholder ="Correo electronico" name="email" [(ngModel)]="form.email" required email
+                <input type="email" class="form-control" placeholder ="Correo electronico" name="email" [(ngModel)]="correu_electronic" required email
                     #email="ngModel" />
-                <div class="alert-danger" *ngIf="f.submitted && email.invalid">
+                <div class="alert-danger" *ngIf="email.invalid">
                     <div *ngIf="email.errors.required">Es obligatorio poner el correo electronico </div>
 
                 </div>
             </div>
             <div class="input-group text-center">
                 <span class="input-group-addon"><i class="fa fa-key fa-1x"></i></span>
-                <input type="password" class="form-control" placeholder ="Contraseña" name="password" [(ngModel)]="form.password" required
-                    minlength="6" #password="ngModel" />
-                <div class="alert-danger" *ngIf="f.submitted && password.invalid">
-                    <div *ngIf="password.errors.required">Es obligatorio poner la Contraseña</div>
-                    <div *ngIf="password.errors.minlength">
+                <input type="password" class="form-control" placeholder ="Contraseña" name="pass" [(ngModel)]="contrasenya" required
+                    minlength="6" #pass="ngModel" />
+                <div class="alert-danger" *ngIf="pass.invalid">
+                    <div *ngIf="pass.errors.required">Es obligatorio poner la Contraseña</div>
+                    <div *ngIf="pass.errors.minlength">
                         Contraseña tiene que tener almenos 6 caracteres
                     </div>
                 </div>
             </div>
             <div class="form-group text-center">
-                <button type="submit" (click)="register()" class="btn btn-primary btn-block">Registrarse</button>
+                <button type="submit" [disabled]="!formReg.form.valid "  class="btn btn-primary btn-block">Registrarse</button>
             </div>
 
-            <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+            <!-- <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
                 No se ha podido registrar<br />{{ errorMessage }}
-            </div>
+            </div> -->
         </form>
 
-        <div class="alert alert-success" *ngIf="isSuccessful">
+        <!-- <div class="alert alert-success" *ngIf="isSuccessful">
             Ud se ha registrado correctamente
-        </div>
+        </div> -->
     </div>
 </div>
 <div class="footer">

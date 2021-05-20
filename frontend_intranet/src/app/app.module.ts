@@ -15,6 +15,7 @@ import { ForumComponent } from './forum/forum.component';
 import { RutaComponent } from './ruta/ruta.component';
 import { LineaComponent } from './linea/linea.component';
 import { ParadaComponent } from './parada/parada.component';
+import { AssignmentComponent } from './assignment/assignment.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { ParadaComponent } from './parada/parada.component';
     RutaComponent,
     LineaComponent,
     ParadaComponent,
+    AssignmentComponent,
     
   ],
   imports: [

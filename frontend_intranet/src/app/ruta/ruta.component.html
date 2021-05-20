@@ -1,7 +1,7 @@
 <div class="topnav">
-    <img id="logo"[src]="'assets/img/autobusLOGO.png'"/>
-    <a class="fa fa-home fa-2x" routerLink="/landing">Home</a>  
-    <a class="fa fa-user-circle fa-2x" routerLink="/profile">Perfil</a>  
+    <a id="logoHome" routerLink="/landing"> <img id="logo"[src]="'assets/img/autobusLOGO.png'"/></a>
+    <a  routerLink="/profile"><i class="fa fa-user-circle fa-2x"></i>Perfil</a> 
+    <a *ngIf="logged==true" href style="float:right" (click)="logout()">Cerrar sesión</a> 
 </div>
 
 <div class="container">
@@ -27,126 +27,45 @@
                                 <label for="selectAll"></label>
                             </span>
                         </th>
+                        <th>Id ruta</th>
                         <th>Nombre</th>
                         <th>Turistico/Transporte</th>
                         <th>Recogida</th>
                         <th>Destinación</th>
                         <th>Información</th>
-                        <th>Chofer asignado</th>
-                        <th>Bus asignado</th>
+                        <!-- <th>Chofer asignado</th>
+                        <th>Bus asignado</th> -->
                         <th>Guía asignado</th>
-                        <th>Paradas</th>
+                        <th>Cliente</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr *ngFor="let r of rutasList;index as i" >
                         <td>
                             <span class="custom-checkbox">
                                 <input type="checkbox" id="checkbox1" name="options[]" value="1">
                                 <label for="checkbox1"></label>
                             </span>
                         </td>
-                        <td>Thomas Hardy</td>
-                        <td>thomashardy@mail.com</td>
-                        <td>89 Chiaroscuro Rd, Portland, USA</td>
-                        <td>(171) 555-2222</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>?</td>
+                        <td>{{r.id_ruta}} </td>
+                        <td>{{r.nom}} </td>
+                        <td>{{r.caracter}}</td>
+                        <td>{{r.recollida}}</td>
+                        <td>{{r.destinacio}}</td>       
+                        <td>{{r.informacion}}</td>
+                        <td>{{r.guia_asignat}}</td>
+                        
+                        <td>{{r.client}}</td>
+
                         <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
+                            <a href="#editEmployeeModal" (click)="selRemRuta(r.id_ruta)" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
+                            <a href="#deleteEmployeeModal" (click)="selRemRuta(r.id_ruta)"  class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox2" name="options[]" value="1">
-                                <label for="checkbox2"></label>
-                            </span>
-                        </td>
-                        <td>Dominique Perrier</td>
-                        <td>dominiqueperrier@mail.com</td>
-                        <td>Obere Str. 57, Berlin, Germany</td>
-                        <td>(313) 555-5735</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox3" name="options[]" value="1">
-                                <label for="checkbox3"></label>
-                            </span>
-                        </td>
-                        <td>Maria Anders</td>
-                        <td>mariaanders@mail.com</td>
-                        <td>25, rue Lauriston, Paris, France</td>
-                        <td>(503) 555-9931</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox4" name="options[]" value="1">
-                                <label for="checkbox4"></label>
-                            </span>
-                        </td>
-                        <td>Fran Wilson</td>
-                        <td>franwilson@mail.com</td>
-                        <td>C/ Araquil, 67, Madrid, Spain</td>
-                        <td>(204) 619-5731</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                        </td>
-                    </tr>					
-                    <tr>
-                        <td>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox5" name="options[]" value="1">
-                                <label for="checkbox5"></label>
-                            </span>
-                        </td>
-                        <td>Martin Blank</td>
-                        <td>martinblank@mail.com</td>
-                        <td>Via Monte Bianco 34, Turin, Italy</td>
-                        <td>(480) 631-2097</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>?</td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Borrar">&#xE872;</i></a>
-                        </td>
-                    </tr> 
+                  
                 </tbody>
             </table>
-            <div class="clearfix">
+            <!-- <div class="clearfix">
                 <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
                 <ul class="pagination">
                     <li class="page-item disabled"><a href="#">Previous</a></li>
@@ -157,7 +76,7 @@
                     <li class="page-item"><a href="#" class="page-link">5</a></li>
                     <li class="page-item"><a href="#" class="page-link">Next</a></li>
                 </ul>
-            </div>
+            </div> -->
         </div>
     </div>        
 </div>
@@ -165,7 +84,7 @@
 <div id="addEmployeeModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form>
+            <form name="form"  #f="ngForm">
                 <div class="modal-header">						
                     <h4 class="modal-title">Añadir ruta</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -173,24 +92,36 @@
                 <div class="modal-body">					
                     <div class="form-group">
                         <label>Nombre</label>
-                        <input type="text" class="form-control" required>
+                        <input type="text" class="form-control" name="nombre" [(ngModel)]="nom" required #nombre="ngModel">
                     </div>
                     <div class="form-group">
                         <label>Turistico/Transporte</label>
-                        <input type="text" class="form-control" required>
+                        <input type="text" class="form-control" name="caractero" [(ngModel)]="caracter" required #caractero="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label>Cliente</label>
+                        <input type="text" class="form-control" name="cliente" [(ngModel)]="client" required #cliente="ngModel">
                     </div>
                     <div class="form-group">
                         <label>Recogida</label>
-                        <textarea class="form-control" required></textarea>
+                        <input type="text" class="form-control" name="recogida" [(ngModel)]="recollida" required #recogida="ngModel">
                     </div>
                     <div class="form-group">
                         <label>Destinacion</label>
-                        <input type="text" class="form-control" required>
+                        <input type="text" class="form-control" name="dest" [(ngModel)]="destinacio" required #dest="ngModel">
+                    </div>					
+                    <div class="form-group">
+                        <label>Información</label>
+                        <input type="text" class="form-control" name="info" [(ngModel)]="informacion" required #info="ngModel">
+                    </div>					
+                    <div class="form-group">
+                        <label>Guia asignado</label>
+                        <input type="text" class="form-control" name="guia_asignado" [(ngModel)]="guia_asignat" required #guia_asignado="ngModel">
                     </div>					
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                    <input type="submit" class="btn btn-success" value="Añadir">
+                    <input type="submit" (click)="addRuta()" class="btn btn-success" value="Añadir">
                 </div>
             </form>
         </div>
@@ -208,31 +139,43 @@
                 <div class="modal-body">					
                     <div class="form-group">
                         <label>Nombre</label>
-                        <input type="text" class="form-control" required>
+                        <input type="text" class="form-control" name="nombre" [(ngModel)]="nom" #nombre="ngModel"required>
                     </div>
                     <div class="form-group">
                         <label>Turistico/Transporte</label>
-                        <input type="text" class="form-control" required>
+                        <input type="text" class="form-control" name="caractero" [(ngModel)]="caracter" #caractero="ngModel" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Cliente</label>
+                        <input type="text" class="form-control" name="cliente" [(ngModel)]="client" required #cliente="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label>Recogida</label>
+                        <input type="text" class="form-control" name="recogida" [(ngModel)]="recollida" required #recogida="ngModel">
                     </div>
                     <div class="form-group">
                         <label>Destinacion</label>
-                        <textarea class="form-control" required></textarea>
+                        <input type="text" class="form-control" name="dest" [(ngModel)]="destinacio" #dest="ngModel" required>
                     </div>
                     <div class="form-group">
                         <label>Información</label>
-                        <input type="text" class="form-control" required>
+                        <input type="text" class="form-control" name="info" [(ngModel)]="informacion" required #info="ngModel">
+                    </div>		
+                    <div class="form-group">
+                        <label>Guia asignado</label>
+                        <input type="text" class="form-control" name="guia_asignado" [(ngModel)]="guia_asignat" #guia_asignado="ngModel" required>
                     </div>					
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                    <input type="submit" class="btn btn-info" value="Guardar">
+                    <input type="submit" (click)="editRuta()" class="btn btn-info" value="Guardar">
                 </div>
             </form>
         </div>
     </div>
 </div>
 <!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
+<div id="deleteEmployeeModal" class="modal fade" >
     <div class="modal-dialog">
         <div class="modal-content">
             <form>
@@ -246,7 +189,7 @@
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                    <input type="submit" class="btn btn-danger" value="Borrar">
+                    <input type="submit"  class="btn btn-danger" value="Borrar" (click)="remRutaSel()" >
                 </div>
             </form>
         </div>

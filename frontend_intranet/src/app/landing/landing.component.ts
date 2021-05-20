@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../_services/user';
 
 
 @Component({
@@ -7,23 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
-  isLoggedIn = false;
-  username: string;
-
-  
+ 
+  user: User;
+  logged: boolean;
   constructor() { }
 
   ngOnInit(): void {
-    // this.isLoggedIn = !!this.tokenStorageService.getToken();
-
-    // if (this.isLoggedIn) {
-    //   const user = this.tokenStorageService.getUser();
-    //   this.username = user.username;
-    // }
+    if (localStorage.getItem("token") == null) {
+      this.logged = false;
+    } else {
+      this.logged = true;
+    }
 
   }
   logout(): void {
-    // this.tokenStorageService.signOut();
+    localStorage.removeItem("token");
     window.location.reload();
   }
 }

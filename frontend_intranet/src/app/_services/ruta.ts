@@ -1,28 +1,31 @@
 export class Ruta {
-    nombre: string = "";
+    id_ruta:number;
+    nom: string = "";
     caracter: string = "";
-    cliente: string = "";
-    recogida: string = "";
-    dest: string = "";
-    info: string = "";
-    guia_asignado: string = "";
+    client: string = "";
+    recollida: string = "";
+    destinacio: string = "";
+    informacion: string = "";
+    guia_asignat: string = "";
 
 
     constructor(
-        nombre: string = "",
+        id_ruta:number,
+        nom: string = "",
         caracter: string = "",
-        recogida: string = "",
-        dest: string = "",
-        info: string = "",
-        cliente: string = "",
-        guia_asignado: string = "",
+        recollida: string = "",
+        destinacio: string = "",
+        informacion: string = "",
+        client: string = "",
+        guia_asignat: string = "",
     ){
-        this.nombre=nombre;
+        this.id_ruta=id_ruta;
+        this.nom=nom;
         this.caracter=caracter;
-        this.cliente=cliente;
-        this.dest=dest;
-        this.guia_asignado=guia_asignado;
-        this.info=info;
-        this.recogida=recogida;
+        this.client=client;
+        this.destinacio=destinacio;
+        this.guia_asignat=guia_asignat;
+        this.informacion=informacion;
+        this.recollida=recollida;
     }
 }

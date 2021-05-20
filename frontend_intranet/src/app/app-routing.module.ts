@@ -8,6 +8,7 @@ import { ForumComponent } from './forum/forum.component';
 import { RutaComponent } from './ruta/ruta.component';
 import { ParadaComponent } from './parada/parada.component';
 import { LineaComponent } from './linea/linea.component';
+import { AssignmentComponent } from './assignment/assignment.component';
 
 
 const routes: Routes = [
@@ -18,8 +19,13 @@ const routes: Routes = [
   {path:'profile',component:ProfileComponent},
   {path:'forum',component:ForumComponent},
   {path:'ruta',component:RutaComponent},
+  {path:'ruta/:id',component:RutaComponent},
   {path:'linea',component:LineaComponent},
+  {path:'linea/:id',component:LineaComponent},
   {path:'parada',component:ParadaComponent},
+  {path:'assignment',component:AssignmentComponent},
+  {path:'assignment/:id',component:AssignmentComponent},
+  {path:'**',component:LandingComponent},
   
 ];
 

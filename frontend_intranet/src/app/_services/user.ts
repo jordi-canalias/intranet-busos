@@ -1,27 +1,33 @@
 export class User {
-    username: string = "";
-    surname: string = "";
-    funcion: string = "";
-    phone: string = "";
-    email: string = "";
+    id_usuari:number;
+    nom: string = "";
+    cognoms: string = "";
+    funcio: string = "";
+    fecha_entrada: string = "";
+    telefon: string = "";
+    correu_electronic: string = "";
     permisos: string = "";
-    pass: string = "";
+    contrasenya: string = "";
 
 
     constructor(
-        username: string = "",
-        surname: string = "",
-        pass: string = "",
-        funcion: string = "",
-        phone: string = "",
-        email: string = "",
+        id_usuari:number,
+        nom: string = "",
+        cognoms: string = "",
+        contrasenya: string = "",
+        funcio: string = "",
+        telefon:string = "",
+        correu_electronic: string = "",
+        fecha_entrada: string = "",
         permisos: string = "") {
-        this.username = username;
-        this.pass = pass;
-        this.surname=surname;
-        this.email=email;
-        this.funcion=funcion;
+            this.id_usuari=id_usuari;
+        this.nom = nom;
+        this.contrasenya = contrasenya;
+        this.cognoms=cognoms;
+        this.correu_electronic=correu_electronic;
+        this.funcio=funcio;
         this.permisos=permisos;
-        this.phone=phone;
+        this.telefon=telefon;
+        this.fecha_entrada=fecha_entrada;
     }
 }

@@ -17,26 +17,25 @@ export class RutaService {
     
     }
     postRuta(newRuta: Ruta): Observable<any> {
-      let formData: FormData = new FormData();
-      formData.append('nombre', newRuta.nombre);
-      formData.append('caracter', newRuta.caracter);
-      formData.append('cliente', newRuta.cliente);
-      formData.append('recogida', newRuta.recogida);
-      formData.append('dest', newRuta.dest);
-      formData.append('info', newRuta.info);
-      formData.append('guia_asignado', newRuta.guia_asignado);
-      return this.http.post("http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/rutas",formData);
+      
+      let url="http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/rutas";
+      
+      return this.http.post(url,newRuta,{ headers: new HttpHeaders({ 'Content-Type': 'application/json' })  });
     }
-    updateRuta(updateRuta: Ruta): Observable<any> {
-      let formData: FormData = new FormData();
-      formData.append('nombre', updateRuta.nombre);
-      formData.append('caracter', updateRuta.caracter);
-      formData.append('cliente', updateRuta.cliente);
-      formData.append('recogida', updateRuta.recogida);
-      formData.append('dest', updateRuta.dest);
-      formData.append('info', updateRuta.info);
-      formData.append('guia_asignado', updateRuta.guia_asignado);
-      return this.http.put("http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/rutas",formData);
+    updateRuta(id:number,updateRuta: Ruta): Observable<any> {
+      let url="http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/rutas/actualitza/"+id;
+      return this.http.put(url,updateRuta,{ headers: new HttpHeaders({ 'Content-Type': 'application/json' })  });
     }
+
+    deleteRuta(id:number):Observable<any>{
+      let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/rutas/delete/"+id;
+      return this.http.delete( url,  { headers: new HttpHeaders({ 'Content-Type': 'application/json' })  } );
+    
+    }
+
+    getRutaById(id:number):Observable<any>{
+      let url= "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/rutas/"+id;
+      return this.http.get(url,   { headers: new HttpHeaders({ 'Content-Type': 'application/json' })  } );
+  }
   }
 

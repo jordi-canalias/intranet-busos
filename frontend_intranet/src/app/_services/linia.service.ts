@@ -8,29 +8,31 @@ import { Linia } from './linia';
 })
 export class LiniaService {
 
-  constructor(private http:HttpClient) {}
-  public linias:Array<Linia>=[];
- 
-  getLinias():Observable<any>{
+  constructor(private http: HttpClient) { }
+  public linias: Array<Linia> = [];
+
+  getLinias(): Observable<any> {
     let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/linias";
-    return this.http.get( url,  { headers: new HttpHeaders({ 'Content-Type': 'application/json' })  } );
+    return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
+  getLiniaByName(nom: string): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/linias/nom/" + nom;
+    return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
+  getLiniaById(id: number): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/linias/" + id;
+    return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
+  deleteLinia(id: number): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/linias/delete/" + id;
+    return this.http.delete(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }
   postLinia(newLinia: Linia): Observable<any> {
-    let formData: FormData = new FormData();
-    formData.append('nombre', newLinia.nombre);
-    formData.append('hora_inicio', newLinia.hora_inicio);
-    formData.append('hora_final', newLinia.hora_final);
-    formData.append('info', newLinia.info);
-    formData.append('bus_asignado', newLinia.bus_asignado);
-    return this.http.post("http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/linias",formData);
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/linias";
+    return this.http.post(url, newLinia, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }
-  updateLinia(updateLinia: Linia): Observable<any> {
-    let formData: FormData = new FormData();
-    formData.append('nombre', updateLinia.nombre);
-    formData.append('hora_inicio', updateLinia.hora_inicio);
-    formData.append('hora_final', updateLinia.hora_final);
-    formData.append('info', updateLinia.info);
-    formData.append('bus_asignado', updateLinia.bus_asignado);
-    return this.http.put("http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/linias",formData);
+  updateLinia(id:number,updateLinia: Linia): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/linias/actualitza/"+id;
+    return this.http.put(url, updateLinia, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }
 }

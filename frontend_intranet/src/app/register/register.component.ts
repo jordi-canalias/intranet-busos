@@ -10,49 +10,47 @@ import { User } from '../_services/user';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  user:User=new User();
-  username="";
-  surname="";
-  phone="";
-  email="";
-  pass="";
+  user: User;
+  nom = "";
+  cognoms = "";
+  funcio = "";
+  fecha_entrada = "";
+  telefon = "";
+  correu_electronic = "";
+  contrasenya = "";
+  permisos="";
 
-  form: any = {};
-  isSuccessful = false;
-  isSignUpFailed = false;
-  errorMessage = '';
-  constructor(public userService: UserService,private _router: Router) { }
+  constructor(public userService: UserService, private _router: Router) { }
 
   ngOnInit(): void {
   }
 
+  // checkUser() {
+  //   this.userService.getUserByName(this.nom)
+  //     .subscribe(
+  //       (result) => {
+  //         if (result == false) {
+  //           this.register();
+  //         }
+  //       },
+  //       (error) => { console.log(error); }
+  //     );
+  // }
+
   register() {
-    let newUser:User=new User(this.username,this.pass,this.email,this.phone,this.surname);
-    this.userService.postUser(newUser).subscribe(
+    this.user = new User(0, this.nom, this.cognoms, this.contrasenya, this.funcio, this.telefon, this.correu_electronic, this.fecha_entrada);
+    this.userService.postUser(this.user).subscribe(
       (result) => {
         console.log(result);
         console.log(result.estado);
-        this._router.navigate(['/profile']);
+        this._router.navigate(['/landing']);
       },
       (error) => {
         console.log(error);
       }
     );
-}
-  // onSubmit(): void {
-  //   this.authService.register(this.form).subscribe(
-  //     data => {
-  //       console.log(data);
-  //       this.isSuccessful = true;
-  //       this.isSignUpFailed = false;
-  //       this._router.navigate(['/landing']);
-  //     },
-  //     err => {
-  //       this.errorMessage = err.error.message;
-  //       this.isSignUpFailed = true;
-  //     }
-  //   );
-  // }
+  }
+
 
 
 }
