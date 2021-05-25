@@ -5,6 +5,12 @@ public class ConstantsApi {
 	public static final String USER_CONNECTION = "root"; 
 	public static final String PASS_CONNECTION = "Patata"; 
 	
+	
+	
+	//Secret key para encriptar y desencriptar
+	
+	public static final String SECRETKEY = "Java>Python";
+	
 	//Queries de Barrio
 	public static final String REINICIAR_BARRIO_INQUILINOS = "REMOVE * FROM daw2tp2.inquilino WHERE casa = ?";
 	public static final String REINICIAR_BARRIO_CASAS = "REMOVE * FROM daw2tp2.casa WHERE barrio = ?";

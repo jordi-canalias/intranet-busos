@@ -886,7 +886,7 @@ public class DatabaseDao {
 			String fecha_entrada = dtf.format(now);
 			String telefon = us.getTelefon();
 			String correuElectronic  = us.getCorreu_electronic();
-			String permisos = us.getPermisos();
+			String permisos = "0";
 			String contrasenya = us.getContrasenya();
 			
 			//el nom repetit es comproba a part
@@ -2146,16 +2146,29 @@ public class DatabaseDao {
 			
 		
 		
+			 
+			     
+			   
 		
-		
-	/*
 	
+
 	public static void main(String[] args) {
 		
-		Linia linia = new Linia(0,"","","","","");
-		setLinia(linia);
+		final String secretKey = "MEENCANTASISTEMAS";
+	     
+	    String originalString = "howtodoinjava.com";
+	    //Encripta
+	    String encryptedString = AES.encrypt(originalString, ConstantsApi.SECRETKEY) ;
+	    
+	    //Desencripta
+	    String decryptedString = AES.decrypt(encryptedString, secretKey) ;
+		
+		 System.out.println(originalString);
+		    System.out.println(encryptedString);
+		    System.out.println(decryptedString);
+		
     }
-	*/
+	
 	
 	/*
 	 * 
