@@ -13,33 +13,56 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  getAllUsers(): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris";
+    return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
+
   postUser(newUser: User): Observable<any> {
-    let url="http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/registra";
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/registra";
     return this.http.post(url, newUser);
   }
 
-  updateUser(nom: String,user:User): Observable<any> {
-    let url="http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/actualitza/"+nom;
-    return this.http.put(url, user,{ headers: new HttpHeaders({ 'Content-Type': 'application/json' })  });
-  }
-  loginUser(user:User): Observable<any> {
-    let url="http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/login";
-    return this.http.put(url, user,{ headers: new HttpHeaders({ 'Content-Type': 'application/json' })  } );
+  updateUser(nom: String, user: User): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/actualitza/" + nom;
+    return this.http.put(url, user, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }
 
-  getUserById(id:number):Observable<any>{
-    let url= "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/id/"+id;
-    return this.http.get(url,{ headers: new HttpHeaders({ 'Content-Type': 'application/json' })  } );
-}
-  checkNombre(nom:string):Observable<any>{
-    let url= "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/comprobaNom/"+nom;
-    return this.http.get(url,{ headers: new HttpHeaders({ 'Content-Type': 'application/json' })  } );
-}
-  getUserByName(nom:string):Observable<any>{
-    let url= "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/nombre/"+nom;
+  loginUser(user: User): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/login";
+    return this.http.put(url, user, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
+
+  getUserById(id: number): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/id/" + id;
+    return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
+
+  checkNombre(nom: string): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/comprobaNom/" + nom;
+    return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
+
+  checkPermisos(nom: string): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/comprobaPermisos/" + nom;
+    return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
+
+  darPermisos(nom: string): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/donarPermisos/" + nom;
+    return this.http.put(url, nom, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
+
+  updatePermisos(nom: string): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/treurePermisos/" + nom;
+    return this.http.put(url, nom, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
+
+  getUserByName(nom: string): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/nombre/" + nom;
     console.log(nom);
-    return this.http.get(url,{ headers: new HttpHeaders({ 'Content-Type': 'application/json' })  } );
-}
+    return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
 
 
   generateHeaders() {

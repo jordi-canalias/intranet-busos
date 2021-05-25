@@ -16,6 +16,7 @@ import { RutaComponent } from './ruta/ruta.component';
 import { LineaComponent } from './linea/linea.component';
 import { ParadaComponent } from './parada/parada.component';
 import { AssignmentComponent } from './assignment/assignment.component';
+import { PermisosMenuComponent } from './permisos-menu/permisos-menu.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { AssignmentComponent } from './assignment/assignment.component';
     LineaComponent,
     ParadaComponent,
     AssignmentComponent,
+    PermisosMenuComponent,
     
   ],
   imports: [

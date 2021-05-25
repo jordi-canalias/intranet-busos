@@ -11,7 +11,7 @@
         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-wrench fa-2x"></i> Herramientas
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <!-- <li><a class="fa fa-pencil-square-o" href="#">Actualizar perfil</a></li> -->
+          <li><a *ngIf="isAdmin==true" routerLink="/permisos-menu">Cambiar permisos</a></li>
           <li><a routerLink="/ruta">Rutas</a></li>
           <li><a routerLink="/linea">Lineas</a></li>
           <li><a routerLink="/assignment">Asignaciones</a></li>
@@ -23,6 +23,7 @@
     </ul>
   </div>
 </nav>
+
 
 <table class="container" *ngIf="logged==true" >
    

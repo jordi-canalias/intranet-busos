@@ -9,7 +9,7 @@
 <div class="col-md-16" >
     <div class="card card-container">
 
-        <form  #formReg="ngForm" (ngSubmit)="register(); formReg.reset()">
+        <form   #formReg="ngForm" (ngSubmit)="checkUser(); formReg.reset()">
              <div class="input-group text-center">
                 <span class="input-group-addon"><i class="fa fa-user fa-1x"></i></span>
                  <input  type="text" class="form-control" placeholder ="Nombre de usuario" name="nombre" [(ngModel)]="nom"  pattern="[A-Za-z- ]{1,40}" required 
@@ -99,6 +99,9 @@
             </div>
             <div class="form-group text-center">
                 <button type="submit" [disabled]="!formReg.form.valid "  class="btn btn-primary btn-block">Registrarse</button>
+            </div>
+            <div class="form-group">
+                <div class="alert alert-danger" id="error" role="alert" ></div>
             </div>
 
             <!-- <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">

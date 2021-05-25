@@ -18,24 +18,28 @@ export class RegisterComponent implements OnInit {
   telefon = "";
   correu_electronic = "";
   contrasenya = "";
-  permisos="";
+  permisos = "";
+  logged:boolean;
 
   constructor(public userService: UserService, private _router: Router) { }
 
   ngOnInit(): void {
   }
 
-  // checkUser() {
-  //   this.userService.getUserByName(this.nom)
-  //     .subscribe(
-  //       (result) => {
-  //         if (result == false) {
-  //           this.register();
-  //         }
-  //       },
-  //       (error) => { console.log(error); }
-  //     );
-  // }
+  checkUser() {
+    this.userService.checkNombre(this.nom)
+      .subscribe(
+        (result) => {
+          if (result == false) {
+            this.register();
+          }
+        },
+        (error) => {
+          console.log(error);
+          document.getElementById("error").innerHTML = "Este nombre de usuario ya existe.";
+        }
+      );
+  }
 
   register() {
     this.user = new User(0, this.nom, this.cognoms, this.contrasenya, this.funcio, this.telefon, this.correu_electronic, this.fecha_entrada);

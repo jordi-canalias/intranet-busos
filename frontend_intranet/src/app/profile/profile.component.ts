@@ -20,7 +20,9 @@ export class ProfileComponent implements OnInit {
   telefon = "";
   correu_electronic = "";
   contrasenya = "";
+  permisos="";
   logged: boolean;
+  isAdmin:boolean;
 
   constructor(public userService: UserService, private _router: Router) { }
 
@@ -43,9 +45,22 @@ export class ProfileComponent implements OnInit {
         }
       );
     }
-  }
-
-
+    
+      this.userService.checkPermisos( localStorage.getItem("user")).subscribe(
+        (resp) => {
+          console.log(resp);
+          if(resp==0){
+            this.isAdmin=false;
+          }else{
+            this.isAdmin=true;
+          }
+          console.log(resp);
+        }, (error) => {
+          console.log(error);
+        }
+      );
+      }
+  
 
   editUser() {
     // this.nom = JSON.parse(JSON.stringify(this.user.nom));

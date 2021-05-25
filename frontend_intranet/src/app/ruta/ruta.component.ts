@@ -10,8 +10,8 @@ import { RutaService } from './../_services/ruta.service';
 })
 export class RutaComponent implements OnInit {
   rutasList: Array<Ruta> = [];
-ruta:Ruta;
-rutaAux:Ruta;
+  ruta: Ruta;
+  rutaAux: Ruta;
   id_ruta = 0;
   nom = "";
   caracter = "";
@@ -29,7 +29,9 @@ rutaAux:Ruta;
   ngOnInit(): void {
     if (localStorage.getItem("token") == null) {
       this.logged = false;
-    } else { this.logged = true; }
+    } else {
+    this.logged = true;
+    }
 
     this._rutaService.getRutas()
       .subscribe(
@@ -49,12 +51,12 @@ rutaAux:Ruta;
         console.log(error);
       });
   }
-idRutaDel=0;
+  idRutaDel = 0;
   selRemRuta(id) {
     console.log(id);
-    this.idRutaDel=id;
+    this.idRutaDel = id;
   }
-  remRutaSel(){
+  remRutaSel() {
     this._rutaService.deleteRuta(this.idRutaDel).subscribe(
       (resp) => {
         console.log(resp);
@@ -65,19 +67,19 @@ idRutaDel=0;
       });
   }
 
-  editRuta(){
+  editRuta() {
     // this.idRutaDel = this.ruta.id_ruta; 
     this._rutaService.updateRuta(this.idRutaDel, new Ruta(0, this.nom, this.caracter, this.recollida, this.destinacio, this.informacion, this.client, this.guia_asignat)).subscribe(
-     
-        (resp) => {
-          
-           console.log(resp);
-           window.location.href = "/ruta/" + this.idRutaDel;
-        }, (error) => {
-            console.log(error);
-        }
+
+      (resp) => {
+
+        console.log(resp);
+        window.location.href = "/ruta/" + this.idRutaDel;
+      }, (error) => {
+        console.log(error);
+      }
     );
-}
+  }
 
   logout() {
     localStorage.removeItem("token");

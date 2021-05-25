@@ -7,8 +7,8 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./API_Autobusos/target/api_autobusos.war:/usr/local/tomcat/webapps/api_autobusos.war
-      - ./API_Autobusos/target/autobusos:/usr/local/tomcat/webapps/autobusos
+      - ./intranet-busos/API_Autobusos/target/api_autobusos.war:/usr/local/tomcat/webapps/api_autobusos.war
+      - ./intranet-busos/API_Autobusos/target/autobusos:/usr/local/tomcat/webapps/autobusos
     links: 
       - api_autobusos_db
 
@@ -16,7 +16,7 @@ services:
     image: nginx:latest
     container_name: 'autobusos_angular'
     volumes: 
-      - ./frontend_intranet/dist/intranet:/usr/share/nginx/html
+      - ./intranet-busos/frontend_intranet/dist/intranet:/usr/share/nginx/html
     ports: 
       - 84:80
     
