@@ -62,4 +62,11 @@ public class AES {
         }
         return null;
     }
+    
+    
+    /*
+     * 
+     * Clase para encriptar contras
+     * 
+     */
 }
