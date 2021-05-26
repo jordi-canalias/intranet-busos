@@ -1035,7 +1035,7 @@ public class DatabaseDao {
 		public void donaPermisos(String nomUsuari) {
 
 		
-		String query = "UPDATE autobusos.usuaris  permisos='1' WHERE nom='"+nomUsuari+"'";
+		String query = "UPDATE autobusos.usuaris SET permisos='1' WHERE nom='"+nomUsuari+"'";
 		
 		try {
 			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
@@ -1060,7 +1060,7 @@ public class DatabaseDao {
 		public void treurePermisos(String nomUsuari) {
 
 			
-			String query = "UPDATE autobusos.usuaris  permisos='0' WHERE nom='"+nomUsuari+"'";
+			String query = "UPDATE autobusos.usuaris SET permisos='0' WHERE nom='"+nomUsuari+"'";
 			
 			try {
 				Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
