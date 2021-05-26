@@ -20,6 +20,7 @@ export class RutaComponent implements OnInit {
   destinacio = "";
   informacion = "";
   guia_asignat = "";
+  permisos="";
   logged: boolean;
 
   constructor(private _route: Router,
@@ -68,13 +69,12 @@ export class RutaComponent implements OnInit {
   }
 
   editRuta() {
-    // this.idRutaDel = this.ruta.id_ruta; 
     this._rutaService.updateRuta(this.idRutaDel, new Ruta(0, this.nom, this.caracter, this.recollida, this.destinacio, this.informacion, this.client, this.guia_asignat)).subscribe(
 
       (resp) => {
 
         console.log(resp);
-        window.location.href = "/ruta/" + this.idRutaDel;
+        window.location.reload();
       }, (error) => {
         console.log(error);
       }

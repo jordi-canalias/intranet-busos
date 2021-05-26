@@ -2,14 +2,15 @@
     <a id="logoHome" routerLink="/landing"> <img id="logo"[src]="'assets/img/autobusLOGO.png'"/></a>
     <a  routerLink="/profile"><i class="fa fa-user-circle fa-2x"></i>Perfil</a>  
     <a *ngIf="logged==true"  href style="float:right" (click)="logout()">Cerrar sesión</a> 
-      <!-- <a class="fa fa-user-circle fa-2x" *ngIf="isLoggedIn"  routerLink="/profile">{{username}}</a>
-      <a class="fa fa-sign-out fa-2x" *ngIf="isLoggedIn" href style="float:right" (click)="logout()">Cerrar sesión</a> -->
     </div>
 
     
     <table class="container" >
         <h2>Calendario</h2>
         <tr>             
+            <th>
+                <h1>Id asignación</h1>
+            </th>          
             <th>
                 <h1>ID linia de ruta</h1>
             </th>
@@ -28,17 +29,18 @@
             
         </tr>
         <tr *ngFor="let a of assignList;index as i">
-            <td><a routerLink="/linia/{{a.id_liniaruta}}">{{a.id_liniaruta}}</a></td>
+            <td>{{a.id_asignacion}}</a></td>
+            <td>{{a.id_liniaruta}}</a></td>
             <td>{{a.nom}}</td>
-            <td><a routerLink="/perfil/{{a.id_usuari}}">{{a.id_usuari}}</a></td>
+            <td>{{a.id_usuari}}</a></td>
             <td>{{a.tipus}}</td>
             <td>{{a.fecha}}</td>
         </tr>
     </table>
 
-    <!-- <div  *ngIf="logged==false">
+    <div  *ngIf="logged==false">
         <h1>Por favor,logueanse</h1>   
-    </div> -->
+    </div>
     <div class="footer">
         <p>Intranet © 2021</p>
       </div>
