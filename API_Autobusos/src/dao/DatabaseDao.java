@@ -2041,7 +2041,8 @@ public class DatabaseDao {
 						
 						Paradalinia pa = new Paradalinia(rs.getInt("id_linia"),
 												  		 rs.getInt("id_parada"),
-												  		 rs.getInt("ordre"));
+												  		 rs.getInt("ordre"),
+												  		 rs.getString("hora"));
 						
 						pal.add(pa);
 
@@ -2074,7 +2075,8 @@ public class DatabaseDao {
 						
 						Paradalinia pa = new Paradalinia(rs.getInt("id_linia"),
 												  		 rs.getInt("id_parada"),
-												  		 rs.getInt("ordre"));
+												  		 rs.getInt("ordre"),
+												  		 rs.getString("hora"));
 						
 						pal.add(pa);
 
@@ -2100,10 +2102,11 @@ public class DatabaseDao {
 					 int id_linia =  pali.getId_linia();
 					 int id_parada = pali.getId_parada();
 					 int ordre = pali.getOrdre();
+					 String hora = pali.getHora();
 					 
 					 
 					PreparedStatement query = con.prepareStatement(
-							"INSERT INTO autobusos.paradalinia (id_linia, id_parada, ordre) VALUES ('"+id_linia+"', '"+id_parada+"', '"+ordre+"');");
+							"INSERT INTO autobusos.paradalinia (id_linia, id_parada, ordre, hora) VALUES ('"+id_linia+"', '"+id_parada+"', '"+ordre+"', '"+hora+"');");
 
 					query.execute();
 					con.close();

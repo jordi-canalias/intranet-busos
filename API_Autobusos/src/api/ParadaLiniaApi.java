@@ -54,14 +54,15 @@ public class ParadaLiniaApi {
 	@Path("/inserta")
 	public Response insertaParada(Paradalinia pali) {	
 		service.insertaParadaLiniaServ(pali);
-		return Response.ok("Paradalinia Insertada",MediaType.APPLICATION_JSON).build();
+		return Response.ok(pali,MediaType.APPLICATION_JSON).build();
 	}
 	
 	@DELETE
 	@Path("/delete/{id_linia}/{id_parada}")
 	public Response delete(@PathParam("id_linia") int id_linia, @PathParam("id_linia") int id_parada) {
 		service.deleteParadaLiniaServ(id_parada, id_linia);
-		return Response.ok("Esborrat correctament", MediaType.APPLICATION_JSON).build();
+		Missatge mis = new Missatge("Esborrada parada de la linia");
+		return Response.ok(mis, MediaType.APPLICATION_JSON).build();
 	}
 	
 	
