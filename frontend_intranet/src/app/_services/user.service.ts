@@ -53,7 +53,7 @@ export class UserService {
     return this.http.put(url, nom, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }
 
-  updatePermisos(nom: string): Observable<any> {
+  quitarPermisos(nom: string): Observable<any> {
     let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/treurePermisos/" + nom;
     return this.http.put(url, nom, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }

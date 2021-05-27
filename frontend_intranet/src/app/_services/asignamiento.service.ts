@@ -20,6 +20,17 @@ export class AsignamientoService {
    let url="http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/asignacions/inserta";
     return this.http.post(url,newAsign, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })  } );
   }
+
+  updateAsign(id:number,updateAsign: Asignamiento): Observable<any> {
+    let url="http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/asignacions/update/"+id;
+    return this.http.put(url,updateAsign,{ headers: new HttpHeaders({ 'Content-Type': 'application/json' })  });
+  }
+
+  deleteAsign(id:number): Observable<any> {
+    let url="http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/asignacions/delete/"+id;
+    return this.http.delete(url,{ headers: new HttpHeaders({ 'Content-Type': 'application/json' })  });
+  }
+
   getAsignById(id: number): Observable<any> {
    let url="http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/asignacions/id/"+id;
     return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })  } );
