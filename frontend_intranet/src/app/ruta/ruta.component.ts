@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Ruta } from '../_services/ruta';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RutaService } from './../_services/ruta.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-ruta',
@@ -22,10 +23,12 @@ export class RutaComponent implements OnInit {
   guia_asignat = "";
   permisos="";
   logged: boolean;
+  isAdmin:boolean;
 
   constructor(private _route: Router,
     private _actRoute: ActivatedRoute,
-    private _rutaService: RutaService) { }
+    private _rutaService: RutaService,
+    public userService: UserService) { }
 
   ngOnInit(): void {
     if (localStorage.getItem("token") == null) {
@@ -40,6 +43,19 @@ export class RutaComponent implements OnInit {
           this.rutasList = result;
         },
         (error) => { console.log(error); }
+      );
+      this.userService.checkPermisos( localStorage.getItem("user")).subscribe(
+        (resp) => {
+          console.log(resp);
+          if(resp==0){
+            this.isAdmin=false;
+          }else{
+            this.isAdmin=true;
+          }
+          console.log(resp);
+        }, (error) => {
+          console.log(error);
+        }
       );
   }
 

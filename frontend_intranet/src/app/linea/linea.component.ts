@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Linia } from '../_services/linia';
 import { LiniaService } from './../_services/linia.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-linea',
@@ -19,10 +20,12 @@ export class LineaComponent implements OnInit {
   informacion = "";
   bus_asignat = "";
   logged: boolean;
+  isAdmin:boolean;
 
   constructor(private _route: Router,
     private _actRoute: ActivatedRoute,
-    private _liniaService: LiniaService) { }
+    private _liniaService: LiniaService,
+    public userService: UserService) { }
 
   ngOnInit(): void {
     if (localStorage.getItem("token") == null) {
@@ -37,6 +40,19 @@ export class LineaComponent implements OnInit {
           this.liniasList = result;
         },
         (error) => { console.log(error); }
+      );
+      this.userService.checkPermisos( localStorage.getItem("user")).subscribe(
+        (resp) => {
+          console.log(resp);
+          if(resp==0){
+            this.isAdmin=false;
+          }else{
+            this.isAdmin=true;
+          }
+          console.log(resp);
+        }, (error) => {
+          console.log(error);
+        }
       );
   }
   addLinia() {
