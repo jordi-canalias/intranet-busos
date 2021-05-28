@@ -9,7 +9,7 @@
     
     <a  *ngIf="logged==false" routerLink="/login" style="float:right"><i class="fa fa-sign-in fa-2x"></i>Iniciar sesión</a>
    
-    <a *ngIf="logged==true" routerLink="/profile"> <i class="fa fa-user-circle fa-2x" ></i>Perfil</a>
+    <a *ngIf="logged==true" routerLink="/profile"> <i class="fa fa-user-circle fa-2x" ></i>{{user.nom}}</a>
     <a *ngIf="logged==true" href style="float:right" (click)="logout()"><i class="fa fa-sign-out fa-2x" ></i> Cerrar sesión</a>
   </div>
   <!-- <app-register></app-register> -->

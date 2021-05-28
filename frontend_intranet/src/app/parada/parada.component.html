@@ -1,111 +1,181 @@
-<!-- 
-    <div class="topnav">
-        <a routerLink="/landing" ><img id="logo"[src]="'assets/img/autobusLOGO.png'"/></a>
-        <a class="fa fa-home fa-2x" routerLink="/landing">Home</a>  
-        <a class="fa fa-user-circle fa-2x" routerLink="/profile">Perfil</a>  
-    </div>
-     <div class="container">
-        <div class="table-responsive">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <h2>Lista de paradas</h2>
-                        </div>                        
+<div class="topnav">
+    <a id="logoHome" routerLink="/landing"> <img id="logo"[src]="'assets/img/autobusLOGO.png'"/></a>
+    <a  routerLink="/profile"><i class="fa fa-user-circle fa-2x"></i>Perfil</a> 
+    <a *ngIf="logged==true" href style="float:right" (click)="logout()">Cerrar sesión</a> 
+</div>
+
+<div class="container">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h2>Listado de paradas</h2>
+                    </div>
+                    <div class="col-xs-6">
+                        <a *ngIf="isAdmin==true" href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus"></i> <span>Añadir parada</span></a>
+                        <!-- <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Borrar</span></a>						 -->
                     </div>
                 </div>
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>                          
-                            <th>Nombre</th>
-                            <th>Turistico/Transporte</th>
-                            <th>Recogida</th>
-                            <th>Destinación</th>
-                            <th>Información</th>
-                            <th>Chofer asignado</th>
-                            <th>Bus asignado</th>
-                            <th>Guía asignado</th>
-                            <th>Paradas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>                          
-                            <td>Thomas Hardy</td>
-                            <td>thomashardy@mail.com</td>
-                            <td>89 Chiaroscuro Rd, Portland, USA</td>
-                            <td>(171) 555-2222</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>                          
-                        </tr>
-                        <tr>                         
-                            <td>Dominique Perrier</td>
-                            <td>dominiqueperrier@mail.com</td>
-                            <td>Obere Str. 57, Berlin, Germany</td>
-                            <td>(313) 555-5735</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>                            
-                        </tr>
-                        <tr>                          
-                            <td>Maria Anders</td>
-                            <td>mariaanders@mail.com</td>
-                            <td>25, rue Lauriston, Paris, France</td>
-                            <td>(503) 555-9931</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>                           
-                        </tr>
-                        <tr>                           
-                            <td>Fran Wilson</td>
-                            <td>franwilson@mail.com</td>
-                            <td>C/ Araquil, 67, Madrid, Spain</td>
-                            <td>(204) 619-5731</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>                           
-                        </tr>					
-                        <tr>                          
-                            <td>Martin Blank</td>
-                            <td>martinblank@mail.com</td>
-                            <td>Via Monte Bianco 34, Turin, Italy</td>
-                            <td>(480) 631-2097</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>
-                            <td>?</td>                           
-                        </tr> 
-                    </tbody>
-                </table>
-                <div class="clearfix">
-                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a href="#">Previous</a></li>
-                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                    </ul>
-                </div>
             </div>
-        </div>        
-    </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <!-- <th>
+                            <span class="custom-checkbox">
+                                <input type="checkbox" id="selectAll">
+                                <label for="selectAll"></label>
+                            </span>
+                        </th> -->
+                        <th>Id linia</th>
+                        <th>Id parada</th>
+                        <th>Hora</th>
+                        <th>Nombre</th>
+                        <th>Ubicacion</th>
+                        <th>Información</th>
+                        
+                       
+                             
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of paradasList;index as i">
+                        
+                        <!-- <td>
+                            <span class="custom-checkbox">
+                                <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                <label for="checkbox1"></label>
+                            </span>
+                        </td> -->
+                        <td>{{p.id_linia}} </td>
+                        <td>{{p.id_parada}} </td>
+                        <td>{{p.hora}}</td>
+                       
+                        
 
-            
-        
-    
-    <div class="footer">
-        <p>Intranet © 2021</p>
-      </div> 
- -->
+                        <td>
+                            <a *ngIf="isAdmin==true" href="#editEmployeeModal"  class="edit" data-toggle="modal"><i class="fa fa-pencil" data-toggle="tooltip" title="Editar"></i></a>
+                            <a *ngIf="isAdmin==true" href="#deleteEmployeeModal"   class="delete" data-toggle="modal"><i class="fa fa-trash" data-toggle="tooltip" title="Borrar"></i></a>
+                        </td>
+                    </tr>
+                  
+                </tbody>
+            </table>
+            <!-- <div class="clearfix">
+                <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                <ul class="pagination">
+                    <li class="page-item disabled"><a href="#">Previous</a></li>
+                    <li class="page-item"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                    <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                </ul>
+            </div> -->
+        </div>
+    </div>        
+</div>
+<!-- Edit Modal HTML -->
+<div id="addEmployeeModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="form"  #f="ngForm">
+                <div class="modal-header">						
+                    <h4 class="modal-title">Añadir parada</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">					
+                    <div class="form-group">
+                        <label>Id linia</label>
+                        <input type="text" class="form-control" name="nombre" [(ngModel)]="nom" required #nombre="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label>Id parada</label>
+                        <input type="text" class="form-control" name="inicio" [(ngModel)]="hora_inici" required #inicio="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label>Hora</label>
+                        <input type="text" class="form-control" name="final" [(ngModel)]="hora_finalitzacio" required #final="ngModel">
+                    </div>
+                    <!-- <div class="form-group">
+                        <label>Información</label>
+                        <input type="text" class="form-control" name="info" [(ngModel)]="informacion" required #info="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label>Bus asignado</label>
+                        <input type="text" class="form-control" name="bus" [(ngModel)]="bus_asignat" required #bus="ngModel">
+                    </div>					 -->
+                   					
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                    <input type="submit"  class="btn btn-success" value="Añadir" >
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Edit Modal HTML -->
+<div id="editEmployeeModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">						
+                    <h4 class="modal-title">Editar parada</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">					
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" class="form-control" name="nombre" [(ngModel)]="nom" required #nombre="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label>Hora inicio</label>
+                        <input type="text" class="form-control" name="inicio" [(ngModel)]="hora_inici" required #inicio="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label>Hora finalización</label>
+                        <input type="text" class="form-control" name="final" [(ngModel)]="hora_finalitzacio" required #final="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label>Información</label>
+                        <input type="text" class="form-control" name="info" [(ngModel)]="informacion" required #info="ngModel">
+                    </div>
+                    <div class="form-group">
+                        <label>Bus asignado</label>
+                        <input type="text" class="form-control" name="bus" [(ngModel)]="bus_asignat" required #bus="ngModel">
+                    </div>					
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                    <input type="submit"  class="btn btn-info" value="Guardar" >
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="deleteEmployeeModal" class="modal fade" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">						
+                    <h4 class="modal-title">Borrar parada</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">					
+                    <p>Estas seguro de que quieres borrar la parada?</p>
+                    <p class="text-warning"><small>No podran deshacer esta acción.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                    <input type="submit"  class="btn btn-danger" value="Borrar"  > 
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <p>Intranet © 2021</p>
+  </div>
