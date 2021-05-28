@@ -27,6 +27,7 @@ export class AssignmentComponent implements OnInit {
   tipus = "";
   fecha = "";
   logged: boolean;
+  isAdmin:boolean;
 
   constructor(private _route: Router,
     private _actRoute: ActivatedRoute,
@@ -73,6 +74,19 @@ export class AssignmentComponent implements OnInit {
           this.liniasList = result;
         },
         (error) => { console.log(error); }
+      );
+      this.userService.checkPermisos( localStorage.getItem("user")).subscribe(
+        (resp) => {
+          console.log(resp);
+          if(resp==0){
+            this.isAdmin=false;
+          }else{
+            this.isAdmin=true;
+          }
+          console.log(resp);
+        }, (error) => {
+          console.log(error);
+        }
       );
   }
 
