@@ -53,8 +53,8 @@ public class ParadaLiniaApi {
 	@PUT
 	@Path("/inserta")
 	public Response insertaParada(Paradalinia pali) {	
-		service.insertaParadaLiniaServ(pali);
-		return Response.ok(pali,MediaType.APPLICATION_JSON).build();
+		Missatge mis = new Missatge(service.insertaParadaLiniaServ(pali));
+		return Response.ok(mis,MediaType.APPLICATION_JSON).build();
 	}
 	
 	@DELETE

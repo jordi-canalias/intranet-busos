@@ -960,7 +960,7 @@ public class DatabaseDao {
 		String contrasenya = newUs.getContrasenya();
 		
 		
-		String query = "UPDATE autobusos.usuaris  cognoms='"+cognoms+"', telefon='"+telefon+"', correuElectronic='"+correuElectronic+"', contrasenya='"+contrasenya+"' WHERE nom='"+nomUsuari+"'";
+		String query = "UPDATE autobusos.usuaris  SET cognoms='"+cognoms+"', telefon='"+telefon+"', correuElectronic='"+correuElectronic+"', contrasenya='"+contrasenya+"' WHERE nom='"+nomUsuari+"'";
 		
 		try {
 			Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
@@ -2093,7 +2093,7 @@ public class DatabaseDao {
 			
 			
 			
-			public void insertaParadaLinia(Paradalinia pali) { // insertar paradalinia
+			public Boolean insertaParadaLinia(Paradalinia pali) { // insertar paradalinia
 
 				try {
 					Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
@@ -2114,6 +2114,7 @@ public class DatabaseDao {
 				} catch (SQLException e) {
 					System.err.println(e);
 				}
+				return true;
 			}
 			
 			
