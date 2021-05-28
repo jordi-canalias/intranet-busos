@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LiniaService } from '../_services/linia.service';
 import { UserService } from '../_services/user.service';
 import { Parada } from '../_services/parada';
+import { ParadaCompleta } from './../_services/paradaCompleta';
 
 @Component({
   selector: 'app-parada',
@@ -13,8 +14,9 @@ import { Parada } from '../_services/parada';
   styleUrls: ['./parada.component.css']
 })
 export class ParadaComponent implements OnInit {
-  paradasList: Array<ParadaLinia> = [];
+  paradasList: Array<ParadaCompleta> = [];
   liniasList: Array<Linia> = [];
+  paradasOption: Array<Parada> = [];
   linia: Linia;
   parada:Parada;
   paradaLinia: ParadaLinia;
@@ -26,7 +28,7 @@ export class ParadaComponent implements OnInit {
   informacion = "";
   bus_asignat = "";
   hora = "";
-  ordre = "";
+  ordre:number;
   ubicacio="";
   
   logged: boolean;
@@ -74,7 +76,7 @@ export class ParadaComponent implements OnInit {
 
       }
     );
-    this._paradaliniaService.getParadasLinia(this.id_linia)
+    this._paradaliniaService.getParadasById(this.id_linia)
     .subscribe(
       (result) => {
         console.log(result);
@@ -83,12 +85,48 @@ export class ParadaComponent implements OnInit {
       (error) => { console.log(error); }
     );
     
+    this._paradaliniaService.getAllParadas()
+    .subscribe(
+      (result) => {
+        console.log(result);
+        this.paradasOption = result;
+      },
+      (error) => { console.log(error); }
+    );
+    
   }
-  getParadaById() {
-    this._paradaliniaService.getParadaById(this.id_parada).subscribe(
+  
+  addParada(){
+    this._paradaliniaService.postParadaLinia(new ParadaLinia(this.id_linia, this.id_parada, this.ordre, this.hora)).subscribe(
       (resp) => {
-      console.log(resp);
-      this.parada=resp;
+        console.log(resp);
+        window.location.reload();
+      }, (error) => {
+        console.log(error);
+      }
+      );
+  }
+  idParada=0;
+  idLinia=0;
+  selOrdre=0;
+  selectParada(id) {
+    console.log(id);
+    this.idParada = id;
+  }
+  selectLinia(id2) {
+    console.log(id2);
+    this.idLinia = id2;
+  }
+  selectOrdre(id3) {
+    console.log(id3);
+    this.idLinia = id3;
+  }
+  remParada() {
+    this._paradaliniaService.deleteParadaLinia(this.idLinia,this.idParada,this.ordre).subscribe(
+      (resp) => {
+        console.log(resp);
+        this.id_linia = resp.id;
+        window.location.reload();
       }, (error) => {
         console.log(error);
       });
