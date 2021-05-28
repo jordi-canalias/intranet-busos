@@ -2167,7 +2167,7 @@ public class DatabaseDao {
 			
 			public void deleteParadaLinia(int id_parada, int id_linia, int ordre) {		
 				
-				String query = "DELETE FROM autobusos.paradalinia WHERE id_parada = '"+id_parada+"' AND id_linia = '"+id_linia+"', AND ordre = '"+ordre+"'";
+				String query = "DELETE FROM autobusos.paradalinia WHERE id_parada = '"+id_parada+"' AND id_linia = '"+id_linia+"' AND ordre = '"+ordre+"'";
 				try {
 					Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
 							ConstantsApi.PASS_CONNECTION);
