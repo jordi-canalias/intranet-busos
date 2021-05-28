@@ -11,11 +11,16 @@
         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-wrench fa-2x"></i> Herramientas
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
+           <li><a  href="#editEmployeeModal"  class="edit" data-toggle="modal"><i class="fa fa-pencil" data-toggle="tooltip" title="Editar">Editar perfil</i></a></li> 
           <li><a *ngIf="isAdmin==true" routerLink="/permisos-menu">Cambiar permisos</a></li>
           <li><a routerLink="/ruta">Rutas</a></li>
           <li><a routerLink="/linea">Lineas</a></li>
           <li><a routerLink="/assignment">Asignaciones</a></li>
           <li><a routerLink="/forum">Foro</a></li>
+          
+          
+           
+        
         </ul>
       </li>
       <!-- <!-- <li><a href="#">Page 2</a></li> -->
@@ -55,10 +60,51 @@
         <td>{{user.telefon}}</td>
         <td>{{user.correu_electronic}}</td>
         <td>{{user.contrasenya}}</td>
+
+       
     </tr>
 </table>
 
-<div class="container" *ngIf="logged==true" >
+<!-- Edit Modal HTML -->
+<div id="editEmployeeModal" class="modal fade">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <form>
+              <div class="modal-header">						
+                  <h4 class="modal-title">Editar perfil</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div class="modal-body">					
+                  <div class="form-group">
+                      <label>Nombre</label>
+                      <input #inputNom="ngModel" type="text" [(ngModel)]="user.nom" name="nombre" pattern="[A-Za-z- ]{1,40}" required/>
+                  </div>
+                  <div class="form-group">
+                      <label>Apellidos</label>
+                      <input #inputApe="ngModel" type="text" [(ngModel)]="user.cognoms" name="ape" pattern="[A-Za-z- ]" required/>
+                  </div>
+                  <div class="form-group">
+                      <label>Telefono</label>
+                      <input #inputPhone="ngModel" type="number"  [(ngModel)]="user.telefon" name="phone" pattern="\b(?:[1-9]|1[0-4])\b" required/>
+                  </div>
+                  <div class="form-group">
+                      <label>Email</label>
+                      <input #inputEmail="ngModel" type="email" [(ngModel)]="user.correu_electronic" name="email"  required/>
+                  </div>
+                  <div class="form-group">
+                      <label>Contraseña</label>
+                      <input #inputPass="ngModel" type="password" [(ngModel)]="user.contrasenya" name="pass" pattern="[A-Za-z- ][1-9]{1,40}"  min=6 required/>
+                  </div>					
+              </div>
+              <div class="modal-footer">
+                  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                  <input type="submit"  class="btn btn-info" value="Guardar" (click)="editUser()">
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+<!-- <div class="container" *ngIf="logged==true" >
   <form #formUser="ngForm" (ngSubmit)="editUser()" >
       <div >
           <h1>EDITAR PERFIL</h1>
@@ -70,7 +116,7 @@
           <div><button class="send" type="submit" >Enviar</button></div>                               
       </div>
   </form>
-</div>
+</div> -->
   <div  *ngIf="logged==false">
         <h1>Por favor,logueanse</h1>   
     </div>
