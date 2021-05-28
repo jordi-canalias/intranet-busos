@@ -67,6 +67,7 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(this.user.nom, this.user).subscribe(
       (resp) => {
         console.log(resp);
+        window.location.reload();
       }, (error) => {
         console.log(error);
       }

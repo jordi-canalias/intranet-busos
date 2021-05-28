@@ -50,7 +50,7 @@
                         <td>{{l.hora_finalitzacio}}</td>
                         <td>{{l.informacion}}</td>       
                         <td>{{l.bus_asignat}}</td>
-                        <td>{{l.bus_asignat}}</td>
+                        <a routerLink="/parada/{{l.id_linia}}"> <td>ver paradas</td></a>
 
                         <td>
                             <a *ngIf="isAdmin==true" href="#editEmployeeModal" (click)="selRemLinia(l.id_linia)" class="edit" data-toggle="modal"><i class="fa fa-pencil" data-toggle="tooltip" title="Editar"></i></a>
