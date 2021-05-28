@@ -8,7 +8,7 @@ public class ParadaCompleta {
 	@JsonProperty("id_linia")
 	private int id_linia;
 	@JsonProperty("id_parada")
-	private int id_parada;
+	private int id_parada; 
 	@JsonProperty("ordre")
 	private int ordre;
 	@JsonProperty("hora")

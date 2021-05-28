@@ -66,9 +66,9 @@ public class ParadaLiniaApi {
 	
 	
 	@DELETE
-	@Path("/delete/{id_linia}/{id_parada}")
-	public Response delete(@PathParam("id_linia") int id_linia, @PathParam("id_linia") int id_parada) {
-		service.deleteParadaLiniaServ(id_parada, id_linia);
+	@Path("/delete/{id_linia}/{id_parada}/{ordre}")
+	public Response delete(@PathParam("id_linia") int id_linia, @PathParam("id_linia") int id_parada, @PathParam("ordre") int ordre) {
+		service.deleteParadaLiniaServ(id_parada, id_linia, ordre);
 		Missatge mis = new Missatge("Esborrada parada de la linia");
 		return Response.ok(mis, MediaType.APPLICATION_JSON).build();
 	}
