@@ -306,9 +306,12 @@ public class ServiceManager {
 			return dao.getLiniasParada(id);
 		}
 		
-		public Paradalinia insertaParadaLiniaServ(Paradalinia pali) {
-			dao.insertaParadaLinia(pali);
-			return pali;
+		public String insertaParadaLiniaServ(Paradalinia pali) {
+			if(dao.insertaParadaLinia(pali)) {
+				return "ok";
+			}else {
+				return "Error: parada ya incluida en la linia";
+			}
 		}
 		
 		public void deleteParadaLiniaServ(int id_parada, int id_linia) {
