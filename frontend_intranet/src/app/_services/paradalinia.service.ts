@@ -15,19 +15,23 @@ export class ParadaLiniaService {
     let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/paradalinia/id_linia/"+id_linia;
     return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }
+  getAllParadas(): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/parada";
+    return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
 
   postParadaLinia(newParada: ParadaLinia): Observable<any> {
-    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/linias/inserta";
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/paradalinia/inserta";
     return this.http.put(url, newParada, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }
 
-  deleteParadaLinia(id_linia: number,id_parada:number): Observable<any> {
-    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/linias/delete/" + id_linia +"/" +id_parada;
+  deleteParadaLinia(id_linia: number,id_parada:number,ordre:number): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/linias/delete/" + id_linia +"/" +id_parada+"/" +ordre;
     return this.http.delete(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }
 
-  getParadaById(id:number):Observable<any>{
-    let url= "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/parada/id/"+id;
+  getParadasById(id:number):Observable<any>{
+    let url= "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/paradalinia/complete/"+id;
     return this.http.get(url,   { headers: new HttpHeaders({ 'Content-Type': 'application/json' })  } );
 }
 }

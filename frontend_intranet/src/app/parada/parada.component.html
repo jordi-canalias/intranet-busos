@@ -13,7 +13,7 @@
                         <h2>Listado de paradas</h2>
                     </div>
                     <div class="col-xs-6">
-                        <a *ngIf="isAdmin==true" href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus"></i> <span>Añadir parada</span></a>
+                        <a *ngIf="isAdmin==true" href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="fa fa-plus"></i> <span>Asignar parada a la linia</span></a>
                         <!-- <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Borrar</span></a>						 -->
                     </div>
                 </div>
@@ -29,6 +29,7 @@
                         </th> -->
                         <th>Id linia</th>
                         <th>Id parada</th>
+                        <th>Orden</th>
                         <th>Hora</th>
                         <th>Nombre</th>
                         <th>Ubicacion</th>
@@ -49,13 +50,17 @@
                         </td> -->
                         <td>{{p.id_linia}} </td>
                         <td>{{p.id_parada}} </td>
+                        <td>{{p.ordre}} </td>
                         <td>{{p.hora}}</td>
+                        <td>{{p.nom}}</td>
+                        <td>{{p.ubicacio}}</td>
+                        <td>{{p.informacion}}</td>
                        
                         
 
                         <td>
                             <a *ngIf="isAdmin==true" href="#editEmployeeModal"  class="edit" data-toggle="modal"><i class="fa fa-pencil" data-toggle="tooltip" title="Editar"></i></a>
-                            <a *ngIf="isAdmin==true" href="#deleteEmployeeModal"   class="delete" data-toggle="modal"><i class="fa fa-trash" data-toggle="tooltip" title="Borrar"></i></a>
+                            <a *ngIf="isAdmin==true" href="#deleteEmployeeModal" (click)="selectParada(p.id_parada,p.id_linia,p.ordre)"  class="delete" data-toggle="modal"><i class="fa fa-trash" data-toggle="tooltip" title="Borrar"></i></a>
                         </td>
                     </tr>
                   
@@ -82,35 +87,30 @@
         <div class="modal-content">
             <form name="form"  #f="ngForm">
                 <div class="modal-header">						
-                    <h4 class="modal-title">Añadir parada</h4>
+                    <h4 class="modal-title">Asignar parada</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">					
                     <div class="form-group">
-                        <label>Id linia</label>
-                        <input type="text" class="form-control" name="nombre" [(ngModel)]="nom" required #nombre="ngModel">
+                        <label>Nombre parada</label>
+                        <select class="form-control"  name="nombre" [(ngModel)]="id_parada" #user="ngModel">
+                            <option *ngFor="let po of paradasOption" value="{{po.id_parada}}">{{po.nom}}</option>
+                            </select>
                     </div>
                     <div class="form-group">
-                        <label>Id parada</label>
-                        <input type="text" class="form-control" name="inicio" [(ngModel)]="hora_inici" required #inicio="ngModel">
+                        <label>Orden</label>
+                        <input type="text" class="form-control" name="orden" [(ngModel)]="ordre" required #orden="ngModel">
                     </div>
                     <div class="form-group">
                         <label>Hora</label>
-                        <input type="text" class="form-control" name="final" [(ngModel)]="hora_finalitzacio" required #final="ngModel">
+                        <input type="text" class="form-control" name="hour" [(ngModel)]="hora" required #hour="ngModel">
                     </div>
-                    <!-- <div class="form-group">
-                        <label>Información</label>
-                        <input type="text" class="form-control" name="info" [(ngModel)]="informacion" required #info="ngModel">
-                    </div>
-                    <div class="form-group">
-                        <label>Bus asignado</label>
-                        <input type="text" class="form-control" name="bus" [(ngModel)]="bus_asignat" required #bus="ngModel">
-                    </div>					 -->
+                   
                    					
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                    <input type="submit"  class="btn btn-success" value="Añadir" >
+                    <input type="submit"  class="btn btn-success" value="Añadir" (click)="addParada()" >
                 </div>
             </form>
         </div>
@@ -170,7 +170,7 @@
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                    <input type="submit"  class="btn btn-danger" value="Borrar"  > 
+                    <input type="submit"  class="btn btn-danger" value="Borrar" (click)="remParada()"  > 
                 </div>
             </form>
         </div>
