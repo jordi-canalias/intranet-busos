@@ -2060,6 +2060,51 @@ public class DatabaseDao {
 			
 			
 			
+			public static ArrayList<ParadaCompleta> getParadasComplete(int id) {
+
+				ArrayList<ParadaCompleta> par = new ArrayList<ParadaCompleta>();
+
+				try {
+					Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
+							ConstantsApi.PASS_CONNECTION);
+
+					PreparedStatement stmt = con.prepareStatement("SELECT autobusos.paradas.id_parada, autobusos.paradas.nom, autobusos.paradas.ubicacio, autobusos.paradas.informacion, autobusos.paradalinia.hora, autobusos.paradalinia.ordre, autobusos.paradalinia.id_linia\r\n"
+							+ "FROM autobusos.paradas \r\n"
+							+ "INNER JOIN autobusos.paradalinia\r\n"
+							+ "WHERE autobusos.paradalinia.id_linia = '"+id+"'  AND autobusos.paradalinia.id_parada = autobusos.paradas.id_parada\r\n"
+							+ "ORDER BY autobusos.paradalinia.ordre");
+					ResultSet rs = stmt.executeQuery();
+
+					while (rs.next()) {
+						
+						ParadaCompleta pa = new ParadaCompleta(rs.getInt("id_linia"),
+												  		       rs.getInt("id_parada"),
+												  		       rs.getInt("ordre"),
+												  		       rs.getString("hora"),
+												  		       rs.getString("ubicacio"),
+												  		       rs.getString("informacion"),
+												  		       rs.getString("nom"));
+						
+						par.add(pa);
+
+					}
+					con.close();
+				}
+
+				catch (SQLException e) {
+					System.out.println("Error en la ejecucion: " + e.getErrorCode() + "----------" + e.getMessage() + "-------");
+				}
+				return par;
+			}
+			
+			
+			
+			
+
+			
+			
+			
+			
 			public ArrayList<Paradalinia> getLiniasParada(int id) {
 
 				ArrayList<Paradalinia> pal = new ArrayList<Paradalinia>();
@@ -2154,25 +2199,14 @@ public class DatabaseDao {
 			     
 			   
 		
-	
+	/*
 
 	public static void main(String[] args) {
 		
-		final String secretKey = "MEENCANTASISTEMAS";
-	     
-	    String originalString = "howtodoinjava.com";
-	    //Encripta
-	    String encryptedString = AES.encrypt(originalString, ConstantsApi.SECRETKEY) ;
-	    
-	    //Desencripta
-	    String decryptedString = AES.decrypt(encryptedString, secretKey) ;
-		
-		 System.out.println(originalString);
-		    System.out.println(encryptedString);
-		    System.out.println(decryptedString);
+			System.out.print(getParadasComplete(1).get(1).getHora());
 		
     }
-	
+	*/
 	
 	/*
 	 * 
@@ -2184,7 +2218,7 @@ public class DatabaseDao {
 	 * 
 	 * */
 	
-	
+
 }
 
 

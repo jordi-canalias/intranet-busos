@@ -319,6 +319,10 @@ public class ServiceManager {
 		}
 		
 		
+		public ArrayList<ParadaCompleta> getParadasCompleteServ(int id) {
+			return dao.getParadasComplete(id);
+		}
+		
 		
 		
 	
