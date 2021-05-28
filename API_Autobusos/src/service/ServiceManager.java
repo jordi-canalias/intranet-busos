@@ -314,8 +314,8 @@ public class ServiceManager {
 			}
 		}
 		
-		public void deleteParadaLiniaServ(int id_parada, int id_linia) {
-			dao.deleteParadaLinia(id_parada, id_linia );
+		public void deleteParadaLiniaServ(int id_parada, int id_linia, int ordre) {
+			dao.deleteParadaLinia(id_parada, id_linia, ordre );
 		}
 		
 		
