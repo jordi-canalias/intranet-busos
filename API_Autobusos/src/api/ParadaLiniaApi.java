@@ -57,6 +57,14 @@ public class ParadaLiniaApi {
 		return Response.ok(mis,MediaType.APPLICATION_JSON).build();
 	}
 	
+	
+	@GET
+	@Path("/complete/{id}")
+	public Response liniasParadaComplete(@PathParam("id") int id) {
+		return Response.ok(service.getParadasCompleteServ(id), MediaType.APPLICATION_JSON).build();
+	}
+	
+	
 	@DELETE
 	@Path("/delete/{id_linia}/{id_parada}")
 	public Response delete(@PathParam("id_linia") int id_linia, @PathParam("id_linia") int id_parada) {
