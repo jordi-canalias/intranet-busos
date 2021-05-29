@@ -3,6 +3,8 @@ import { Linia } from '../_services/linia';
 import { LiniaService } from './../_services/linia.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../_services/user.service';
+import { Parada } from '../_services/parada';
+import { ParadaLiniaService } from '../_services/paradalinia.service';
 
 @Component({
   selector: 'app-linea',
@@ -13,18 +15,21 @@ export class LineaComponent implements OnInit {
 
   liniasList: Array<Linia> = [];
   linia: Linia;
+  parada:Parada;
   id_linia: 0;
   nom = "";
   hora_inici = "";
   hora_finalitzacio = "";
   informacion = "";
   bus_asignat = "";
+  ubicacio="";
   logged: boolean;
   isAdmin:boolean;
 
   constructor(private _route: Router,
     private _actRoute: ActivatedRoute,
     private _liniaService: LiniaService,
+    private _paradaliniaService: ParadaLiniaService,
     public userService: UserService) { }
 
   ngOnInit(): void {
@@ -90,6 +95,16 @@ export class LineaComponent implements OnInit {
             console.log(error);
         }
     );
+}
+
+createParada(){
+  this._paradaliniaService.postParada(new Parada(0, this.nom, this.ubicacio, this.informacion)).subscribe(
+    (resp) => {
+     console.log(resp);
+      window.location.reload();
+    }, (error) => {
+      console.log(error);
+    });
 }
   logout() {
     localStorage.removeItem("token");

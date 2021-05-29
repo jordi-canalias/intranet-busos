@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../_services/user';
 import { UserService } from '../_services/user.service';
 import { Router } from '@angular/router';
+import { AsignamientoService } from '../_services/asignamiento.service';
+import { Asignamiento } from '../_services/asignamiento';
 
 
 @Component({
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
+  assignList: Array<Asignamiento> = [];
   user: User;
   userAux: User;
   id_usuari: 0;
@@ -21,10 +23,17 @@ export class ProfileComponent implements OnInit {
   correu_electronic = "";
   contrasenya = "";
   permisos="";
+  id_asignacion: number=0;
+  id_liniaruta: number=0;
+  tipus = "";
+  fecha = "";
   logged: boolean;
   isAdmin:boolean;
+  
 
-  constructor(public userService: UserService, private _router: Router) { }
+  constructor(public userService: UserService,
+    public _asignService: AsignamientoService,
+     private _router: Router) { }
 
   ngOnInit(): void {
     if (localStorage.getItem("token") == null) {
@@ -59,6 +68,14 @@ export class ProfileComponent implements OnInit {
           console.log(error);
         }
       );
+      this._asignService.getAsignByUsername(localStorage.getItem("user")).subscribe(
+        (resp) => {
+          console.log(resp);
+          this.user=resp;
+  
+        }, (error) => {
+          console.log(error);
+        });
       }
   
 
@@ -74,6 +91,15 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  // getAsignByUserId() {
+  //   this._asignService.getAsignByUserId(this.id_usuari).subscribe(
+  //     (resp) => {
+  //       console.log(resp);
+
+  //     }, (error) => {
+  //       console.log(error);
+  //     });
+  // }
   logout(): void {
     localStorage.removeItem("token");
     window.location.href = "/login";

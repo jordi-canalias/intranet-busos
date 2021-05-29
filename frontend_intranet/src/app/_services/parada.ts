@@ -1,18 +1,18 @@
 export class Parada {
     id_parada: number;
-    nombre: string = "";
-    ubicacion: string = "";
-    info: string = "";
+    nom: string = "";
+    ubicacio: string = "";
+    informacion: string = "";
 
     constructor(
         id_parada: number,
-        nombre: string = "",
-        info: string = "",
-        ubicacion: string = "",
+        nom: string = "",
+        ubicacio: string = "",
+        informacion: string = "",
     ) {
         this.id_parada = id_parada;
-        this.nombre = nombre;
-        this.info = info;
-        this.ubicacion = ubicacion;
+        this.nom = nom;      
+        this.ubicacio = ubicacio;
+        this.informacion = informacion;
     }
 }

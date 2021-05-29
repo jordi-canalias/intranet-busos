@@ -35,5 +35,9 @@ export class AsignamientoService {
    let url="http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/asignacions/id/"+id;
     return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })  } );
   }
+  getAsignByUsername(nom: string): Observable<any> {
+   let url="http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/asignacions/user/"+nom;
+    return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' })  } );
+  }
   
 }
