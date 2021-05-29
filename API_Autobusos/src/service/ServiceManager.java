@@ -238,8 +238,8 @@ public class ServiceManager {
 		return dao.getAsignacioById(id);
 	}
 	
-	public ArrayList<Asignacion> getAsignacionsByUserId(String nom) {
-		return dao.getAsignacionsByUserId(nom);
+	public ArrayList<Asignacion> getAsignacionsByUserId(int id) {
+		return dao.getAsignacionsByUserId(id);
 	}
 	
 	
