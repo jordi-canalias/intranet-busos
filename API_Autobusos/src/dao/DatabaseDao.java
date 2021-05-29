@@ -1578,7 +1578,7 @@ public class DatabaseDao {
 		
 		
 
-		public ArrayList<Asignacion> getAsignacionsByUserId(int id) {
+		public ArrayList<Asignacion> getAsignacionsByUserId(String name) {
 
 			ArrayList<Asignacion> as = new ArrayList<Asignacion>();
 
@@ -1587,7 +1587,7 @@ public class DatabaseDao {
 				Connection con = DriverManager.getConnection(ConstantsApi.CONNECTION, ConstantsApi.USER_CONNECTION,
 						ConstantsApi.PASS_CONNECTION);
 
-				PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.asignacions WHERE id_usuari = '"+id+"';");
+				PreparedStatement stmt = con.prepareStatement("SELECT * FROM autobusos.asignacions WHERE nom = '"+name+"';");
 				ResultSet rs = stmt.executeQuery();
 
 				while (rs.next()) {
