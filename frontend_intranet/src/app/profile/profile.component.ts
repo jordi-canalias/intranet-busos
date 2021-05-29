@@ -48,6 +48,7 @@ export class ProfileComponent implements OnInit {
         (result) => {
         
           this.user=result;
+          this.getAssignByUser();
         },
         (error) => {
           console.log(error);
@@ -68,17 +69,19 @@ export class ProfileComponent implements OnInit {
           console.log(error);
         }
       );
-      this._asignService.getAsignByUserId(this.id_usuari).subscribe(
-        (resp) => {
-          console.log(this.id_usuari);
-          this.id_usuari=resp;
-  
-        }, (error) => {
-          console.log(error);
-        });
+     
       }
   
+getAssignByUser(){
+  this._asignService.getAsignByUserId(this.id_usuari).subscribe(
+    (resp) => {
+      console.log(resp);
+      
 
+    }, (error) => {
+      console.log(error);
+    });
+}
   editUser() {
     // this.nom = JSON.parse(JSON.stringify(this.user.nom));
     this.userService.updateUser(this.user.nom, this.user).subscribe(

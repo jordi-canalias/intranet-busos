@@ -31,6 +31,14 @@ export class InforutaComponent implements OnInit {
     this.logged = true;
     }
 
+    
+    this._actRoute.paramMap.subscribe(
+      (params) =>{
+         this.id_ruta= parseInt(params.get('info'));
+         
+
+      }
+    );
     this._rutaService.getRutas()
       .subscribe(
         (result) => {

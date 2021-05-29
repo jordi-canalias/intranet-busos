@@ -27,7 +27,7 @@
                     <tr *ngFor="let r of rutasList;index as i" >
                        
                         <td>{{r.id_ruta}} </td>                          
-                        <a routerLink="/ruta/{{r.id_ruta}}"><td>{{r.informacion}}</td></a>                   
+                        <td>{{r.informacion}}</td>                   
                     </tr>
                   
                 </tbody>
@@ -35,3 +35,12 @@
         </div>
     </div>        
 </div>
+
+<div class="googleMap">
+    <iframe width="520" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" id="gmap_canvas" src="https://maps.google.com/maps?width=520&height=400&hl=en&q=%20Abrera+()&t=&z=12&ie=UTF8&iwloc=B&output=embed"></iframe> <a href='http://maps-website.com/es'>Maps-Generator.com/es</a> 
+
+</div>
+
+<div class="footer">
+    <p>Intranet © 2021</p>
+  </div>
