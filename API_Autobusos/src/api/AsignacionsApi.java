@@ -59,9 +59,9 @@ public class AsignacionsApi {
 	}
 	
 	@GET
-	@Path("/user/{nom}")
-	public Response getAsignacionsByUserId(@PathParam("nom") String nom) {
-		return Response.ok(service.getAsignacionsByUserId(nom), MediaType.APPLICATION_JSON).build();
+	@Path("/user/{id}")
+	public Response getAsignacionsByUserId(@PathParam("id") int id) {
+		return Response.ok(service.getAsignacionsByUserId(id), MediaType.APPLICATION_JSON).build();
 	}
 	
 	@GET
