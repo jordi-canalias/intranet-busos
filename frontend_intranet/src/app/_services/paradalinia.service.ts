@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ParadaLinia } from './paradaLinia';
 import { Observable } from 'rxjs';
+import { Parada } from './parada';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class ParadaLiniaService {
   postParadaLinia(newParada: ParadaLinia): Observable<any> {
     let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/paradalinia/inserta";
     return this.http.put(url, newParada, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
+  postParada(newPa: Parada): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/parada/inserta";
+    return this.http.post(url, newPa, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }
 
   deleteParadaLinia(id_linia: number,id_parada:number,ordre:number): Observable<any> {
