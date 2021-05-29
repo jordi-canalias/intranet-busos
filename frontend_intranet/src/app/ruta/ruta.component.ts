@@ -13,7 +13,7 @@ export class RutaComponent implements OnInit {
   rutasList: Array<Ruta> = [];
   ruta: Ruta;
   rutaAux: Ruta;
-  id_ruta = 0;
+  id_ruta : number=0;
   nom = "";
   caracter = "";
   client = "";
@@ -36,6 +36,14 @@ export class RutaComponent implements OnInit {
     } else {
     this.logged = true;
     }
+
+    this._actRoute.paramMap.subscribe(
+      (params) =>{
+         this.id_ruta= parseInt(params.get('info'));
+         
+
+      }
+    );
 
     this._rutaService.getRutas()
       .subscribe(

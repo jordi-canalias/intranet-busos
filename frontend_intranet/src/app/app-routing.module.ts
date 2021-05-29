@@ -10,6 +10,7 @@ import { ParadaComponent } from './parada/parada.component';
 import { LineaComponent } from './linea/linea.component';
 import { AssignmentComponent } from './assignment/assignment.component';
 import { PermisosMenuComponent } from './permisos/permisos-menu.component';
+import { InforutaComponent } from './inforuta/inforuta.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,8 @@ const routes: Routes = [
   {path:'profile',component:ProfileComponent},
   {path:'forum',component:ForumComponent},
   {path:'ruta',component:RutaComponent},
+  {path:'ruta/:info',component:RutaComponent},
+  {path:'inforuta',component: InforutaComponent},
   {path:'linea',component:LineaComponent},
   {path:'parada',component:ParadaComponent},
   {path:'parada/:linia',component:ParadaComponent},

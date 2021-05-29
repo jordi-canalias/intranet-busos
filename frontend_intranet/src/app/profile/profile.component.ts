@@ -15,7 +15,7 @@ export class ProfileComponent implements OnInit {
   assignList: Array<Asignamiento> = [];
   user: User;
   userAux: User;
-  id_usuari: 0;
+  id_usuari: number=0;
   nom = "";
   cognoms = "";
   funcio = "";
@@ -68,10 +68,10 @@ export class ProfileComponent implements OnInit {
           console.log(error);
         }
       );
-      this._asignService.getAsignByUserId(this.user.id_usuari).subscribe(
+      this._asignService.getAsignByUserId(this.id_usuari).subscribe(
         (resp) => {
-          console.log(resp);
-          this.user.id_usuari=resp;
+          console.log(this.id_usuari);
+          this.id_usuari=resp;
   
         }, (error) => {
           console.log(error);
