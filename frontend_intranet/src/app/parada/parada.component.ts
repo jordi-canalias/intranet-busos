@@ -109,20 +109,15 @@ export class ParadaComponent implements OnInit {
   idParada=0;
   idLinia=0;
   selOrdre=0;
-  selectParada(id) {
+  selectParada(id,id2,id3) {
     console.log(id);
     this.idParada = id;
-  }
-  selectLinia(id2) {
-    console.log(id2);
     this.idLinia = id2;
+    this.selOrdre = id3;
   }
-  selectOrdre(id3) {
-    console.log(id3);
-    this.idLinia = id3;
-  }
+  
   remParada() {
-    this._paradaliniaService.deleteParadaLinia(this.idLinia,this.idParada,this.ordre).subscribe(
+    this._paradaliniaService.deleteParadaLinia(this.idLinia,this.idParada,this.selOrdre).subscribe(
       (resp) => {
         console.log(resp);
         this.id_linia = resp.id;

@@ -26,7 +26,7 @@ export class ParadaLiniaService {
   }
 
   deleteParadaLinia(id_linia: number,id_parada:number,ordre:number): Observable<any> {
-    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/linias/delete/" + id_linia +"/" +id_parada+"/" +ordre;
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/paradalinia/delete/" + id_linia +"/" +id_parada+"/" +ordre;
     return this.http.delete(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }
 
