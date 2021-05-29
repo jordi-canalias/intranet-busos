@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
 
       this.userService.getUserByName( localStorage.getItem("user")).subscribe(
         (result) => {
-          console.log(this.user=result);
+        
           this.user=result;
         },
         (error) => {
@@ -68,10 +68,10 @@ export class ProfileComponent implements OnInit {
           console.log(error);
         }
       );
-      this._asignService.getAsignByUsername(localStorage.getItem("user")).subscribe(
+      this._asignService.getAsignByUserId(this.user.id_usuari).subscribe(
         (resp) => {
           console.log(resp);
-          this.user=resp;
+          this.user.id_usuari=resp;
   
         }, (error) => {
           console.log(error);
