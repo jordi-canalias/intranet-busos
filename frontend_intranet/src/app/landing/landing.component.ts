@@ -21,19 +21,20 @@ export class LandingComponent implements OnInit {
       this.logged = true;
     }
 
-    this.userService.getUserByName( localStorage.getItem("user")).subscribe(
-      (result) => {
-        console.log(this.user=result);
-        this.user=result;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    // this.userService.getUserByName( localStorage.getItem("user")).subscribe(
+    //   (result) => {
+    //     console.log(this.user=result);
+    //     this.user=result;
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
 
   }
   logout(): void {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     window.location.reload();
   }
 }

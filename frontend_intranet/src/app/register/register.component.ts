@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
   contrasenya = "";
   permisos = "";
   logged:boolean;
+  isSuccessful:boolean;
 
   constructor(public userService: UserService, private _router: Router) { }
 
@@ -42,15 +43,18 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.user = new User(0, this.nom, this.cognoms, this.contrasenya, this.funcio, this.telefon, this.correu_electronic, this.fecha_entrada);
-    this.userService.postUser(this.user).subscribe(
+    // this.user = new User(0, this.nom, this.cognoms, this.contrasenya, this.funcio, this.telefon, this.correu_electronic, this.fecha_entrada);
+    this.userService.postUser(new User(0, this.nom, this.cognoms, this.contrasenya, this.funcio, this.telefon, this.correu_electronic, this.fecha_entrada)).subscribe(
       (result) => {
+        console.log(this.user);
         console.log(result);
         console.log(result.estado);
+        this.isSuccessful==true;
         this._router.navigate(['/landing']);
       },
       (error) => {
         console.log(error);
+        this.isSuccessful==false;
       }
     );
   }

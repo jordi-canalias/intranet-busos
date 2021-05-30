@@ -68,8 +68,10 @@
   }
   .leftcolumn img{
     width: 100%;
+    height: auto;
     margin-left: 10px;
     padding: 20px;
+  
   }
   /* Right column */
   .rightcolumn {

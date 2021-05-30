@@ -3,6 +3,7 @@ import { Ruta } from '../_services/ruta';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RutaService } from '../_services/ruta.service';
 import { UserService } from '../_services/user.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-inforuta',
@@ -13,16 +14,24 @@ export class InforutaComponent implements OnInit {
 
   rutasList: Array<Ruta> = [];
   ruta: Ruta;
-  id_ruta : number=0;
+  id_ruta : number;
   nom = "";
+  caracter = "";
+  client = "";
+  recollida = "";
+  destinacio = "";
   informacion = "";
+  guia_asignat = "";
   logged: boolean;
-  
-
+  vari;
+ 
   constructor(private _route: Router,
     private _actRoute: ActivatedRoute,
     private _rutaService: RutaService,
-    public userService: UserService) { }
+    public userService: UserService,
+    private dom:DomSanitizer) { 
+     
+     }
 
   ngOnInit(): void {
     if (localStorage.getItem("token") == null) {
@@ -35,17 +44,30 @@ export class InforutaComponent implements OnInit {
     this._actRoute.paramMap.subscribe(
       (params) =>{
          this.id_ruta= parseInt(params.get('info'));
-         
+         console.log(this.id_ruta);
 
       }
     );
-    this._rutaService.getRutas()
+    this._rutaService.getRutaById(this.id_ruta)
       .subscribe(
         (result) => {
-          this.rutasList = result;
+          console.log(result);
+          this.ruta = result;
+          this.vari=this.dom.bypassSecurityTrustResourceUrl("https://maps.google.com/maps?width=520&height=400&hl=en&q=%20"+this.ruta.destinacio+"+()&t=&z=12&ie=UTF8&iwloc=B&output=embed"); 
         },
         (error) => { console.log(error); }
+        
       );
+      
+    // this._rutaService.getRutas()
+    //   .subscribe(
+    //     (result) => {
+    //       console.log(result);
+    //       this.rutasList = result;
+    //     },
+    //     (error) => { console.log(error); }
+    //   );
      
   }
+  
 }
