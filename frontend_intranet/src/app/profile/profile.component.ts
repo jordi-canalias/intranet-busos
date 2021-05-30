@@ -73,10 +73,10 @@ export class ProfileComponent implements OnInit {
       }
   
 getAssignByUser(){
-  this._asignService.getAsignByUserId(this.id_usuari).subscribe(
+  this._asignService.getAsignByUserId(this.user.id_usuari).subscribe(
     (resp) => {
       console.log(resp);
-      
+      this.assignList=resp;
 
     }, (error) => {
       console.log(error);

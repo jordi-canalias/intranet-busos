@@ -6,7 +6,7 @@ import { Resenya } from './resenya';
 @Injectable({
   providedIn: 'root'
 })
-export class RutaService {
+export class ResenyaService {
 
   constructor(private http:HttpClient) {}
     public resenyas:Array<Resenya>=[];
