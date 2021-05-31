@@ -89,28 +89,45 @@
                     <div class="form-group">
                         <label>Nombre</label>
                         <input type="text" class="form-control" name="nombre" [(ngModel)]="nom" required #nombre="ngModel">
+                        <div class="alert-danger" *ngIf=" nombre.invalid">
+                            <div *ngIf="nombre.errors.required">Es obligatorio poner el nombre </div>
+                            
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Hora inicio</label>
-                        <input type="text" class="form-control" name="inicio" [(ngModel)]="hora_inici" required #inicio="ngModel">
+                        <input type="text" class="form-control" placeholder="hh:mm" name="inicio" [(ngModel)]="hora_inici" required #inicio="ngModel">
+                        <div class="alert-danger" *ngIf=" inicio.invalid">
+                            <div *ngIf="inicio.errors.required">Es obligatorio poner la hora de inicio </div>
+                            
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Hora finalización</label>
-                        <input type="text" class="form-control" name="final" [(ngModel)]="hora_finalitzacio" required #final="ngModel">
+                        <input type="text" class="form-control" placeholder="hh:mm" name="final" [(ngModel)]="hora_finalitzacio" required #final="ngModel">
+                        <div class="alert-danger" *ngIf=" final.invalid">
+                            <div *ngIf="final.errors.required">Es obligatorio poner la hora de finalización </div>             
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Información</label>
                         <input type="text" class="form-control" name="info" [(ngModel)]="informacion" required #info="ngModel">
+                        <div class="alert-danger" *ngIf=" info.invalid">
+                            <div *ngIf="info.errors.required">Es obligatorio poner la información </div>                  
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Bus asignado</label>
                         <input type="text" class="form-control" name="bus" [(ngModel)]="bus_asignat" required #bus="ngModel">
+                        <div class="alert-danger" *ngIf=" bus.invalid">
+                            <div *ngIf="bus.errors.required">Es obligatorio poner el bus asignado </div>                     
+                        </div>
                     </div>					
                    					
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                    <input type="submit"  class="btn btn-success" value="Añadir" (click)="addLinia()">
+                    <input type="submit" [disabled]="!f.form.valid "  class="btn btn-success" value="Añadir" (click)="addLinia()">
                 </div>
             </form>
         </div>
@@ -129,22 +146,34 @@
                     <div class="form-group">
                         <label>Nombre</label>
                         <input type="text" class="form-control" name="nombre" [(ngModel)]="nom" required #nombre="ngModel">
+                        <div class="alert-danger" *ngIf=" nombre.invalid">
+                            <div *ngIf="nombre.errors.required">Es obligatorio poner el nombre </div>
+                            
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Ubicacion</label>
                         <input type="text" class="form-control" name="ubi" [(ngModel)]="ubicacio" required #ubi="ngModel">
+                        <div class="alert-danger" *ngIf=" ubi.invalid">
+                            <div *ngIf="ubi.errors.required">Es obligatorio poner la ubicacion </div>
+                            
+                        </div>
                     </div>
                    
                     <div class="form-group">
                         <label>Información</label>
                         <input type="text" class="form-control" name="info" [(ngModel)]="informacion" required #info="ngModel">
+                        <div class="alert-danger" *ngIf=" info.invalid">
+                            <div *ngIf="info.errors.required">Es obligatorio poner la información </div>
+                            
+                        </div>
                     </div>
                    					
                    					
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                    <input type="submit"  class="btn btn-success" value="Añadir" (click)="createParada()">
+                    <input type="submit" [disabled]="!f.form.valid "  class="btn btn-success" value="Añadir" (click)="createParada()">
                 </div>
             </form>
         </div>

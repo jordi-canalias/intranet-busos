@@ -65,6 +65,7 @@ export class RutaComponent implements OnInit {
     this._rutaService.postRuta(new Ruta(0, this.nom, this.caracter, this.recollida, this.destinacio, this.informacion, this.client, this.guia_asignat)).subscribe(
       (resp) => {
         this.rutasList.push(new Ruta(0, this.nom, this.caracter, this.recollida, this.destinacio, this.informacion, this.client, this.guia_asignat));
+       this.ruta=resp;
         window.location.reload();
       }, (error) => {
         console.log(error);

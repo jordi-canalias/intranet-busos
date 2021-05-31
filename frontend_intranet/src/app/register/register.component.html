@@ -9,7 +9,7 @@
 <div class="col-md-16" >
     <div class="card card-container">
 
-        <form   #formReg="ngForm" (ngSubmit)="checkUser(); formReg.reset()">
+        <form   #formReg="ngForm" (ngSubmit)="checkUser(); ">
              <div class="input-group text-center">
                 <span class="input-group-addon"><i class="fa fa-user fa-1x"></i></span>
                  <input  type="text" class="form-control" placeholder ="Nombre" name="nombre" [(ngModel)]="nom"  pattern="[A-Za-z- ]{1,40}" required 
@@ -30,7 +30,7 @@
                     
                 </div>
             </div>
-            <div class="input-group text-center">
+            <!-- <div class="input-group text-center">
                 <span class="input-group-addon"><i class="fa fa-calendar fa-1x"></i></span>
                 <input  type="text" class="form-control" placeholder ="Fecha de entrada (dd/mm/yyyy)" name="fecha" [(ngModel)]="fecha_entrada" required 
                     minlength="2" maxlength="20" #fecha="ngModel" /> 
@@ -38,7 +38,7 @@
                     <div *ngIf="fecha.errors.required">Es obligatorio poner la fecha de entrada </div>
                     
                 </div>
-            </div>
+            </div> -->
             <div class="input-group text-center">
                 <span class="input-group-addon"><i class="fa fa-phone fa-1x"></i></span>
                 <input  type="text" class="form-control" placeholder ="Telefono" name="telefono" [(ngModel)]="telefon" required 
@@ -48,7 +48,7 @@
                     
                 </div>
             </div>
-            <div class="input-group text-center">
+            <!-- <div class="input-group text-center">
                 <span class="input-group-addon"><i class="fa fa-briefcase fa-1x"></i></span>
                 <input  type="text" class="form-control" placeholder ="Función (chofer,guia,gestor)" name="funcion" [(ngModel)]="funcio" required 
                     minlength="4" maxlength="6" #funcion="ngModel" /> 
@@ -56,8 +56,8 @@
                     <div *ngIf="funcion.errors.required">Es obligatorio poner la función </div>
                     
                 </div>
-            </div>
-            <!-- <div class="input-group text-center">
+            </div> -->
+            <div class="input-group text-center">
                 <span class="input-group-addon"><i class="fa fa-briefcase fa-1x"></i></span>
                 <label >Función</label>
                 <select class="form-control" name="funcion" [(ngModel)]="funcio" #funcion="ngModel"  >
@@ -69,7 +69,7 @@
                     <div *ngIf="funcion.errors.required">Es obligatorio poner la función </div>
                     
                 </div>
-              </div> -->
+              </div>
             <div class="input-group text-center">
                 <span class="input-group-addon"><i class="fa fa-envelope fa-1x"></i></span>
                 <input type="email" class="form-control" placeholder ="Correo electronico" name="email" [(ngModel)]="correu_electronic" required email

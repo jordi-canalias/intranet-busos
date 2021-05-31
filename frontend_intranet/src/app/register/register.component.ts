@@ -33,19 +33,22 @@ export class RegisterComponent implements OnInit {
         (result) => {
           if (result == false) {
             this.register();
+          }else{
+            console.log(result);
+          document.getElementById("error").innerHTML = "Este nombre de usuario ya existe.";
           }
         },
         (error) => {
           console.log(error);
-          document.getElementById("error").innerHTML = "Este nombre de usuario ya existe.";
         }
       );
   }
 
   register() {
     // this.user = new User(0, this.nom, this.cognoms, this.contrasenya, this.funcio, this.telefon, this.correu_electronic, this.fecha_entrada);
-    this.userService.postUser(new User(0, this.nom, this.cognoms, this.contrasenya, this.funcio, this.telefon, this.correu_electronic, this.fecha_entrada)).subscribe(
+    this.userService.postUser(new User(0, this.nom, this.cognoms, this.contrasenya, this.funcio, this.telefon, this.correu_electronic, "")).subscribe(
       (result) => {
+        
         console.log(this.user);
         console.log(result);
         console.log(result.estado);
