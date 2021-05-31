@@ -59,15 +59,10 @@ export class InforutaComponent implements OnInit {
         
       );
       
-    // this._rutaService.getRutas()
-    //   .subscribe(
-    //     (result) => {
-    //       console.log(result);
-    //       this.rutasList = result;
-    //     },
-    //     (error) => { console.log(error); }
-    //   );
-     
   }
-  
+  logout(): void {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "/login";
+  }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from './user';
+import { Token } from './token';
 
 
 // const API_URL = 'API_Autobusos/api/';
@@ -40,6 +41,10 @@ export class UserService {
 
   checkNombre(nom: string): Observable<any> {
     let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/comprobaNom/" + nom;
+    return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
+  checkToken(token: Token): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/check/" + token;
     return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }
 

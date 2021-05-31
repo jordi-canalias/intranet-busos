@@ -108,7 +108,7 @@
 <div id="editEmployeeModal" class="modal fade">
   <div class="modal-dialog">
       <div class="modal-content">
-          <form>
+          <form name="form"  #f="ngForm">
               <div class="modal-header">						
                   <h4 class="modal-title">Editar perfil</h4>
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -116,15 +116,16 @@
               <div class="modal-body">					
                   <div class="form-group">
                       <label>Nombre</label>
-                      <input #inputNom="ngModel" type="text" [(ngModel)]="user.nom" name="nombre" pattern="[A-Za-z- ]{1,40}" required/>
-                  </div>
+                      <input #inputNom="ngModel" type="text" name="nombre" [(ngModel)]="user.nom"  pattern="[A-Za-z- ]{1,40}" required/>
+                      
+                    </div>
                   <div class="form-group">
                       <label>Apellidos</label>
                       <input #inputApe="ngModel" type="text" [(ngModel)]="user.cognoms" name="ape" pattern="[A-Za-z- ]" required/>
                   </div>
                   <div class="form-group">
                       <label>Telefono</label>
-                      <input #inputPhone="ngModel" type="number"  [(ngModel)]="user.telefon" name="phone" pattern="\b(?:[1-9]|1[0-4])\b" required/>
+                      <input #inputPhone="ngModel" type="text"  [(ngModel)]="user.telefon" name="phone" pattern="\b(?:[1-9]|1[0-4])\b" required/>
                   </div>
                   <div class="form-group">
                       <label>Email</label>

@@ -126,4 +126,9 @@ export class ParadaComponent implements OnInit {
         console.log(error);
       });
   }
+  logout(): void {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "/login";
+  }
 }

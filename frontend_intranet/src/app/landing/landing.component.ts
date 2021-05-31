@@ -9,7 +9,6 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
- 
   user: User;
   logged: boolean;
   constructor(public userService: UserService) { }
@@ -30,6 +29,7 @@ export class LandingComponent implements OnInit {
         console.log(error);
       }
     );
+    
 
   }
   logout(): void {

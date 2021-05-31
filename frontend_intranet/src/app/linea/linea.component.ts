@@ -106,8 +106,9 @@ createParada(){
       console.log(error);
     });
 }
-  logout() {
-    localStorage.removeItem("token");
-    window.location.href = "/login";
-  }
+logout(): void {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  window.location.href = "/login";
+}
 }

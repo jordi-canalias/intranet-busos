@@ -96,21 +96,33 @@
                         <select class="form-control"  name="nombre" [(ngModel)]="id_parada" #user="ngModel">
                             <option *ngFor="let po of paradasOption" value="{{po.id_parada}}">{{po.nom}}</option>
                             </select>
-                    </div>
+                            <div class="alert-danger" *ngIf=" nombre.invalid">
+                                <div *ngIf="nombre.errors.required">Es obligatorio poner el nombre </div>
+                                
+                            </div>
+                        </div>
                     <div class="form-group">
                         <label>Orden</label>
-                        <input type="text" class="form-control" name="orden" [(ngModel)]="ordre" required #orden="ngModel">
+                        <input type="number" class="form-control" name="orden" [(ngModel)]="ordre" required #orden="ngModel">
+                        <div class="alert-danger" *ngIf=" orden.invalid">
+                            <div *ngIf="orden.errors.required">Es obligatorio poner el orden </div>
+                            
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Hora</label>
-                        <input type="text" class="form-control" name="hour" [(ngModel)]="hora" required #hour="ngModel">
+                        <input type="text" class="form-control" placeholder="hh:mm" name="hour" [(ngModel)]="hora" required #hour="ngModel">
+                        <div class="alert-danger" *ngIf=" hour.invalid">
+                            <div *ngIf="hour.errors.required">Es obligatorio poner la hora </div>
+                            
+                        </div>
                     </div>
                    
                    					
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                    <input type="submit"  class="btn btn-success" value="Añadir" (click)="addParada()" >
+                    <input type="submit" [disabled]="!f.form.valid " class="btn btn-success" value="Añadir" (click)="addParada()" >
                 </div>
             </form>
         </div>
@@ -129,27 +141,47 @@
                     <div class="form-group">
                         <label>Nombre</label>
                         <input type="text" class="form-control" name="nombre" [(ngModel)]="nom" required #nombre="ngModel">
+                        <div class="alert-danger" *ngIf=" nombre.invalid">
+                            <div *ngIf="nombre.errors.required">Es obligatorio poner el nombre </div>
+                            
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Hora inicio</label>
-                        <input type="text" class="form-control" name="inicio" [(ngModel)]="hora_inici" required #inicio="ngModel">
+                        <input type="text" class="form-control" placeholder="hh:mm" name="inicio" [(ngModel)]="hora_inici" required #inicio="ngModel">
+                        <div class="alert-danger" *ngIf=" inicio.invalid">
+                            <div *ngIf="inicio.errors.required">Es obligatorio poner la hora de inicio </div>
+                            
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Hora finalización</label>
-                        <input type="text" class="form-control" name="final" [(ngModel)]="hora_finalitzacio" required #final="ngModel">
+                        <input type="text" class="form-control" placeholder="hh:mm" name="final" [(ngModel)]="hora_finalitzacio" required #final="ngModel">
+                        <div class="alert-danger" *ngIf=" final.invalid">
+                            <div *ngIf="final.errors.required">Es obligatorio poner la hora de finalización </div>
+                            
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Información</label>
                         <input type="text" class="form-control" name="info" [(ngModel)]="informacion" required #info="ngModel">
+                        <div class="alert-danger" *ngIf=" info.invalid">
+                            <div *ngIf="info.errors.required">Es obligatorio poner la información </div>
+                            
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Bus asignado</label>
                         <input type="text" class="form-control" name="bus" [(ngModel)]="bus_asignat" required #bus="ngModel">
+                        <div class="alert-danger" *ngIf=" bus.invalid">
+                            <div *ngIf="bus.errors.required">Es obligatorio poner el bus asignado </div>
+                            
+                        </div>
                     </div>					
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                    <input type="submit"  class="btn btn-info" value="Guardar" >
+                    <input type="submit" [disabled]="!f.form.valid " class="btn btn-info" value="Guardar" >
                 </div>
             </form>
         </div>

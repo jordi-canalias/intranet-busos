@@ -60,6 +60,7 @@ export class ForumComponent implements OnInit {
 
   logout(): void {
     localStorage.removeItem("token");
-    window.location.reload();
+    localStorage.removeItem("user");
+    window.location.href = "/login";
   }
 }
