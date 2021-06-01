@@ -68,6 +68,11 @@ export class UserService {
     console.log(nom);
     return this.http.get(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }
+  deleteUserByName(nom: string): Observable<any> {
+    let url = "http://localhost:8080/API_Autobusos-0.0.1-SNAPSHOT/api/usuaris/delete/" + nom;
+    
+    return this.http.delete(url, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
 
 
   generateHeaders() {

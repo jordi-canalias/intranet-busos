@@ -17,6 +17,7 @@
           <li><a routerLink="/linea">Linias</a></li>
           <li><a routerLink="/assignment">Asignaciones</a></li>
           <li><a routerLink="/forum">Foro</a></li>
+          <li><a  href="#deleteEmployeeModal"  class="edit" data-toggle="modal">Borrar cuenta</a></li> 
           
           
            
@@ -143,6 +144,27 @@
           </form>
       </div>
   </div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="deleteEmployeeModal" class="modal fade" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">						
+                    <h4 class="modal-title">Borrar cuenta</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">					
+                    <p>Estas seguro de que quieres borrar tu cuenta?</p>
+                    <p class="text-warning"><small>No podran deshacer esta acción.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                    <input type="submit"  class="btn btn-danger" value="Borrar" (click)="deleteUser()" > 
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 <!-- <div class="container" *ngIf="logged==true" >
   <form #formUser="ngForm" (ngSubmit)="editUser()" >

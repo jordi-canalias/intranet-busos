@@ -94,15 +94,19 @@ getAssignByUser(){
     );
   }
 
-  // getAsignByUserId() {
-  //   this._asignService.getAsignByUserId(this.id_usuari).subscribe(
-  //     (resp) => {
-  //       console.log(resp);
+  deleteUser(){
+    this.userService.deleteUserByName(this.user.nom).subscribe(
+      (resp) => {
+        console.log(resp);
+        resp.missatge;
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "/landing";
+      }, (error) => {
+        console.log(error);
+      });
+  }
 
-  //     }, (error) => {
-  //       console.log(error);
-  //     });
-  // }
   logout(): void {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
