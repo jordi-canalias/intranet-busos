@@ -28,10 +28,10 @@
       <div class="media text-muted pt-3" *ngFor="let r of resList;index as i" >
        <p  > <strong class="d-block text-gray-dark">{{r.id_usuari}} - {{r.nom}}</strong></p>
         <p  class="media-body pb-3 mb-0 medium lh-125 border-bottom border-gray" >
-        
+        {{r.id_resenya}}
           {{r.fecha}}
           {{r.informacion}}
-         
+           <!-- <a href="#deleteEmployeeModal" (click)="selectRes(r.id_resenya)" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Borrar</span></a>						 -->
         </p>
       </div>
      
@@ -73,6 +73,27 @@
             </div>
         </div>
     </div>
+    <!-- Delete Modal HTML -->
+<div id="deleteEmployeeModal" class="modal fade" >
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <form>
+              <div class="modal-header">						
+                  <h4 class="modal-title">Borrar reseña</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div class="modal-body">					
+                  <p>Estas seguro de que quieres borrar la reseña?</p>
+                  <p class="text-warning"><small>No podran deshacer esta acción.</small></p>
+              </div>
+              <div class="modal-footer">
+                  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                  <input type="submit"  class="btn btn-danger" value="Borrar" (click)="deleteRes()"  > 
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
     </div>
   </main>
 <div class="footer">

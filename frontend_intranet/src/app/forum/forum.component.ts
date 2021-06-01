@@ -57,6 +57,25 @@ export class ForumComponent implements OnInit {
         console.log(error);
       });
   }
+idRes=0;
+selectRes(idRes){
+  this.id_resenya=idRes;
+}
+  deleteRes() {
+    this.resenyaService.deleteResenya(this.idRes).subscribe(
+      (resp) => {
+        if(this.user.nom==='admin'){
+          console.log(resp);
+          this.id_resenya = resp.id;
+          window.location.reload();
+        }else{
+          console.log("no eres admin");
+        }
+        
+      }, (error) => {
+        console.log(error);
+      });
+  }
 
   logout(): void {
     localStorage.removeItem("token");

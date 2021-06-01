@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../_services/user.service';
 import { Parada } from '../_services/parada';
 import { ParadaLiniaService } from '../_services/paradalinia.service';
+import { User } from '../_services/user';
 
 @Component({
   selector: 'app-linea',
@@ -12,7 +13,7 @@ import { ParadaLiniaService } from '../_services/paradalinia.service';
   styleUrls: ['./linea.component.css']
 })
 export class LineaComponent implements OnInit {
-
+user:User;
   liniasList: Array<Linia> = [];
   linia: Linia;
   parada:Parada;
@@ -37,6 +38,15 @@ export class LineaComponent implements OnInit {
       this.logged = false;
     } else { this.logged = true; }
 
+    this.userService.getUserByName( localStorage.getItem("user")).subscribe(
+      (result) => {
+        console.log(this.user=result);
+        this.user=result;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
 
     this._liniaService.getLinias()
       .subscribe(

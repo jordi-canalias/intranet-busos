@@ -1,6 +1,6 @@
 <div class="topnav">
     <a id="logoHome" routerLink="/landing"> <img id="logo"[src]="'assets/img/autobusLOGO.png'"/></a>
-    <a  routerLink="/profile"><i class="fa fa-user-circle fa-2x"></i>Perfil</a> 
+    <a  routerLink="/profile"><i class="fa fa-user-circle fa-2x"></i>{{user.nom}}</a> 
     <a *ngIf="logged==true" href style="float:right" (click)="logout()">Cerrar sesión</a> 
 </div>
 
@@ -130,26 +130,20 @@
                     <div class="form-group">
                         <label>Ubicacion</label>
                         <input type="text" class="form-control" name="ubi" [(ngModel)]="ubicacio" required #ubi="ngModel">
-                        <div class="alert-danger" *ngIf=" ubi.invalid">
-                            <div *ngIf="ubi.errors.required">Es obligatorio poner la ubicacion </div>
-                            
-                        </div>
+                       
                     </div>
                    
                     <div class="form-group">
                         <label>Información</label>
                         <input type="text" class="form-control" name="info" [(ngModel)]="informacion" required #info="ngModel">
-                        <div class="alert-danger" *ngIf=" info.invalid">
-                            <div *ngIf="info.errors.required">Es obligatorio poner la información </div>
-                            
-                        </div>
+                        
                     </div>
                    					
                    					
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                    <input type="submit" [disabled]="!f.form.valid "  class="btn btn-success" value="Añadir" (click)="createParada()">
+                    <input type="submit"   class="btn btn-success" value="Añadir" (click)="createParada()">
                 </div>
             </form>
         </div>
